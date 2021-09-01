@@ -1,0 +1,9 @@
+C:\Users\Rosi Deyanova\source\repos\Movies_App\Movies.BL\bin\Debug\netcoreapp3.1\Movies.BL.deps.json
+C:\Users\Rosi Deyanova\source\repos\Movies_App\Movies.BL\bin\Debug\netcoreapp3.1\Movies.BL.dll
+C:\Users\Rosi Deyanova\source\repos\Movies_App\Movies.BL\bin\Debug\netcoreapp3.1\Movies.BL.pdb
+C:\Users\Rosi Deyanova\source\repos\Movies_App\Movies.BL\obj\Debug\netcoreapp3.1\Movies.BL.csprojAssemblyReference.cache
+C:\Users\Rosi Deyanova\source\repos\Movies_App\Movies.BL\obj\Debug\netcoreapp3.1\Movies.BL.AssemblyInfoInputs.cache
+C:\Users\Rosi Deyanova\source\repos\Movies_App\Movies.BL\obj\Debug\netcoreapp3.1\Movies.BL.AssemblyInfo.cs
+C:\Users\Rosi Deyanova\source\repos\Movies_App\Movies.BL\obj\Debug\netcoreapp3.1\Movies.BL.csproj.CoreCompileInputs.cache
+C:\Users\Rosi Deyanova\source\repos\Movies_App\Movies.BL\obj\Debug\netcoreapp3.1\Movies.BL.dll
+C:\Users\Rosi Deyanova\source\repos\Movies_App\Movies.BL\obj\Debug\netcoreapp3.1\Movies.BL.pdb
