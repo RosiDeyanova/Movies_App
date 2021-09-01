@@ -1,9 +1,6 @@
-﻿using Movies_App.Models;
+﻿using Movies.Data;
+using Movies.Data.Entities;
 using Movies_App.ViewModel;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace Movies_App.View_Model_Manager
 {

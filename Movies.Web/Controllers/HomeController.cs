@@ -1,18 +1,15 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Logging;
-using Movies_App.Models;
+using Movies.Data;
+using Movies.Data.Entities;
+using Movies.Web.Models;
 using Movies_App.View_Model_Manager;
 using Movies_App.ViewModel;
-using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.Dynamic;
 using System.Linq;
-using System.Threading.Tasks;
 
-namespace Movies_App.Controllers
+namespace Movies.Web.Controllers
 {
     public  class HomeController : Controller
     {

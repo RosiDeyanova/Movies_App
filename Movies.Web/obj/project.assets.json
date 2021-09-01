@@ -2574,6 +2574,19 @@
         "runtime": {
           "lib/netstandard1.3/System.Xml.XmlSerializer.dll": {}
         }
+      },
+      "Movies.Data/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v3.1",
+        "dependencies": {
+          "Microsoft.EntityFrameworkCore": "3.1.17"
+        },
+        "compile": {
+          "bin/placeholder/Movies.Data.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Movies.Data.dll": {}
+        }
       }
     }
   },
@@ -8464,6 +8477,11 @@
         "system.xml.xmlserializer.4.3.0.nupkg.sha512",
         "system.xml.xmlserializer.nuspec"
       ]
+    },
+    "Movies.Data/1.0.0": {
+      "type": "project",
+      "path": "../Movies.Data/Movies.Data.csproj",
+      "msbuildProject": "../Movies.Data/Movies.Data.csproj"
     }
   },
   "projectFileDependencyGroups": {
@@ -8471,7 +8489,8 @@
       "Microsoft.EntityFrameworkCore >= 3.1.17",
       "Microsoft.EntityFrameworkCore.SqlServer >= 3.1.17",
       "Microsoft.EntityFrameworkCore.Tools >= 3.1.17",
-      "Microsoft.VisualStudio.Web.CodeGeneration.Design >= 3.1.5"
+      "Microsoft.VisualStudio.Web.CodeGeneration.Design >= 3.1.5",
+      "Movies.Data >= 1.0.0"
     ]
   },
   "packageFolders": {
@@ -8505,7 +8524,11 @@
       "frameworks": {
         "netcoreapp3.1": {
           "targetAlias": "netcoreapp3.1",
-          "projectReferences": {}
+          "projectReferences": {
+            "C:\\Users\\Rosi Deyanova\\source\\repos\\Movies_App\\Movies.Data\\Movies.Data.csproj": {
+              "projectPath": "C:\\Users\\Rosi Deyanova\\source\\repos\\Movies_App\\Movies.Data\\Movies.Data.csproj"
+            }
+          }
         }
       },
       "warningProperties": {

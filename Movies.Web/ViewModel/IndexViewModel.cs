@@ -1,9 +1,4 @@
-﻿using Movies_App.Models;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace Movies_App.ViewModel
 {
@@ -19,7 +14,5 @@ namespace Movies_App.ViewModel
         public string StudioAddress { get; set; }
         [Display(Name = "Genre")]
         public string GenreName { get; set; }
-
-       
     }
 }
