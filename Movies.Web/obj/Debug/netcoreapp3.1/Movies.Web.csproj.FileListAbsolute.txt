@@ -10,11 +10,7 @@ C:\Users\Rosi Deyanova\source\repos\Movies_App\Movies.Web\obj\Debug\netcoreapp3.
 C:\Users\Rosi Deyanova\source\repos\Movies_App\Movies.Web\obj\Debug\netcoreapp3.1\Movies.Web.TagHelpers.input.cache
 C:\Users\Rosi Deyanova\source\repos\Movies_App\Movies.Web\obj\Debug\netcoreapp3.1\Movies.Web.TagHelpers.output.cache
 C:\Users\Rosi Deyanova\source\repos\Movies_App\Movies.Web\obj\Debug\netcoreapp3.1\Movies.Web.RazorCoreGenerate.cache
-C:\Users\Rosi Deyanova\source\repos\Movies_App\Movies.Web\obj\Debug\netcoreapp3.1\Razor\Views\Home\Create.cshtml.g.cs
-C:\Users\Rosi Deyanova\source\repos\Movies_App\Movies.Web\obj\Debug\netcoreapp3.1\Razor\Views\Home\Delete.cshtml.g.cs
-C:\Users\Rosi Deyanova\source\repos\Movies_App\Movies.Web\obj\Debug\netcoreapp3.1\Razor\Views\Home\Edit.cshtml.g.cs
 C:\Users\Rosi Deyanova\source\repos\Movies_App\Movies.Web\obj\Debug\netcoreapp3.1\Razor\Views\Home\Index.cshtml.g.cs
-C:\Users\Rosi Deyanova\source\repos\Movies_App\Movies.Web\obj\Debug\netcoreapp3.1\Razor\Views\Home\Privacy.cshtml.g.cs
 C:\Users\Rosi Deyanova\source\repos\Movies_App\Movies.Web\obj\Debug\netcoreapp3.1\Razor\Views\Shared\Error.cshtml.g.cs
 C:\Users\Rosi Deyanova\source\repos\Movies_App\Movies.Web\obj\Debug\netcoreapp3.1\Razor\Views\Shared\_Edit.cshtml.g.cs
 C:\Users\Rosi Deyanova\source\repos\Movies_App\Movies.Web\obj\Debug\netcoreapp3.1\Razor\Views\Shared\_Layout.cshtml.g.cs
@@ -153,3 +149,13 @@ C:\Users\Rosi Deyanova\source\repos\Movies_App\Movies.Web\bin\Debug\netcoreapp3.
 C:\Users\Rosi Deyanova\source\repos\Movies_App\Movies.Web\obj\Debug\netcoreapp3.1\Movies.Web.Views.pdb
 C:\Users\Rosi Deyanova\source\repos\Movies_App\Movies.Web\obj\Debug\netcoreapp3.1\Movies.Web.csproj.CopyComplete
 C:\Users\Rosi Deyanova\source\repos\Movies_App\Movies.Web\obj\Debug\netcoreapp3.1\Movies.Web.genruntimeconfig.cache
+C:\Users\Rosi Deyanova\source\repos\Movies_App\Movies.Web\bin\Debug\netcoreapp3.1\Movies.BL.dll
+C:\Users\Rosi Deyanova\source\repos\Movies_App\Movies.Web\bin\Debug\netcoreapp3.1\Movies.BL.pdb
+C:\Users\Rosi Deyanova\source\repos\Movies_App\Movies.Web\obj\Debug\netcoreapp3.1\Razor\Views\HomeOld\Create.cshtml.g.cs
+C:\Users\Rosi Deyanova\source\repos\Movies_App\Movies.Web\obj\Debug\netcoreapp3.1\Razor\Views\HomeOld\Delete.cshtml.g.cs
+C:\Users\Rosi Deyanova\source\repos\Movies_App\Movies.Web\obj\Debug\netcoreapp3.1\Razor\Views\HomeOld\Edit.cshtml.g.cs
+C:\Users\Rosi Deyanova\source\repos\Movies_App\Movies.Web\obj\Debug\netcoreapp3.1\Razor\Views\HomeOld\Index.cshtml.g.cs
+C:\Users\Rosi Deyanova\source\repos\Movies_App\Movies.Web\obj\Debug\netcoreapp3.1\Razor\Views\HomeOld\Privacy.cshtml.g.cs
+C:\Users\Rosi Deyanova\source\repos\Movies_App\Movies.Web\obj\Debug\netcoreapp3.1\Razor\Views\Home\404.cshtml.g.cs
+C:\Users\Rosi Deyanova\source\repos\Movies_App\Movies.Web\obj\Debug\netcoreapp3.1\Razor\Views\Movies\Details.cshtml.g.cs
+C:\Users\Rosi Deyanova\source\repos\Movies_App\Movies.Web\obj\Debug\netcoreapp3.1\Razor\Views\Movies\Index.cshtml.g.cs

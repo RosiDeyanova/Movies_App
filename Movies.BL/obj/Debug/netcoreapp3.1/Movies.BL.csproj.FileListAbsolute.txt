@@ -7,3 +7,6 @@ C:\Users\Rosi Deyanova\source\repos\Movies_App\Movies.BL\obj\Debug\netcoreapp3.1
 C:\Users\Rosi Deyanova\source\repos\Movies_App\Movies.BL\obj\Debug\netcoreapp3.1\Movies.BL.csproj.CoreCompileInputs.cache
 C:\Users\Rosi Deyanova\source\repos\Movies_App\Movies.BL\obj\Debug\netcoreapp3.1\Movies.BL.dll
 C:\Users\Rosi Deyanova\source\repos\Movies_App\Movies.BL\obj\Debug\netcoreapp3.1\Movies.BL.pdb
+C:\Users\Rosi Deyanova\source\repos\Movies_App\Movies.BL\bin\Debug\netcoreapp3.1\Movies.Data.dll
+C:\Users\Rosi Deyanova\source\repos\Movies_App\Movies.BL\bin\Debug\netcoreapp3.1\Movies.Data.pdb
+C:\Users\Rosi Deyanova\source\repos\Movies_App\Movies.BL\obj\Debug\netcoreapp3.1\Movies.BL.csproj.CopyComplete

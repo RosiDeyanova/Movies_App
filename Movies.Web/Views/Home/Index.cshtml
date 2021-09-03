@@ -1,91 +1,281 @@
-﻿@model IEnumerable<Movies_App.ViewModel.IndexViewModel>
 
-@{
-    ViewData["Title"] = "Index";
-}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- favicon -->
+    <link rel="icon" href="img/favicon.ico">
+    <title>Vikinger | Home</title>
+</head>
+<body>
 
-<h1>Index</h1>
-@using (Html.BeginForm("Index", "Home", FormMethod.Get))
-{
-    @if (Model.Count() == 0) //stupid, but it works
-    {
-        @Html.TextBox("Search", null, new { @placeholder = "Search" })
-        <input type="submit" value="Search" />
-    }
-    else
-    {
-        @Html.TextBox("movieTitle", null, new { @placeholder = "Search" })
-        <input type="submit" value="Search" />
-    }
+    <!-- LANDING -->
+    <div class="landing">
+        <!-- LANDING DECORATION -->
+        <div class="landing-decoration"></div>
+        <!-- /LANDING DECORATION -->
+        <!-- LANDING INFO -->
+        <div class="landing-info">
+            <!-- LOGO -->
+            <div class="logo">
+                <!-- ICON LOGO VIKINGER -->
+                <svg class="icon-logo-vikinger">
+                    <use xlink:href="#svg-logo-vikinger"></use>
+                </svg>
+                <!-- /ICON LOGO VIKINGER -->
+            </div>
+            <!-- /LOGO -->
+            <!-- LANDING INFO PRETITLE -->
+            <h2 class="landing-info-pretitle">Welcome to</h2>
+            <!-- /LANDING INFO PRETITLE -->
+            <!-- LANDING INFO TITLE -->
+            <h1 class="landing-info-title">Vikinger</h1>
+            <!-- /LANDING INFO TITLE -->
+            <!-- LANDING INFO TEXT -->
+            <p class="landing-info-text">The next generation social network &amp; community! Connect with your friends and play with our quests and badges gamification system!</p>
+            <!-- /LANDING INFO TEXT -->
+            <!-- TAB SWITCH -->
+            <div class="tab-switch">
+                <!-- TAB SWITCH BUTTON -->
+                <p class="tab-switch-button login-register-form-trigger">Login</p>
+                <!-- /TAB SWITCH BUTTON -->
+                <!-- TAB SWITCH BUTTON -->
+                <p class="tab-switch-button login-register-form-trigger">Register</p>
+                <!-- /TAB SWITCH BUTTON -->
+            </div>
+            <!-- /TAB SWITCH -->
+        </div>
+        <!-- /LANDING INFO -->
+        <!-- LANDING FORM -->
+        <div class="landing-form">
+            <!-- FORM BOX -->
+            <div class="form-box login-register-form-element">
+                <!-- FORM BOX DECORATION -->
+                <img class="form-box-decoration overflowing" src="img/landing/rocket.png" alt="rocket">
+                <!-- /FORM BOX DECORATION -->
+                <!-- FORM BOX TITLE -->
+                <h2 class="form-box-title">Account Login</h2>
+                <!-- /FORM BOX TITLE -->
+                <!-- FORM -->
+                <form class="form">
+                    <!-- FORM ROW -->
+                    <div class="form-row">
+                        <!-- FORM ITEM -->
+                        <div class="form-item">
+                            <!-- FORM INPUT -->
+                            <div class="form-input">
+                                <label for="login-username">Username or Email</label>
+                                <input type="text" id="login-username" name="login_username">
+                            </div>
+                            <!-- /FORM INPUT -->
+                        </div>
+                        <!-- /FORM ITEM -->
+                    </div>
+                    <!-- /FORM ROW -->
+                    <!-- FORM ROW -->
+                    <div class="form-row">
+                        <!-- FORM ITEM -->
+                        <div class="form-item">
+                            <!-- FORM INPUT -->
+                            <div class="form-input">
+                                <label for="login-password">Password</label>
+                                <input type="password" id="login-password" name="login_password">
+                            </div>
+                            <!-- /FORM INPUT -->
+                        </div>
+                        <!-- /FORM ITEM -->
+                    </div>
+                    <!-- /FORM ROW -->
+                    <!-- FORM ROW -->
+                    <div class="form-row space-between">
+                        <!-- FORM ITEM -->
+                        <div class="form-item">
+                            <!-- CHECKBOX WRAP -->
+                            <div class="checkbox-wrap">
+                                <input type="checkbox" id="login-remember" name="login_remember" checked>
+                                <!-- CHECKBOX BOX -->
+                                <div class="checkbox-box">
+                                    <!-- ICON CROSS -->
+                                    <svg class="icon-cross">
+                                        <use xlink:href="#svg-cross"></use>
+                                    </svg>
+                                    <!-- /ICON CROSS -->
+                                </div>
+                                <!-- /CHECKBOX BOX -->
+                                <label for="login-remember">Remember Me</label>
+                            </div>
+                            <!-- /CHECKBOX WRAP -->
+                        </div>
+                        <!-- /FORM ITEM -->
+                        <!-- FORM ITEM -->
+                        <div class="form-item">
+                            <!-- FORM LINK -->
+                            <a class="form-link" href="#">Forgot Password?</a>
+                            <!-- /FORM LINK -->
+                        </div>
+                        <!-- /FORM ITEM -->
+                    </div>
+                    <!-- /FORM ROW -->
+                    <!-- FORM ROW -->
+                    <div class="form-row">
+                        <!-- FORM ITEM -->
+                        <div class="form-item">
+                            <!-- BUTTON -->
+                            <button type="button" class="button medium secondary" onclick='window.location = "@Url.Action("Login", "Home", new { username = "", password = "" })";'>Login to your Account!</button>
+                            <!-- /BUTTON -->
+                        </div>
+                        <!-- /FORM ITEM -->
+                    </div>
+                    <!-- /FORM ROW -->
+                </form>
+                <!-- /FORM -->
+                <!-- LINED TEXT -->
+                <p class="lined-text">Login with your Social Account</p>
+                <!-- /LINED TEXT -->
+                <!-- SOCIAL LINKS -->
+                <div class="social-links">
+                    <!-- SOCIAL LINK -->
+                    <a class="social-link facebook" href="#">
+                        <!-- ICON FACEBOOK -->
+                        <svg class="icon-facebook">
+                            <use xlink:href="#svg-facebook"></use>
+                        </svg>
+                        <!-- /ICON FACEBOOK -->
+                    </a>
+                    <!-- /SOCIAL LINK -->
+                    <!-- SOCIAL LINK -->
+                    <a class="social-link twitter" href="#">
+                        <!-- ICON TWITTER -->
+                        <svg class="icon-twitter">
+                            <use xlink:href="#svg-twitter"></use>
+                        </svg>
+                        <!-- /ICON TWITTER -->
+                    </a>
+                    <!-- /SOCIAL LINK -->
+                    <!-- SOCIAL LINK -->
+                    <a class="social-link twitch" href="#">
+                        <!-- ICON TWITCH -->
+                        <svg class="icon-twitch">
+                            <use xlink:href="#svg-twitch"></use>
+                        </svg>
+                        <!-- /ICON TWITCH -->
+                    </a>
+                    <!-- /SOCIAL LINK -->
+                    <!-- SOCIAL LINK -->
+                    <a class="social-link youtube" href="#">
+                        <!-- ICON YOUTUBE -->
+                        <svg class="icon-youtube">
+                            <use xlink:href="#svg-youtube"></use>
+                        </svg>
+                        <!-- /ICON YOUTUBE -->
+                    </a>
+                    <!-- /SOCIAL LINK -->
+                </div>
+                <!-- /SOCIAL LINKS -->
+            </div>
+            <!-- /FORM BOX -->
+            <!-- FORM BOX -->
+            <div class="form-box login-register-form-element">
+                <!-- FORM BOX DECORATION -->
+                <img class="form-box-decoration" src="img/landing/rocket.png" alt="rocket">
+                <!-- /FORM BOX DECORATION -->
+                <!-- FORM BOX TITLE -->
+                <h2 class="form-box-title">Create your Account!</h2>
+                <!-- /FORM BOX TITLE -->
+                <!-- FORM -->
+                <form class="form">
+                    <!-- FORM ROW -->
+                    <div class="form-row">
+                        <!-- FORM ITEM -->
+                        <div class="form-item">
+                            <!-- FORM INPUT -->
+                            <div class="form-input">
+                                <label for="register-email">Your Email</label>
+                                <input type="text" id="register-email" name="register_email">
+                            </div>
+                            <!-- /FORM INPUT -->
+                        </div>
+                        <!-- /FORM ITEM -->
+                    </div>
+                    <!-- /FORM ROW -->
+                    <!-- FORM ROW -->
+                    <div class="form-row">
+                        <!-- FORM ITEM -->
+                        <div class="form-item">
+                            <!-- FORM INPUT -->
+                            <div class="form-input">
+                                <label for="register-username">Username</label>
+                                <input type="text" id="register-username" name="register_username">
+                            </div>
+                            <!-- /FORM INPUT -->
+                        </div>
+                        <!-- /FORM ITEM -->
+                    </div>
+                    <!-- /FORM ROW -->
+                    <!-- FORM ROW -->
+                    <div class="form-row">
+                        <!-- FORM ITEM -->
+                        <div class="form-item">
+                            <!-- FORM INPUT -->
+                            <div class="form-input">
+                                <label for="register-password">Password</label>
+                                <input type="password" id="register-password" name="register_password">
+                            </div>
+                            <!-- /FORM INPUT -->
+                        </div>
+                        <!-- /FORM ITEM -->
+                    </div>
+                    <!-- /FORM ROW -->
+                    <!-- FORM ROW -->
+                    <div class="form-row">
+                        <!-- FORM ITEM -->
+                        <div class="form-item">
+                            <!-- FORM INPUT -->
+                            <div class="form-input">
+                                <label for="register-password-repeat">Repeat Password</label>
+                                <input type="password" id="register-password-repeat" name="register_password_repeat">
+                            </div>
+                            <!-- /FORM INPUT -->
+                        </div>
+                        <!-- /FORM ITEM -->
+                    </div>
+                    <!-- /FORM ROW -->
+                    <!-- FORM ROW -->
+                    <div class="form-row">
+                        <!-- FORM ITEM -->
+                        <div class="form-item">
+                            <!-- CHECKBOX WRAP -->
+                            <div class="checkbox-wrap">
+                                <input type="checkbox" id="register-newsletter" name="register_newsletter" checked>
+                                <!-- CHECKBOX BOX -->
+                                <div class="checkbox-box">
+                                    <!-- ICON CROSS -->
+                                    <svg class="icon-cross">
+                                        <use xlink:href="#svg-cross"></use>
+                                    </svg>
+                                    <!-- /ICON CROSS -->
+                                </div>
+                                <!-- /CHECKBOX BOX -->
+                                <label for="register-newsletter">Send me news and updates via email</label>
+                            </div>
+                            <!-- /CHECKBOX WRAP -->
+                        </div>
+                        <!-- /FORM ITEM -->
+                    </div>
+                    <!-- /FORM ROW -->
+                    <!-- FORM ROW -->
+                    <div class="form-row">
+                        <!-- FORM ITEM -->
+                        <div class="form-item">
+                            <button class="button medium primary">Register Now!</button>
+                        </div>
+                    </div>
+                </form>
 
-
-}
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Title)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Year)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.DirectorName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.StudioName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.StudioAddress)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.GenreName)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        @if (Model.Count() > 0)
-        {
-            foreach (var item in Model)
-            {
-                <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Title)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Year)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.DirectorName)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.StudioName)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.StudioAddress)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.GenreName)
-                    </td>
-                    <td>
-                        <a href="javascript:void(0);" class="anchorDetail" data-id="@item.Id">Edit</a>|
-                        <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-                    </td>
-                </tr>
-            }
-
-        }
-        else
-        {
-            <tr>
-                <td colspan="5">
-                    There is no such movie.
-                </td>
-            </tr>
-        }
-    </tbody>
-</table>
+                <p class="form-text">You'll receive a confirmation email in your inbox with a link to activate your account. If you have any problems, <a href="#">contact us</a>!</p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
