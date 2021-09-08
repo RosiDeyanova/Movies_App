@@ -5,6 +5,9 @@ namespace Movies.BL.Services
 {
     public interface IMovieManager
     {
-        public IEnumerable<Movie> SearchMovies(string movieTitle);
+        public IEnumerable<MovieModel> SearchMovies(string movieTitle);
+        public MovieModel GetMovieById(int Id);
+        public IEnumerable<MovieModel> GetAllMovies();
+        public void SaveMovie(MovieModel movie);
     }
 }

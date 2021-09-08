@@ -5,6 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Managers\CreateViewModelManager.cs" />
     <Compile Remove="Models\Genre.cs" />
     <Compile Remove="Models\Movie.cs" />
     <Compile Remove="Models\MoviesContext.cs" />
@@ -23,7 +24,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Movies.BL\Movies.BL.csproj" />
-    <ProjectReference Include="..\Movies.Data\Movies.Data.csproj" />
   </ItemGroup>
 
 </Project>

@@ -1,5 +1,7 @@
-﻿using Movies.Data;
+﻿using Movies.BL.Managers;
+using Movies.Data;
 using Movies.Data.Entities;
+using Movies.Web.Managers;
 using Movies.Web.ViewModel.Movies;
 
 namespace Movies_App.View_Model_Manager
@@ -10,20 +12,21 @@ namespace Movies_App.View_Model_Manager
         private Movie movie;
         private Studio studio;
         private Genre genre;
-        public CreateViewModelManager(MoviesContext context) {
+        public CreateViewModelManager(MoviesContext context)
+        {
             movie = new Movie();
             genre = new Genre();
             studio = new Studio();
             _context = context;
         }
 
-        public Movie ReturnMovie(CreateMovieViewModel view) 
+        public Movie ReturnMovie(CreateMovieViewModel view)
         {
             movie.Title = view.Title;
             movie.Year = view.Year;
             movie.Director = view.Director;
             movie.Studio = ReturnStudio(view);
-            movie.Genre =ReturnGenre(view);
+            movie.Genre = ReturnGenre(view);
             return movie;
         }
         public Studio ReturnStudio(CreateMovieViewModel view)
@@ -38,12 +41,14 @@ namespace Movies_App.View_Model_Manager
             return genre;
         }
 
-        public void SaveMovie(CreateMovieViewModel view) {
+        public void SaveMovie(MoviesManager view)
+        {
             movie = ReturnMovie(view);
             _context.Movies.Add(movie);
             _context.SaveChanges();
         }
-        public void SaveStudio(CreateMovieViewModel view) {
+        public void SaveStudio(CreateMovieViewModel view)
+        {
             studio = ReturnStudio(view);
             foreach (var item in _context.Studios)
             {

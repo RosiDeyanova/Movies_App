@@ -22,6 +22,13 @@ namespace Movies.Data.Repositories
             return movies;
         }
 
+        public List<Studio> GetStudios()
+        {
+            var studios = _moviesContext.Studios.ToList();
+
+            return studios;
+        }
+
         public IEnumerable<MovieExtended> GetMoviesExtended() 
         {
             var result = _moviesContext.Movies.Select(m => new MovieExtended
@@ -35,6 +42,24 @@ namespace Movies.Data.Repositories
             }).AsEnumerable();
 
             return result;
+        }
+
+        //public Movie GetMovieById(int Id) 
+        //{
+        //    var result = _moviesContext.Movies.Where(x => x.Id == Id).FirstOrDefault();
+        //    return result;
+        //}
+
+        public void SaveMovie(Movie movie)
+        {
+            _moviesContext.Movies.Add(movie);
+            _moviesContext.SaveChanges();
+        }
+
+        public void SaveStudio(Studio studio)
+        {
+            _moviesContext.Studios.Add(studio);
+            _moviesContext.SaveChanges();
         }
     }
 }

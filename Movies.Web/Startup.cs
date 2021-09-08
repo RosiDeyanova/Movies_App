@@ -8,6 +8,7 @@ using Movies.BL.Managers;
 using Movies.BL.Services;
 using Movies.Data;
 using Movies.Data.Repositories;
+using Movies.Web.Managers;
 
 namespace Movies.Web
 {
@@ -27,8 +28,9 @@ namespace Movies.Web
 
             services.AddControllersWithViews();
 
-            services.AddTransient<IMovieRepository, MovieRepository>();
-            services.AddTransient<IMovieManager, MovieManager>();
+            services.AddScoped<IMovieRepository, MovieRepository>();
+            services.AddScoped<IMovieManager, MovieManager>();
+            services.AddScoped<MoviesManager>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

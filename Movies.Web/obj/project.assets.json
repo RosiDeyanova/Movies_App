@@ -8510,8 +8510,7 @@
       "Microsoft.EntityFrameworkCore.SqlServer >= 3.1.17",
       "Microsoft.EntityFrameworkCore.Tools >= 3.1.17",
       "Microsoft.VisualStudio.Web.CodeGeneration.Design >= 3.1.5",
-      "Movies.BL >= 1.0.0",
-      "Movies.Data >= 1.0.0"
+      "Movies.BL >= 1.0.0"
     ]
   },
   "packageFolders": {
@@ -8548,9 +8547,6 @@
           "projectReferences": {
             "C:\\Users\\Rosi Deyanova\\source\\repos\\Movies_App\\Movies.BL\\Movies.BL.csproj": {
               "projectPath": "C:\\Users\\Rosi Deyanova\\source\\repos\\Movies_App\\Movies.BL\\Movies.BL.csproj"
-            },
-            "C:\\Users\\Rosi Deyanova\\source\\repos\\Movies_App\\Movies.Data\\Movies.Data.csproj": {
-              "projectPath": "C:\\Users\\Rosi Deyanova\\source\\repos\\Movies_App\\Movies.Data\\Movies.Data.csproj"
             }
           }
         }

@@ -1,13 +1,9 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using Movies.BL.Services;
 using Movies.Data;
-using Movies.Data.Entities;
 using Movies.Web.Models;
-using Movies_App.View_Model_Manager;
 using System.Diagnostics;
-using System.Linq;
 
 namespace Movies.Web.Controllers
 {

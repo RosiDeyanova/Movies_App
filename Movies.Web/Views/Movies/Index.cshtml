@@ -1,4 +1,4 @@
-@model IEnumerable<Movies.BL.Models.Movie>
+@model IEnumerable<Movies.BL.Models.MovieModel>
 
 
 <!DOCTYPE html>
@@ -280,7 +280,7 @@
                         <p class="text-sticker"><span class="highlighted">+</span></p>
                         <!-- /TEXT STICKER -->
                         <!-- PRODUCT PREVIEW TITLE -->
-                        <p class="product-preview-title"><a href="marketplace-product.html">@Html.DisplayFor(modelItem => item.Title)</a></p>
+                        <p class="product-preview-title"><a asp-action="Details" asp-route-id="@item.Id">@Html.DisplayFor(modelItem => item.Title)</a></p>
                         <!-- /PRODUCT PREVIEW TITLE -->
                         <!-- PRODUCT PREVIEW CATEGORY -->
                         <p class="product-preview-category digital">@Html.DisplayFor(modelItem => item.GenreName)</p>

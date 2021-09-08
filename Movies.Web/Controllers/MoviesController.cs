@@ -5,8 +5,6 @@ using Movies.BL.Services;
 using Movies.Data;
 using Movies.Data.Entities;
 using Movies.Web.Models;
-using Movies.Web.ViewModel.Movies;
-using Movies_App.View_Model_Manager;
 using System.Diagnostics;
 using System.Linq;
 
@@ -15,12 +13,10 @@ namespace Movies.Web.Controllers
 
     public class MoviesController : Controller
     {
-        private readonly MoviesContext _context;
         private readonly IMovieManager _movieManager;
 
-        public MoviesController(MoviesContext context, IMovieManager movieManager)
+        public MoviesController(IMovieManager movieManager)
         {
-            _context = context;
             _movieManager = movieManager;
         }
 
@@ -30,9 +26,10 @@ namespace Movies.Web.Controllers
             return View(model);
         }
 
-        public IActionResult Details()
+        public IActionResult Details(int id)
         {
-            return View();
+            var info = _movieManager.GetMovieById(id);
+            return View(info);
         }
 
         //public ActionResult Create()
@@ -55,49 +52,49 @@ namespace Movies.Web.Controllers
 
         //}
 
-        public ActionResult Edit(int id)
-        {
-            var info = _context.Movies.Where(x => x.Id == id);
-            return PartialView("_Edit", info);
-        }
+        //public ActionResult Edit(int id)
+        //{
+        //    var info = _context.Movies.Where(x => x.Id == id);
+        //    return PartialView("_Edit", info);
+        //}
 
-        [HttpPost]
-        public ActionResult Edit(int id, Movie movie)
-        {
-            try
-            {
-                _context.Entry(movie).State = EntityState.Modified;
-                _context.SaveChanges();
-                return RedirectToAction("Index");
-            }
-            catch
-            {
+        //[HttpPost]
+        //public ActionResult Edit(int id, Movie movie)
+        //{
+        //    try
+        //    {
+        //        _context.Entry(movie).State = EntityState.Modified;
+        //        _context.SaveChanges();
+        //        return RedirectToAction("Index");
+        //    }
+        //    catch
+        //    {
 
-                return View();
-            }
-        }
+        //        return View();
+        //    }
+        //}
 
-        public ActionResult Delete(int id)
-        {
-            return View(_context.Movies.Where(x => x.Id == id).FirstOrDefault());
-        }
+        //public ActionResult Delete(int id)
+        //{
+        //    return View(_context.Movies.Where(x => x.Id == id).FirstOrDefault());
+        //}
 
-        [HttpPost]
-        public ActionResult Delete(int id, Movie movie)
-        {
-            try
-            {
-                movie = _context.Movies.Where(x => x.Id == id).FirstOrDefault();
-                _context.Movies.Remove(movie);
-                _context.SaveChanges();
-                return RedirectToAction("Index");
-            }
-            catch
-            {
+        //[HttpPost]
+        //public ActionResult Delete(int id, Movie movie)
+        //{
+        //    try
+        //    {
+        //        movie = _context.Movies.Where(x => x.Id == id).FirstOrDefault();
+        //        _context.Movies.Remove(movie);
+        //        _context.SaveChanges();
+        //        return RedirectToAction("Index");
+        //    }
+        //    catch
+        //    {
 
-                return View();
-            }
-        }
+        //        return View();
+        //    }
+        //}
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
