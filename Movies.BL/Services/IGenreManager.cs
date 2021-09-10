@@ -8,5 +8,6 @@ namespace Movies.BL.Services
     public interface IGenreManager
     {
        public IEnumerable<GenreModel> GetGenres();
+        public GenreModel GetGenre(MovieModel movie);
     }
 }

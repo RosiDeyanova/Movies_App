@@ -1,4 +1,5 @@
-﻿using Movies.Data.ComplexTypes;
+﻿using Microsoft.EntityFrameworkCore;
+using Movies.Data.ComplexTypes;
 using Movies.Data.Entities;
 using System.Collections;
 using System.Collections.Generic;
@@ -60,13 +61,32 @@ namespace Movies.Data.Repositories
         public void SaveMovie(Movie movie)
         {
             _moviesContext.Movies.Add(movie);
-            _moviesContext.SaveChanges();
+            SaveDb();
         }
 
         public void SaveStudio(Studio studio)
         {
             _moviesContext.Studios.Add(studio);
+            SaveDb();
+        }
+
+        public void UpdateMovie(Movie movie) 
+        {
+            _moviesContext.Entry(movie).State = EntityState.Modified;
+            SaveDb();
+        }
+
+        public void DeleteMovie(Movie movie)
+        {
+           var movieDeleted = _moviesContext.Movies.Where(x => x.Id == movie.Id).FirstOrDefault();
+            _moviesContext.Movies.Remove(movieDeleted);
+            SaveDb();
+        }
+
+        public void SaveDb() 
+        {
             _moviesContext.SaveChanges();
+
         }
     }
 }

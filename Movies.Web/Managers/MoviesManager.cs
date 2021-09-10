@@ -9,13 +9,30 @@ namespace Movies.Web.Managers
     public class MoviesManager
     {
         private readonly IMovieManager _movieManager;
+        private readonly IGenreManager _genreManager;
 
-        public MoviesManager(IMovieManager movieManager)
+        public MoviesManager(IMovieManager movieManager, IGenreManager genreManager)
         {
             _movieManager = movieManager;
+            _genreManager = genreManager;
         }
 
-        public static MovieModel ReturnMovie(CreateMovieViewModel view)
+        public MovieModel ReturnMovie(int id, CreateMovieViewModel view)
+        {
+            MovieModel movie = new MovieModel
+            {
+                Id = id,
+                Title = view.Title,
+                Year = view.Year,
+                Director = view.Director,
+                StudioName = view.StudioName,
+                StudioAddress = view.StudioAddress,
+                GenreName = view.Genre.Name
+            };
+            return movie;
+        }
+
+        public MovieModel ReturnMovie(CreateMovieViewModel view)
         {
             MovieModel movie = new MovieModel
             {
@@ -27,6 +44,24 @@ namespace Movies.Web.Managers
                 GenreName = view.Genre.Name
             };
             return movie;
+        }
+        public CreateMovieViewModel ReturnMovie(MovieModel model)
+        {
+            var genre = _genreManager.GetGenre(model);
+            var genres = _genreManager.GetGenres().ToList();
+
+            CreateMovieViewModel view = new CreateMovieViewModel
+            {
+                Title = model.Title,
+                Year = model.Year,
+                Director = model.Director,
+                StudioName = model.StudioName,
+                StudioAddress = model.StudioAddress,
+                Genre = genre,
+                Genres = genres
+            };
+
+            return view;
         }
         public static StudioModel ReturnStudio(CreateMovieViewModel view)
         {
