@@ -9,37 +9,40 @@ namespace Movies.Web.Managers
     public class MoviesManager
     {
         private readonly IMovieManager _movieManager;
-        private MovieModel movie;
-        private StudioModel studio;
 
         public MoviesManager(IMovieManager movieManager)
         {
             _movieManager = movieManager;
-            movie = new MovieModel();
-            studio = new StudioModel();
         }
 
-        public MovieModel ReturnMovie(CreateMovieViewModel view)
+        public static MovieModel ReturnMovie(CreateMovieViewModel view)
         {
-            movie.Title = view.Title;
-            movie.Year = view.Year;
-            movie.Director = view.Director;
-            movie.StudioName = view.StudioName;
-            movie.StudioAddress = view.StudioAddress;
-            movie.GenreName = view.Genre.Name;
+            MovieModel movie = new MovieModel
+            {
+                Title = view.Title,
+                Year = view.Year,
+                Director = view.Director,
+                StudioName = view.StudioName,
+                StudioAddress = view.StudioAddress,
+                GenreName = view.Genre.Name
+            };
             return movie;
         }
-        public StudioModel ReturnStudio(CreateMovieViewModel view)
+        public static StudioModel ReturnStudio(CreateMovieViewModel view)
         {
-            studio.Name = view.StudioName;
-            studio.Address = view.StudioAddress;
+            StudioModel studio = new StudioModel
+            {
+                Name = view.StudioName,
+                Address = view.StudioAddress
+            };
             return studio;
         }
     
         public void SaveMovie(CreateMovieViewModel view)
         {
-            movie = ReturnMovie(view);
-            _movieManager.SaveMovie(movie);
+           MovieModel movie = new MovieModel();
+           movie = ReturnMovie(view);
+           _movieManager.SaveMovie(movie);
 
         }
       

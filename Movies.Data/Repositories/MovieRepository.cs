@@ -29,6 +29,13 @@ namespace Movies.Data.Repositories
             return studios;
         }
 
+        public IEnumerable<Genre> GetGenres() 
+        {
+            var genres = _moviesContext.Genres.AsEnumerable();
+
+            return genres;
+        }
+
         public IEnumerable<MovieExtended> GetMoviesExtended() 
         {
             var result = _moviesContext.Movies.Select(m => new MovieExtended

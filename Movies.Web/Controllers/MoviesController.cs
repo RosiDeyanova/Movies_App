@@ -4,7 +4,9 @@ using Microsoft.EntityFrameworkCore;
 using Movies.BL.Services;
 using Movies.Data;
 using Movies.Data.Entities;
+using Movies.Web.Managers;
 using Movies.Web.Models;
+using Movies.Web.ViewModel.Movies;
 using System.Diagnostics;
 using System.Linq;
 
@@ -14,10 +16,12 @@ namespace Movies.Web.Controllers
     public class MoviesController : Controller
     {
         private readonly IMovieManager _movieManager;
+        private readonly IGenreManager _genreManager;
 
-        public MoviesController(IMovieManager movieManager)
+        public MoviesController(IMovieManager movieManager, IGenreManager genreManager)
         {
             _movieManager = movieManager;
+            _genreManager = genreManager;
         }
 
         public ActionResult Index(string movieTitle)
@@ -32,25 +36,30 @@ namespace Movies.Web.Controllers
             return View(info);
         }
 
-        //public ActionResult Create()
-        //{
-        //    CreateMovieViewModel view = new CreateMovieViewModel(_context);
-        //    return View(view);
-        //}
+        public ActionResult Create()
+        {
+            CreateMovieViewModel model = new CreateMovieViewModel();
+            model.Genres = _genreManager.GetGenres().Select(m => new Genre
+            {
+                Id = m.Id,
+                Name = m.Name
+            }).ToList(); ;
+            return View(model);
+        }
 
-        //[HttpPost]
-        //public ActionResult Create(CreateMovieViewModel createViewModel, [FromServices] CreateViewModelManager manager)
-        //{
-        //    if (ModelState.IsValid)
-        //    {
-        //        manager.SaveMovie(createViewModel);
-        //        return RedirectToAction("Index");
-        //    }
+        [HttpPost]
+        public ActionResult Create(CreateMovieViewModel createViewModel)
+        {
+            if (ModelState.IsValid)
+            {
+               _movieManager.SaveMovie(MoviesManager.ReturnMovie(createViewModel));
+                return RedirectToAction("Index");
+            }
 
 
-        //    return View();
+            return View();
 
-        //}
+        }
 
         //public ActionResult Edit(int id)
         //{

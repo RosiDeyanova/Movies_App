@@ -1,4 +1,5 @@
-﻿using Movies.Data.Entities;
+﻿using Movies.BL.Services;
+using Movies.Data.Entities;
 using System.Collections.Generic;
 
 namespace Movies.Web.ViewModel.Movies
@@ -11,6 +12,6 @@ namespace Movies.Web.ViewModel.Movies
         public string StudioName { get; set; }
         public string StudioAddress { get; set; }
         public Genre Genre { get; set; }
-        public List<Genre> Genres { get; }
+        public List<Genre> Genres { get; set; }
     }
 }

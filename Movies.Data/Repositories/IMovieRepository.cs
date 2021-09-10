@@ -8,6 +8,7 @@ namespace Movies.Data.Repositories
     {
         public List<Movie> GetMovies();
         public List<Studio> GetStudios();
+        public IEnumerable<Genre> GetGenres();
         public IEnumerable<MovieExtended> GetMoviesExtended();
         //public Movie GetMovieById(int Id);
         public void SaveMovie(Movie movie);
