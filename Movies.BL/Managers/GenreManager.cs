@@ -8,16 +8,16 @@ namespace Movies.BL.Managers
 {
     public class GenreManager : IGenreManager
     {
-        private readonly IMovieRepository _movieRepository;
+        private readonly IGenreRepository _genreRepository;
 
-        public GenreManager(IMovieRepository movieRepository)
+        public GenreManager(IGenreRepository genreRepository)
         {
-            _movieRepository = movieRepository;
+            _genreRepository = genreRepository;
         }
 
         public IEnumerable<GenreModel> GetGenres() 
         {
-            var model = _movieRepository.GetGenres().Select(m => new GenreModel
+            var model = _genreRepository.GetGenres().Select(m => new GenreModel
             {
               Id = m.Id,
               Name = m.Name
@@ -28,7 +28,7 @@ namespace Movies.BL.Managers
 
         public GenreModel GetGenre(MovieModel movie)
         {
-            var genre = _movieRepository.GetGenres().Where(g => g.Name == movie.GenreName).Select(g => new GenreModel
+            var genre = _genreRepository.GetGenres().Where(g => g.Name == movie.GenreName).Select(g => new GenreModel
             { 
                 Id = g.Id,
                 Name = g.Name

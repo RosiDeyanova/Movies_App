@@ -346,16 +346,17 @@
                       <!-- WIDGET BOX CONTENT -->
                       <div class="widget-box-content">
                           <!-- FORM -->
-                          <form class="form">
+                          <form class="form" asp-action="Create">
+                              <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                               <!-- FORM ROW -->
                               <div class="form-row split">
                                   <!-- FORM ITEM -->
                                   <div class="form-item">
                                       <!-- FORM INPUT -->
                                       <div class="form-input small active">
-                                          <label for="profile-name">Movie Name</label>
-                                          <input asp-for="@Model.Title" type="text" id="profile-name" name="profile_name">
-                                          <span asp-validation-for="@Model.Title" class="text-danger"></span>
+                                          <label asp-for="Title">Movie Name</label>
+                                          <input asp-for="Title" type="text" id="profile-name">
+                                          <span asp-validation-for="Title" class="text-danger"></span>
                                       </div>
                                       <!-- /FORM INPUT -->
                                   </div>
@@ -364,9 +365,9 @@
                                   <div class="form-item">
                                       <!-- FORM INPUT -->
                                       <div class="form-input small active">
-                                          <label for="profile-tagline">Year</label>
-                                          <input asp-for="@Model.Year" type="text" id="profile-tagline" name="profile_tagline" value="">
-                                          <span asp-validation-for="@Model.Year" class="text-danger"></span>
+                                          <label asp-for="Year">Year</label>
+                                          <input asp-for="Year" type="text" id="profile-tagline">
+                                          <span asp-validation-for="Year" class="text-danger"></span>
                                       </div>
                                       <!-- /FORM INPUT -->
                                   </div>
@@ -393,14 +394,15 @@
                                   <div class="form-item">
                                       <!-- FORM SELECT -->
                                       <div class="form-select">
-                                          <label for="profile-status">Genre</label>
-                                          <select id="profile-status" name="profile_status">
+                                          <label asp-for="Genre">Genre</label>
+                                          <select asp-for="Genre" id="profile-status">
                                               @foreach (var item in Model.Genres)
                                               {
-                                                  <option value="@item.Id">@item.Name</option>
+                                                 <option value="@item.Id">@item.Name</option>
+                                                  
                                               }
                                           </select>
-                                          <span asp-validation-for="@Model.Genre.Name" class="text-danger"></span>
+                                          <span asp-validation-for="Genre" class="text-danger"></span>
                                           <!-- FORM SELECT ICON -->
                                           <svg class="form-select-icon icon-small-arrow">
                                               <use xlink:href="#svg-small-arrow"></use>
@@ -413,10 +415,10 @@
                                   <!-- FORM ITEM -->
                                   <div class="form-item">
                                       <!-- FORM INPUT -->
-                                      <div class="form-input small">
-                                          <label for="profile-birthplace">Director</label>
-                                          <input asp-for="@Model.Director" type="text" id="profile-birthplace" name="profile_birthplace">
-                                          <span asp-validation-for="@Model.Director" class="text-danger"></span>
+                                      <div class="form-input small active">
+                                          <label asp-for="Director">Director</label>
+                                          <input asp-for="Director" type="text" id="profile-birthplace">
+                                          <span asp-validation-for="Director" class="text-danger"></span>
                                       </div>
                                       <!-- /FORM INPUT -->
                                   </div>
@@ -428,10 +430,10 @@
                                   <!-- FORM ITEM -->
                                   <div class="form-item">
                                       <!-- FORM INPUT -->
-                                      <div class="form-input small">
-                                          <label for="profile-psid">Studio Name</label>
-                                          <input asp-for="@Model.StudioName" type="text" id="profile-psid" name="profile_psid">
-                                          <span asp-validation-for="@Model.StudioName" class="text-danger"></span>
+                                      <div class="form-input small active">
+                                          <label asp-for="StudioName">Studio Name</label>
+                                          <input asp-for="StudioName" type="text" id="profile-psid">
+                                          <span asp-validation-for="StudioName" class="text-danger"></span>
                                       </div>
                                       <!-- /FORM INPUT -->
                                   </div>
@@ -439,16 +441,19 @@
                                   <!-- FORM ITEM -->
                                   <div class="form-item">
                                       <!-- FORM INPUT -->
-                                      <div class="form-input small">
-                                          <label for="profile-xbid">Studio Address</label>
-                                          <input asp-for="@Model.StudioAddress" type="text" id="profile-xbid" name="profile_xbid">
-                                          <span asp-validation-for="@Model.StudioAddress" class="text-danger"></span>
+                                      <div class="form-input small active">
+                                          <label asp-for="StudioAddress">Studio Address</label>
+                                          <input asp-for="StudioAddress" type="text" id="profile-xbid">
+                                          <span asp-validation-for="StudioAddress" class="text-danger"></span>
                                       </div>
                                       <!-- /FORM INPUT -->
                                   </div>
                                   <!-- /FORM ITEM -->
                               </div>
                               <!-- /FORM ROW -->
+                              <div class="form-group">
+                                  <input type="submit" value="Upload" class="btn btn-primary" style="width:350px;margin-top:20px; align-self:center" />
+                              </div>
                           </form>
                           <!-- /FORM -->
                       </div>

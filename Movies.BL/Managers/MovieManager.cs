@@ -11,12 +11,10 @@ namespace Movies.BL.Managers
     {
         private readonly IMovieRepository _movieRepository;
         private readonly IStudioManager _studioManager;
-        private Movie _movieData;
 
         public MovieManager(IMovieRepository movieRepository)
         {
             _movieRepository = movieRepository;
-            _movieData = new Movie();
         }
         public IEnumerable<MovieModel> SearchMovies(string movieTitle)
         {
@@ -64,50 +62,53 @@ namespace Movies.BL.Managers
 
         public void SaveMovie(MovieModel movie)
         {
-            _movieData.Title = movie.Title;
-            _movieData.Year = movie.Year;
-            _movieData.Director = movie.Director;
+            Movie movieData = new Movie();
+            movieData.Title = movie.Title;
+            movieData.Year = movie.Year;
+            movieData.Director = movie.Director;
             Studio studio = new Studio();
             Genre genre = new Genre();
             studio.Name = movie.StudioName;
             studio.Address = movie.StudioAddress;
-            _movieData.Studio = studio;
+            movieData.Studio = studio;
             genre.Name = movie.GenreName;
-            _movieData.Genre = genre;
-            _movieRepository.SaveMovie(_movieData);
-            _studioManager.SaveStudio(_movieData);
+            movieData.Genre = genre;
+            _movieRepository.SaveMovie(movieData);
+            _studioManager.SaveStudio(movieData);
         }
 
         public void UpdateMovie(MovieModel movie)
         {
-            _movieData.Id = movie.Id;
-            _movieData.Title = movie.Title;
-            _movieData.Year = movie.Year;
-            _movieData.Director = movie.Director;
+            Movie movieData = new Movie();
+            movieData.Id = movie.Id;
+            movieData.Title = movie.Title;
+            movieData.Year = movie.Year;
+            movieData.Director = movie.Director;
             Studio studio = new Studio();
             Genre genre = new Genre();
             studio.Name = movie.StudioName;
             studio.Address = movie.StudioAddress;
-            _movieData.Studio = studio;
+            movieData.Studio = studio;
             genre.Name = movie.GenreName;
-            _movieData.Genre = genre;
-            _movieRepository.UpdateMovie(_movieData);
-            _studioManager.SaveStudio(_movieData);
+            movieData.Genre = genre;
+            _movieRepository.UpdateMovie(movieData);
+            _studioManager.SaveStudio(movieData);
         }
         public void DeleteMovie(MovieModel movie)
         {
-            _movieData.Id = movie.Id;
-            _movieData.Title = movie.Title;
-            _movieData.Year = movie.Year;
-            _movieData.Director = movie.Director;
+            Movie movieData = new Movie();
+            movieData.Id = movie.Id;
+            movieData.Title = movie.Title;
+            movieData.Year = movie.Year;
+            movieData.Director = movie.Director;
             Studio studio = new Studio();
             Genre genre = new Genre();
             studio.Name = movie.StudioName;
             studio.Address = movie.StudioAddress;
-            _movieData.Studio = studio;
+            movieData.Studio = studio;
             genre.Name = movie.GenreName;
-            _movieData.Genre = genre;
-            _movieRepository.DeleteMovie(_movieData);
+            movieData.Genre = genre;
+            _movieRepository.DeleteMovie(movieData);
         }
     }
 }

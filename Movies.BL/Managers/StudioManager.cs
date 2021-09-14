@@ -8,17 +8,17 @@ namespace Movies.BL.Managers
 {
     class StudioManager : IStudioManager
     {
-        private readonly IMovieRepository _movieRepository;
+        private readonly IStudioRepository _studioRepository;
 
-        public StudioManager(IMovieRepository movieRepository)
+        public StudioManager(IStudioRepository studioRepository)
         {
-            _movieRepository = movieRepository;
+            _studioRepository = studioRepository;
         }
 
         public void SaveStudio(Movie movie)
         {
             Studio studio = movie.Studio;
-            List<Studio> studios = _movieRepository.GetStudios();
+            List<Studio> studios = _studioRepository.GetStudios();
             bool flag = false;
             foreach (var item in studios)
             {
@@ -29,7 +29,7 @@ namespace Movies.BL.Managers
             }
             if (flag == true)
             {
-                _movieRepository.SaveStudio(studio);
+                _studioRepository.SaveStudio(studio);
             }
         }
     }

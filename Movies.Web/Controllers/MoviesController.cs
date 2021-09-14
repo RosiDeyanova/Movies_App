@@ -88,7 +88,7 @@ namespace Movies.Web.Controllers
         {
             try
             {
-                _movieManager.DeleteMovie(_moviesManager.ReturnMovie(movie));
+                _movieManager.DeleteMovie(_moviesManager.ReturnMovie(id,movie));
                 return RedirectToAction("Index");
             }
             catch

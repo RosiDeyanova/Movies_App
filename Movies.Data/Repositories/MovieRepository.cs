@@ -23,20 +23,6 @@ namespace Movies.Data.Repositories
             return movies;
         }
 
-        public List<Studio> GetStudios()
-        {
-            var studios = _moviesContext.Studios.ToList();
-
-            return studios;
-        }
-
-        public IEnumerable<Genre> GetGenres() 
-        {
-            var genres = _moviesContext.Genres.AsEnumerable();
-
-            return genres;
-        }
-
         public IEnumerable<MovieExtended> GetMoviesExtended() 
         {
             var result = _moviesContext.Movies.Select(m => new MovieExtended
@@ -61,12 +47,6 @@ namespace Movies.Data.Repositories
         public void SaveMovie(Movie movie)
         {
             _moviesContext.Movies.Add(movie);
-            SaveDb();
-        }
-
-        public void SaveStudio(Studio studio)
-        {
-            _moviesContext.Studios.Add(studio);
             SaveDb();
         }
 
