@@ -177,10 +177,10 @@
                         <p class="product-preview-title"><a asp-action="Details" asp-route-id="@item.Id">@Html.DisplayFor(modelItem => item.Title)</a></p>
                         <!-- /PRODUCT PREVIEW TITLE -->
                         <!-- PRODUCT PREVIEW CATEGORY -->
-                        <p class="product-preview-category digital">@Html.DisplayFor(modelItem => item.GenreName)</p>
+                        <p class="product-preview-category digital">@Html.DisplayFor(modelItem => item.Genre.Name)</p>
                         <!-- /PRODUCT PREVIEW CATEGORY -->
                         <!-- PRODUCT PREVIEW TEXT -->
-                        <p class="product-preview-text">Studio: @Html.DisplayFor(modelItem => item.StudioName) <br /> Director: @Html.DisplayFor(modelItem => item.Director)</p>
+                        <p class="product-preview-text">Studio: @Html.DisplayFor(modelItem => item.Studio.Name) <br /> Director: @Html.DisplayFor(modelItem => item.Director)</p>
                         <!-- /PRODUCT PREVIEW TEXT -->
                     </div>
                 </div>

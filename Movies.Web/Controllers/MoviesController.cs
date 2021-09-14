@@ -84,17 +84,17 @@ namespace Movies.Web.Controllers
         //    return View(_context.Movies.Where(x => x.Id == id).FirstOrDefault());
         //}
 
-        public ActionResult Delete(int id,CreateMovieViewModel movie)
+        public ActionResult Delete(int id)
         {
             try
             {
-                _movieManager.DeleteMovie(_moviesManager.ReturnMovie(id,movie));
+                _movieManager.DeleteMovie(_moviesManager.ReturnMovie(id));
                 return RedirectToAction("Index");
             }
             catch
             {
 
-                return View();
+                return View("404");
             }
         }
 

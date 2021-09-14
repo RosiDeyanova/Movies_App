@@ -8510,7 +8510,8 @@
       "Microsoft.EntityFrameworkCore.SqlServer >= 3.1.17",
       "Microsoft.EntityFrameworkCore.Tools >= 3.1.17",
       "Microsoft.VisualStudio.Web.CodeGeneration.Design >= 3.1.5",
-      "Movies.BL >= 1.0.0"
+      "Movies.BL >= 1.0.0",
+      "System.Collections >= 4.3.0"
     ]
   },
   "packageFolders": {
@@ -8578,6 +8579,10 @@
           "Microsoft.VisualStudio.Web.CodeGeneration.Design": {
             "target": "Package",
             "version": "[3.1.5, )"
+          },
+          "System.Collections": {
+            "target": "Package",
+            "version": "[4.3.0, )"
           }
         },
         "imports": [

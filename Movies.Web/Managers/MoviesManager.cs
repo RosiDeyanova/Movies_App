@@ -25,11 +25,26 @@ namespace Movies.Web.Managers
                 Title = view.Title,
                 Year = view.Year,
                 Director = view.Director,
-                StudioName = view.StudioName,
-                StudioAddress = view.StudioAddress,
-                GenreName = view.Genre.Name
+                Studio = new StudioModel
+                {
+                    Id = view.Studio.Id,
+                    Name = view.Studio.Name,
+                    Address = view.Studio.Address
+                }
+                ,
+                Genre = new GenreModel 
+                { 
+                    Id = view.Genre.Id,
+                    Name = view.Genre.Name
+                }
             };
             return movie;
+        }
+
+        public MovieModel ReturnMovie(int id)
+        {
+            return _movieManager.GetMovieById(id);
+
         }
 
         public MovieModel ReturnMovie(CreateMovieViewModel view)
@@ -39,15 +54,23 @@ namespace Movies.Web.Managers
                 Title = view.Title,
                 Year = view.Year,
                 Director = view.Director,
-                StudioName = view.StudioName,
-                StudioAddress = view.StudioAddress,
-                GenreName = view.Genre.Name
+                Studio = new StudioModel
+                {
+                    Id = view.Studio.Id,
+                    Name = view.Studio.Name,
+                    Address = view.Studio.Address
+                },
+                Genre = new GenreModel()
+                {
+                    Id = view.Genre.Id,
+                    Name = view.Genre.Name
+                }
             };
             return movie;
         }
+
         public CreateMovieViewModel ReturnMovie(MovieModel model)
         {
-            var genre = _genreManager.GetGenre(model);
             var genres = _genreManager.GetGenres().ToList();
 
             CreateMovieViewModel view = new CreateMovieViewModel
@@ -55,32 +78,42 @@ namespace Movies.Web.Managers
                 Title = model.Title,
                 Year = model.Year,
                 Director = model.Director,
-                StudioName = model.StudioName,
-                StudioAddress = model.StudioAddress,
-                Genre = genre,
+                Studio = new StudioModel
+                {
+                    Id = model.Studio.Id,
+                    Name = model.Studio.Name,
+                    Address = model.Studio.Address
+                },
+                Genre = new GenreModel
+                {
+                    Id = model.Genre.Id,
+                    Name = model.Genre.Name
+                },
                 Genres = genres
             };
 
             return view;
         }
+
         public static StudioModel ReturnStudio(CreateMovieViewModel view)
         {
             StudioModel studio = new StudioModel
             {
-                Name = view.StudioName,
-                Address = view.StudioAddress
+                Id = view.Studio.Id,
+                Name = view.Studio.Name,
+                Address = view.Studio.Address
             };
             return studio;
         }
-    
+
         public void SaveMovie(CreateMovieViewModel view)
         {
-           MovieModel movie = new MovieModel();
-           movie = ReturnMovie(view);
-           _movieManager.SaveMovie(movie);
+            MovieModel movie = new MovieModel();
+            movie = ReturnMovie(view);
+            _movieManager.SaveMovie(movie);
 
         }
-      
+
         public IEnumerable<MoviesViewModel> ReturnMovies()
         {
             List<MoviesViewModel> model = new List<MoviesViewModel>();
@@ -93,9 +126,17 @@ namespace Movies.Web.Managers
                     Title = item.Title,
                     Year = item.Year,
                     DirectorName = item.Director,
-                    StudioName = item.StudioName,
-                    StudioAddress = item.StudioAddress,
-                    GenreName = item.GenreName
+                    Studio = new StudioModel
+                    {
+                        Id = item.Studio.Id,
+                        Name = item.Studio.Name,
+                        Address = item.Studio.Address
+                    },
+                    Genre = new GenreModel()
+                    {
+                        Id = item.Genre.Id,
+                        Name = item.Genre.Name
+                    }
                 };
                 model.Add(temp);
             }

@@ -23,20 +23,20 @@ namespace Movies.Data.Repositories
             return movies;
         }
 
-        public IEnumerable<MovieExtended> GetMoviesExtended() 
-        {
-            var result = _moviesContext.Movies.Select(m => new MovieExtended
-            {
-                Id = m.Id,
-                Title = m.Title,
-                Director = m.Director,
-                StudioName = m.Studio.Name,
-                StudioAddress = m.Studio.Address,
-                GenreName = m.Genre.Name
-            }).AsEnumerable();
+        //public IEnumerable<MovieExtended> GetMoviesExtended() 
+        //{
+        //    var result = _moviesContext.Movies.Select(m => new MovieExtended
+        //    {
+        //        Id = m.Id,
+        //        Title = m.Title,
+        //        Director = m.Director,
+        //        StudioName = m.Studio.Name,
+        //        StudioAddress = m.Studio.Address,
+        //        GenreName = m.Genre.Name
+        //    }).AsEnumerable();
 
-            return result;
-        }
+        //    return result;
+        //}
 
         //public Movie GetMovieById(int Id) 
         //{

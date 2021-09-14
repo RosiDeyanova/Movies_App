@@ -15,9 +15,8 @@ namespace Movies.BL.Managers
             _studioRepository = studioRepository;
         }
 
-        public void SaveStudio(Movie movie)
+        public void SaveStudio(Studio studio)
         {
-            Studio studio = movie.Studio;
             List<Studio> studios = _studioRepository.GetStudios();
             bool flag = false;
             foreach (var item in studios)

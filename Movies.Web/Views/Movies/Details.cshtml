@@ -30,7 +30,7 @@
                     </div>
                     <!-- /STATS DECORATION ICON WRAP -->
                     <!-- STATS DECORATION TITLE -->
-                    <p class="stats-decoration-title">@Model.GenreName</p>
+                    <p class="stats-decoration-title">@Model.Genre.Name</p>
                     <!-- /STATS DECORATION TITLE -->
                     <!-- STATS DECORATION TEXT -->
                     <p class="stats-decoration-text">Genre</p>
@@ -49,7 +49,7 @@
                     </div>
                     <!-- /STATS DECORATION ICON WRAP -->
                     <!-- STATS DECORATION TITLE -->
-                    <p class="stats-decoration-title">@Model.StudioName</p>
+                    <p class="stats-decoration-title">@Model.Studio.Name</p>
                     <!-- /STATS DECORATION TITLE -->
                     <!-- STATS DECORATION TEXT -->
                     <p class="stats-decoration-text">Studio</p>
@@ -78,8 +78,8 @@
             <table>
                 <tr>
                     <td>
-                        <a href="javascript:void(0);" class="anchorDetail" data-id="@Model">Edit</a>|
-                        <a asp-action="Delete" asp-route-id="@Model">Delete</a>
+                        <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a>
+                        <a asp-action="Delete" asp-route-id="@Model.Id">Delete</a>
                     </td>
                 </tr>
             </table>

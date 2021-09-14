@@ -7,7 +7,7 @@ namespace Movies.Data.Repositories
     public interface IMovieRepository
     {
         public List<Movie> GetMovies();
-        public IEnumerable<MovieExtended> GetMoviesExtended();
+        //public IEnumerable<MovieExtended> GetMoviesExtended();
         //public Movie GetMovieById(int Id);
         public void SaveMovie(Movie movie);
         public void UpdateMovie(Movie movie);

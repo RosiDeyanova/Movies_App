@@ -1,6 +1,8 @@
-﻿using Movies.BL.Models;
+﻿using Microsoft.AspNetCore.Mvc.Rendering;
+using Movies.BL.Models;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Linq;
 
 namespace Movies.Web.ViewModel.Movies
 {
@@ -18,9 +20,9 @@ namespace Movies.Web.ViewModel.Movies
         [StringLength(30)]
         [RegularExpression(@"^[A-Z]+[a-zA-Z'\s]*$")]
         public string Director { set; get; }
-        public string StudioName { get; set; }
-        public string StudioAddress { get; set; }
+        public StudioModel Studio { get; set; }
         public GenreModel Genre { get; set; }
         public List<GenreModel> Genres { get; set; }
+        public SelectList GenreOptions => Genres != null ? new SelectList(Genres, "Id", "Name") : null;
     }
 }

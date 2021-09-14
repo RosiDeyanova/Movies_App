@@ -9,9 +9,10 @@ namespace Movies.Data.Repositories
         private readonly MoviesContext _moviesContext;
         private readonly IMovieRepository _movieRepository;
 
-        public StudioRepository(MoviesContext moviesContext)
+        public StudioRepository(MoviesContext moviesContext, IMovieRepository movieRepository)
         {
             _moviesContext = moviesContext;
+            _movieRepository = movieRepository;
         }
 
         public void SaveStudio(Studio studio)
