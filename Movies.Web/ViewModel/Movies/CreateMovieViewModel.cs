@@ -8,6 +8,7 @@ namespace Movies.Web.ViewModel.Movies
 {
     public class CreateMovieViewModel
     {
+        public int Id { get; set; }
         [Required(ErrorMessage = "Enter a title")]
         [StringLength(40)]
         [RegularExpression(@"^[A-Z]+[a-zA-Z'\s]*$")]

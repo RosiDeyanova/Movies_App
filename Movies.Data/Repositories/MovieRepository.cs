@@ -18,7 +18,24 @@ namespace Movies.Data.Repositories
 
         public List<Movie> GetMovies()
         {
-            var movies = _moviesContext.Movies.ToList();
+            var movies = _moviesContext.Movies.Select(m => new Movie
+            {
+                Id = m.Id,
+                Title = m.Title,
+                Director = m.Director,
+                Year = m.Year,
+                Studio = new Studio
+                {
+                    Id = m.Studio.Id,
+                    Name = m.Studio.Name,
+                    Address = m.Studio.Address
+                },
+                Genre = new Genre
+                {
+                    Id = m.Genre.Id,
+                    Name = m.Genre.Name
+                }
+            }).ToList();
 
             return movies;
         }
@@ -53,7 +70,8 @@ namespace Movies.Data.Repositories
         public void UpdateMovie(Movie movie) 
         {
             _moviesContext.Entry(movie).State = EntityState.Modified;
-            SaveDb();
+            _moviesContext.SaveChanges();
+            //SaveDb();
         }
 
         public void DeleteMovie(Movie movie)

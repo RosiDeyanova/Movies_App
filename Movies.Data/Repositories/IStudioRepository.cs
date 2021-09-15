@@ -7,7 +7,7 @@ namespace Movies.Data.Repositories
 {
     public interface IStudioRepository
     {
-        public void SaveStudio(Studio studio);
+        public int SaveStudio(Studio studio);
         public List<Studio> GetStudios();
 
     }

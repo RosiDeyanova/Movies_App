@@ -15,10 +15,11 @@ namespace Movies.Data.Repositories
             _movieRepository = movieRepository;
         }
 
-        public void SaveStudio(Studio studio)
+        public int SaveStudio(Studio studio)
         {
             _moviesContext.Studios.Add(studio);
             _movieRepository.SaveDb();
+            return studio.Id;
         }
 
         public List<Studio> GetStudios()

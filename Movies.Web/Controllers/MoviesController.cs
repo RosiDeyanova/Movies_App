@@ -37,12 +37,15 @@ namespace Movies.Web.Controllers
 
         public ActionResult Create()
         {
-            CreateMovieViewModel model = new CreateMovieViewModel();
-            model.Genres = _genreManager.GetGenres().Select(m => new GenreModel
+            CreateMovieViewModel model = new CreateMovieViewModel
             {
-                Id = m.Id,
-                Name = m.Name
-            }).ToList(); ;
+                Genres = _genreManager.GetGenres().Select(m => new GenreModel
+                {
+                    Id = m.Id,
+                    Name = m.Name
+                }).ToList()
+            };
+            ;
             return View(model);
         }
 
@@ -71,7 +74,7 @@ namespace Movies.Web.Controllers
             try
             {
                 _movieManager.UpdateMovie(_moviesManager.ReturnMovie(id, createMovieViewModel));
-                return RedirectToAction("Index");
+                return RedirectToAction("Details", createMovieViewModel);
             }
             catch
             {

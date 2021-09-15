@@ -31,9 +31,9 @@ namespace Movies.BL.Managers
                     Id = m.Studio.Id,
                     Name = m.Studio.Name,
                     Address = m.Studio.Address
-               },
-                Genre = new GenreModel 
-                { 
+                },
+                Genre = new GenreModel
+                {
                     Id = m.Genre.Id,
                     Name = m.Genre.Name
                 }
@@ -121,23 +121,21 @@ namespace Movies.BL.Managers
                 Name = movie.Studio.Name,
                 Address = movie.Studio.Address
             };
-            Genre genreData = new Genre
-            {
-                Id = movie.Genre.Id,
-                Name = movie.Genre.Name
-            };
+
+            int studioId = _studioManager.SaveStudio(studioData);
+
             Movie movieData = new Movie
             {
                 Id = movie.Id,
                 Title = movie.Title,
                 Year = movie.Year,
                 Director = movie.Director,
-                Studio = studioData,
-                Genre = genreData
+                StudioId = studioId,
+                GenreId = movie.Genre.Id
             };
 
             _movieRepository.UpdateMovie(movieData);
-            _studioManager.SaveStudio(studioData);
+
         }
 
         public void DeleteMovie(MovieModel movie)

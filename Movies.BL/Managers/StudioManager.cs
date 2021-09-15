@@ -3,10 +3,11 @@ using Movies.BL.Services;
 using Movies.Data.Entities;
 using Movies.Data.Repositories;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Movies.BL.Managers
 {
-    class StudioManager : IStudioManager
+    public class StudioManager : IStudioManager
     {
         private readonly IStudioRepository _studioRepository;
 
@@ -15,21 +16,25 @@ namespace Movies.BL.Managers
             _studioRepository = studioRepository;
         }
 
-        public void SaveStudio(Studio studio)
+        public int SaveStudio(Studio studio)
         {
             List<Studio> studios = _studioRepository.GetStudios();
-            bool flag = false;
-            foreach (var item in studios)
+
+            int? id = studios.FirstOrDefault(s => s.Equals(studio))?.Id;
+
+            if (id == null)
             {
-                if (studio.Equals(item))
-                {
-                    flag = true;
-                }
+                id = _studioRepository.SaveStudio(studio);
             }
-            if (flag == true)
-            {
-                _studioRepository.SaveStudio(studio);
-            }
+
+            return id.Value;
         }
+
+        public int GetStudioIdByName(string name)
+        {
+            var studio = _studioRepository.GetStudios().Where(x => x.Name == name).FirstOrDefault();
+            return studio.Id;
+        }
+
     }
 }

@@ -21,6 +21,10 @@ namespace Movies.Data.Entities
         //[StringLength(30)]
         public string Director { set; get; }
 
+        public int StudioId { set; get; }
+
+        public int GenreId { set; get; }
+
         [ForeignKey("StudioId")]
         public virtual Studio Studio { set; get; }
 

@@ -4,6 +4,7 @@ namespace Movies.BL.Services
 {
     public interface IStudioManager
     {
-        public void SaveStudio(Studio studio);
+        public int SaveStudio(Studio studio);
+        public int GetStudioIdByName(string name);
     }
 }
