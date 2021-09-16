@@ -10,6 +10,6 @@ namespace Movies.BL.Services
         public IEnumerable<MovieModel> GetAllMovies();
         public void SaveMovie(MovieModel movie);
         public void UpdateMovie(MovieModel movie);
-        public void DeleteMovie(MovieModel movie);
+        public void DeleteMovie(int id);
     }
 }

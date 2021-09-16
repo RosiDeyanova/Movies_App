@@ -32,7 +32,8 @@ namespace Movies.Web.Controllers
         public IActionResult Details(int id)
         {
             var info = _movieManager.GetMovieById(id);
-            return View(info);
+            var mappedInfo = _moviesManager.ReturnMovie(info);
+            return View(mappedInfo);
         }
 
         public ActionResult Create()
@@ -54,7 +55,8 @@ namespace Movies.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-               _movieManager.SaveMovie(_moviesManager.ReturnMovie(createViewModel));
+                var mappedMovie = _moviesManager.ReturnMovie(createViewModel);
+               _movieManager.SaveMovie(mappedMovie);
                 return RedirectToAction("Index");
             }
 
@@ -63,7 +65,7 @@ namespace Movies.Web.Controllers
 
         public ActionResult Edit(int id)
         {
-            var info = _movieManager.GetAllMovies().Where(x => x.Id == id).FirstOrDefault();
+            var info = _movieManager.GetAllMovies().FirstOrDefault(x => x.Id == id);
             var mappedInfo = _moviesManager.ReturnMovie(info);
             return View(mappedInfo);
         }
@@ -73,7 +75,8 @@ namespace Movies.Web.Controllers
         {
             try
             {
-                _movieManager.UpdateMovie(_moviesManager.ReturnMovie(id, createMovieViewModel));
+                var mappedMovie = _moviesManager.ReturnMovie(id, createMovieViewModel);
+                _movieManager.UpdateMovie(mappedMovie);
                 return RedirectToAction("Details", createMovieViewModel);
             }
             catch
@@ -82,22 +85,17 @@ namespace Movies.Web.Controllers
             }
         }
 
-        //public ActionResult Delete(int id)
-        //{
-        //    return View(_context.Movies.Where(x => x.Id == id).FirstOrDefault());
-        //}
-
         public ActionResult Delete(int id)
         {
             try
             {
-                _movieManager.DeleteMovie(_moviesManager.ReturnMovie(id));
+                _movieManager.DeleteMovie(id);
                 return RedirectToAction("Index");
             }
             catch
             {
 
-                return View("404");
+                return RedirectToAction("Error", "Home");
             }
         }
 

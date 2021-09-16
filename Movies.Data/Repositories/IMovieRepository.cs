@@ -11,7 +11,7 @@ namespace Movies.Data.Repositories
         //public Movie GetMovieById(int Id);
         public void SaveMovie(Movie movie);
         public void UpdateMovie(Movie movie);
-        public void DeleteMovie(Movie movie);
+        public void DeleteMovie(int id);
         public void SaveDb();
     }
 }

@@ -75,6 +75,7 @@ namespace Movies.Web.Managers
 
             CreateMovieViewModel view = new CreateMovieViewModel
             {
+                Id = model.Id,
                 Title = model.Title,
                 Year = model.Year,
                 Director = model.Director,

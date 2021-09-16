@@ -74,9 +74,9 @@ namespace Movies.Data.Repositories
             //SaveDb();
         }
 
-        public void DeleteMovie(Movie movie)
+        public void DeleteMovie(int id)
         {
-           var movieDeleted = _moviesContext.Movies.Where(x => x.Id == movie.Id).FirstOrDefault();
+           var movieDeleted = _moviesContext.Movies.FirstOrDefault(x => x.Id == id);
             _moviesContext.Movies.Remove(movieDeleted);
             SaveDb();
         }

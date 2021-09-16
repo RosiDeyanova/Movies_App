@@ -78,8 +78,9 @@
             <table>
                 <tr>
                     <td>
-                        <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a>
-                        <a asp-action="Delete" asp-route-id="@Model.Id">Delete</a>
+                        <а>@Model.Id</а>
+                        <a asp-controller="Movies" asp-action="Edit" asp-route-id="@Model.Id">Edit</a>
+                        <a asp-controller="Movies" asp-action="Delete" asp-route-id="@Model.Id">Delete</a>
                     </td>
                 </tr>
             </table>
