@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace Movies.Data.Entities
 {
@@ -14,6 +11,7 @@ namespace Movies.Data.Entities
         [StringLength(30)]
         [Display(Name = "Genre name")]
         public string Name { set; get; }
+
         public List<Movie> Movies { set; get; }
     }
 }

@@ -151,11 +151,6 @@ C:\Users\Rosi Deyanova\source\repos\Movies_App\Movies.Web\obj\Debug\netcoreapp3.
 C:\Users\Rosi Deyanova\source\repos\Movies_App\Movies.Web\obj\Debug\netcoreapp3.1\Movies.Web.genruntimeconfig.cache
 C:\Users\Rosi Deyanova\source\repos\Movies_App\Movies.Web\bin\Debug\netcoreapp3.1\Movies.BL.dll
 C:\Users\Rosi Deyanova\source\repos\Movies_App\Movies.Web\bin\Debug\netcoreapp3.1\Movies.BL.pdb
-C:\Users\Rosi Deyanova\source\repos\Movies_App\Movies.Web\obj\Debug\netcoreapp3.1\Razor\Views\HomeOld\Create.cshtml.g.cs
-C:\Users\Rosi Deyanova\source\repos\Movies_App\Movies.Web\obj\Debug\netcoreapp3.1\Razor\Views\HomeOld\Delete.cshtml.g.cs
-C:\Users\Rosi Deyanova\source\repos\Movies_App\Movies.Web\obj\Debug\netcoreapp3.1\Razor\Views\HomeOld\Edit.cshtml.g.cs
-C:\Users\Rosi Deyanova\source\repos\Movies_App\Movies.Web\obj\Debug\netcoreapp3.1\Razor\Views\HomeOld\Index.cshtml.g.cs
-C:\Users\Rosi Deyanova\source\repos\Movies_App\Movies.Web\obj\Debug\netcoreapp3.1\Razor\Views\HomeOld\Privacy.cshtml.g.cs
 C:\Users\Rosi Deyanova\source\repos\Movies_App\Movies.Web\obj\Debug\netcoreapp3.1\Razor\Views\Movies\Details.cshtml.g.cs
 C:\Users\Rosi Deyanova\source\repos\Movies_App\Movies.Web\obj\Debug\netcoreapp3.1\Razor\Views\Movies\Index.cshtml.g.cs
 C:\Users\Rosi Deyanova\source\repos\Movies_App\Movies.Web\obj\Debug\netcoreapp3.1\Razor\Views\Movies\Create.cshtml.g.cs

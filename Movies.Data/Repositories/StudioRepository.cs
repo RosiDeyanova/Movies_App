@@ -25,7 +25,6 @@ namespace Movies.Data.Repositories
         public List<Studio> GetStudios()
         {
             var studios = _moviesContext.Studios.ToList();
-
             return studios;
         }
 

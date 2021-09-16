@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Movies.BL.Models
+﻿namespace Movies.BL.Models
 {
     public class GenreModel
     {

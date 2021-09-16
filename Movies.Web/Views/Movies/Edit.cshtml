@@ -107,22 +107,6 @@
                                     <div class="form-select">
                                         <label asp-for="Genre">Genre</label>
                                         <select asp-items="@Model.GenreOptions" asp-for="Genre.Id"></select>
-                                        @*<select asp-for="Genre.Name" asp-items="@Model.GenreOptions">
-                                                <option value="">Choose a genre</option>
-                                            </select>*@
-                                        @*<select asp-for="Genre" id="profile-status">
-                                                @foreach (var item in Model.Genres)
-                                                {
-                                                    if (item.Id == Model.Genre.Id)
-                                                    {
-                                                        <option selected="selected" value="@item.Id">@item.Name</option>
-                                                    }
-                                                    else
-                                                    {
-                                                        <option value="@item.Id">@item.Name</option>
-                                                    }
-                                                }
-                                            </select>*@
                                         <span asp-validation-for="Genre.Id" class="text-danger"></span>
                                         <!-- FORM SELECT ICON -->
                                         <svg class="form-select-icon icon-small-arrow">

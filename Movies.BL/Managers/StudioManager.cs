@@ -1,5 +1,4 @@
-﻿using Movies.BL.Models;
-using Movies.BL.Services;
+﻿using Movies.BL.Services;
 using Movies.Data.Entities;
 using Movies.Data.Repositories;
 using System.Collections.Generic;

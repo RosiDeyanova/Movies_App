@@ -1,7 +1,6 @@
 ﻿using Movies.BL.Models;
 using Movies.BL.Services;
 using Movies.Web.ViewModel.Movies;
-using System.Collections.Generic;
 using System.Linq;
 
 namespace Movies.Web.Managers
@@ -41,16 +40,11 @@ namespace Movies.Web.Managers
             return movie;
         }
 
-        public MovieModel ReturnMovie(int id)
-        {
-            return _movieManager.GetMovieById(id);
-
-        }
-
         public MovieModel ReturnMovie(CreateMovieViewModel view)
         {
             MovieModel movie = new MovieModel
             {
+                Id = view.Id,
                 Title = view.Title,
                 Year = view.Year,
                 Director = view.Director,
@@ -79,13 +73,13 @@ namespace Movies.Web.Managers
                 Title = model.Title,
                 Year = model.Year,
                 Director = model.Director,
-                Studio = new StudioModel
+                Studio = new StudioViewModel
                 {
                     Id = model.Studio.Id,
                     Name = model.Studio.Name,
                     Address = model.Studio.Address
                 },
-                Genre = new GenreModel
+                Genre = new GenreViewModel
                 {
                     Id = model.Genre.Id,
                     Name = model.Genre.Name
@@ -94,54 +88,6 @@ namespace Movies.Web.Managers
             };
 
             return view;
-        }
-
-        public static StudioModel ReturnStudio(CreateMovieViewModel view)
-        {
-            StudioModel studio = new StudioModel
-            {
-                Id = view.Studio.Id,
-                Name = view.Studio.Name,
-                Address = view.Studio.Address
-            };
-            return studio;
-        }
-
-        public void SaveMovie(CreateMovieViewModel view)
-        {
-            MovieModel movie = new MovieModel();
-            movie = ReturnMovie(view);
-            _movieManager.SaveMovie(movie);
-
-        }
-
-        public IEnumerable<MoviesViewModel> ReturnMovies()
-        {
-            List<MoviesViewModel> model = new List<MoviesViewModel>();
-            var Movies = _movieManager.GetAllMovies();
-            foreach (var item in Movies)
-            {
-                MoviesViewModel temp = new MoviesViewModel
-                {
-                    Id = item.Id,
-                    Title = item.Title,
-                    Year = item.Year,
-                    DirectorName = item.Director,
-                    Studio = new StudioModel
-                    {
-                        Id = item.Studio.Id,
-                        Name = item.Studio.Name,
-                        Address = item.Studio.Address
-                    },
-                    Genre = new GenreModel()
-                    {
-                        Id = item.Genre.Id,
-                        Name = item.Genre.Name
-                    }
-                };
-                model.Add(temp);
-            }
-            return model;
         }
     }
 }

@@ -26,6 +26,7 @@ namespace Movies.Web.Controllers
         public ActionResult Index(string movieTitle)
         {
             var model = _movieManager.SearchMovies(movieTitle);
+
             return View(model);
         }
 
@@ -33,6 +34,7 @@ namespace Movies.Web.Controllers
         {
             var info = _movieManager.GetMovieById(id);
             var mappedInfo = _moviesManager.ReturnMovie(info);
+
             return View(mappedInfo);
         }
 
@@ -46,7 +48,7 @@ namespace Movies.Web.Controllers
                     Name = m.Name
                 }).ToList()
             };
-            ;
+
             return View(model);
         }
 
@@ -67,6 +69,7 @@ namespace Movies.Web.Controllers
         {
             var info = _movieManager.GetAllMovies().FirstOrDefault(x => x.Id == id);
             var mappedInfo = _moviesManager.ReturnMovie(info);
+
             return View(mappedInfo);
         }
 
@@ -75,9 +78,13 @@ namespace Movies.Web.Controllers
         {
             try
             {
-                var mappedMovie = _moviesManager.ReturnMovie(id, createMovieViewModel);
-                _movieManager.UpdateMovie(mappedMovie);
-                return RedirectToAction("Details", createMovieViewModel);
+                if (ModelState.IsValid)
+                {
+                    var mappedMovie = _moviesManager.ReturnMovie(id, createMovieViewModel);
+                    _movieManager.UpdateMovie(mappedMovie);
+                    return RedirectToAction("Details", createMovieViewModel);
+                }
+                return View(createMovieViewModel);
             }
             catch
             {
