@@ -158,3 +158,6 @@ C:\Users\Rosi Deyanova\source\repos\Movies_App\Movies.Web\obj\Debug\netcoreapp3.
 C:\Users\Rosi Deyanova\source\repos\Movies_App\Movies.Web\obj\Debug\netcoreapp3.1\Razor\Views\Movies\_ViewStart.cshtml.g.cs
 C:\Users\Rosi Deyanova\source\repos\Movies_App\Movies.Web\obj\Debug\netcoreapp3.1\Razor\Views\Shared\_MoviesLayout.cshtml.g.cs
 C:\Users\Rosi Deyanova\source\repos\Movies_App\Movies.Web\obj\Debug\netcoreapp3.1\Razor\Views\Home\Error.cshtml.g.cs
+C:\Users\Rosi Deyanova\source\repos\Movies_App\Movies.Web\obj\Debug\netcoreapp3.1\Razor\Views\Admin\Index.cshtml.g.cs
+C:\Users\Rosi Deyanova\source\repos\Movies_App\Movies.Web\obj\Debug\netcoreapp3.1\Razor\Views\Admin\_ViewStart.cshtml.g.cs
+C:\Users\Rosi Deyanova\source\repos\Movies_App\Movies.Web\obj\Debug\netcoreapp3.1\Razor\Views\Shared\_AdminLayout.cshtml.g.cs

@@ -31,10 +31,13 @@ namespace Movies.Web
             services.AddScoped<IMovieRepository, MovieRepository>();
             services.AddScoped<IStudioRepository, StudioRepository>();
             services.AddScoped<IGenreRepository, GenreRepository>();
+            services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<IMovieManager, MovieManager>();
             services.AddScoped<IStudioManager, StudioManager>();
             services.AddScoped<IGenreManager, GenreManager>();
+            services.AddScoped<IUserManager, UserManager>();
             services.AddScoped<MoviesManager>();
+            services.AddScoped<UsersManager>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

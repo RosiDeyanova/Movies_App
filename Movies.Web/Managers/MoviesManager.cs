@@ -16,7 +16,7 @@ namespace Movies.Web.Managers
             _genreManager = genreManager;
         }
 
-        public MovieModel ReturnMovie(int id, CreateMovieViewModel view)
+        public MovieModel GetMovie(int id, CreateMovieViewModel view)
         {
             MovieModel movie = new MovieModel
             {
@@ -40,7 +40,7 @@ namespace Movies.Web.Managers
             return movie;
         }
 
-        public MovieModel ReturnMovie(CreateMovieViewModel view)
+        public MovieModel GetMovie(CreateMovieViewModel view)
         {
             MovieModel movie = new MovieModel
             {
@@ -63,7 +63,7 @@ namespace Movies.Web.Managers
             return movie;
         }
 
-        public CreateMovieViewModel ReturnMovie(MovieModel model)
+        public CreateMovieViewModel GetMovie(MovieModel model)
         {
             var genres = _genreManager.GetGenres().ToList();
 

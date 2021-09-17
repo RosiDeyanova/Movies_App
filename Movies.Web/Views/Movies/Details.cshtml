@@ -75,6 +75,9 @@
                     <!-- /STATS DECORATION TEXT -->
                 </div>
             </div>
+
+            @*@if (User.IsAdmin == true)
+            {
             <table>
                 <tr>
                     <td>
@@ -82,7 +85,8 @@
                         <a asp-controller="Movies" asp-action="Delete" asp-route-id="@Model.Id">Delete</a>
                     </td>
                 </tr>
-            </table>
+            </table>              
+            }*@
         </div>
         <div class="grid grid-9-6">
 

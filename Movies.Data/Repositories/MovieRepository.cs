@@ -16,7 +16,7 @@ namespace Movies.Data.Repositories
 
         public List<Movie> GetMovies()
         {
-            var movies = _moviesContext.Movies.Select(m => new Movie
+            var movies = _moviesContext.Movie.Select(m => new Movie
             {
                 Id = m.Id,
                 Title = m.Title,
@@ -40,7 +40,7 @@ namespace Movies.Data.Repositories
 
         public void SaveMovie(Movie movie)
         {
-            _moviesContext.Movies.Add(movie);
+            _moviesContext.Movie.Add(movie);
             SaveDb();
         }
 
@@ -52,8 +52,8 @@ namespace Movies.Data.Repositories
 
         public void DeleteMovie(int id)
         {
-           var movieDeleted = _moviesContext.Movies.FirstOrDefault(x => x.Id == id);
-            _moviesContext.Movies.Remove(movieDeleted);
+           var movieDeleted = _moviesContext.Movie.FirstOrDefault(x => x.Id == id);
+            _moviesContext.Movie.Remove(movieDeleted);
             SaveDb();
         }
 

@@ -17,14 +17,14 @@ namespace Movies.Data.Repositories
 
         public int SaveStudio(Studio studio)
         {
-            _moviesContext.Studios.Add(studio);
+            _moviesContext.Studio.Add(studio);
             _movieRepository.SaveDb();
             return studio.Id;
         }
 
         public List<Studio> GetStudios()
         {
-            var studios = _moviesContext.Studios.ToList();
+            var studios = _moviesContext.Studio.ToList();
             return studios;
         }
 

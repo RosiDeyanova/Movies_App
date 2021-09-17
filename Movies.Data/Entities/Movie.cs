@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Movies.Data.Entities
@@ -17,6 +18,8 @@ namespace Movies.Data.Entities
         public int StudioId { set; get; }
 
         public int GenreId { set; get; }
+
+        public virtual List<UserMovie> UserMovie { set; get; }
 
         [ForeignKey("StudioId")]
         public virtual Studio Studio { set; get; }

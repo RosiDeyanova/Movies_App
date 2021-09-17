@@ -15,7 +15,7 @@ namespace Movies.Data.Repositories
 
         public IEnumerable<Genre> GetGenres()
         {
-            var genres = _moviesContext.Genres.AsEnumerable();
+            var genres = _moviesContext.Genre.AsEnumerable();
 
             return genres;
         }
