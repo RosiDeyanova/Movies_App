@@ -310,6 +310,14 @@
         "runtime": {
           "Movies.Web.dll": {}
         },
+        "resources": {
+          "bg/Movies.Web.resources.dll": {
+            "locale": "bg"
+          },
+          "en/Movies.Web.resources.dll": {
+            "locale": "en"
+          }
+        },
         "compile": {
           "Movies.Web.dll": {}
         }

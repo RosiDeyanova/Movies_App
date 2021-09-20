@@ -1,6 +1,7 @@
-
+@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer localizer
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -27,21 +28,21 @@
             </div>
             <!-- /LOGO -->
             <!-- LANDING INFO PRETITLE -->
-            <h2 class="landing-info-pretitle">Welcome to</h2>
+            <h2 class="landing-info-pretitle">@localizer["welcome"]</h2>
             <!-- /LANDING INFO PRETITLE -->
             <!-- LANDING INFO TITLE -->
-            <h1 class="landing-info-title">Vikinger</h1>
+            <h1 class="landing-info-title">Binger</h1>
             <!-- /LANDING INFO TITLE -->
             <!-- LANDING INFO TEXT -->
-            <p class="landing-info-text">The next generation social network &amp; community! Connect with your friends and play with our quests and badges gamification system!</p>
+            <p class="landing-info-text">@localizer["description"]</p>
             <!-- /LANDING INFO TEXT -->
             <!-- TAB SWITCH -->
             <div class="tab-switch">
                 <!-- TAB SWITCH BUTTON -->
-                <p class="tab-switch-button login-register-form-trigger">Login</p>
+                <p class="tab-switch-button login-register-form-trigger">@localizer["login"]</p>
                 <!-- /TAB SWITCH BUTTON -->
                 <!-- TAB SWITCH BUTTON -->
-                <p class="tab-switch-button login-register-form-trigger">Register</p>
+                <p class="tab-switch-button login-register-form-trigger">@localizer["register"]</p>
                 <!-- /TAB SWITCH BUTTON -->
             </div>
             <!-- /TAB SWITCH -->
@@ -127,52 +128,12 @@
                         </div>
                         <!-- /FORM ITEM -->
                     </div>
+                    <div class="form-row">
+                            @await Html.PartialAsync("_SelectLanguagePartial")
+                    </div>
                     <!-- /FORM ROW -->
                 </form>
                 <!-- /FORM -->
-                <!-- LINED TEXT -->
-                <p class="lined-text">Login with your Social Account</p>
-                <!-- /LINED TEXT -->
-                <!-- SOCIAL LINKS -->
-                <div class="social-links">
-                    <!-- SOCIAL LINK -->
-                    <a class="social-link facebook" href="#">
-                        <!-- ICON FACEBOOK -->
-                        <svg class="icon-facebook">
-                            <use xlink:href="#svg-facebook"></use>
-                        </svg>
-                        <!-- /ICON FACEBOOK -->
-                    </a>
-                    <!-- /SOCIAL LINK -->
-                    <!-- SOCIAL LINK -->
-                    <a class="social-link twitter" href="#">
-                        <!-- ICON TWITTER -->
-                        <svg class="icon-twitter">
-                            <use xlink:href="#svg-twitter"></use>
-                        </svg>
-                        <!-- /ICON TWITTER -->
-                    </a>
-                    <!-- /SOCIAL LINK -->
-                    <!-- SOCIAL LINK -->
-                    <a class="social-link twitch" href="#">
-                        <!-- ICON TWITCH -->
-                        <svg class="icon-twitch">
-                            <use xlink:href="#svg-twitch"></use>
-                        </svg>
-                        <!-- /ICON TWITCH -->
-                    </a>
-                    <!-- /SOCIAL LINK -->
-                    <!-- SOCIAL LINK -->
-                    <a class="social-link youtube" href="#">
-                        <!-- ICON YOUTUBE -->
-                        <svg class="icon-youtube">
-                            <use xlink:href="#svg-youtube"></use>
-                        </svg>
-                        <!-- /ICON YOUTUBE -->
-                    </a>
-                    <!-- /SOCIAL LINK -->
-                </div>
-                <!-- /SOCIAL LINKS -->
             </div>
             <!-- /FORM BOX -->
             <!-- FORM BOX -->
@@ -242,27 +203,27 @@
                     </div>
                     <!-- /FORM ROW -->
                     <!-- FORM ROW -->
-                    <div class="form-row">
+                    <!--<div class="form-row">
                         <!-- FORM ITEM -->
-                        <div class="form-item">
-                            <!-- CHECKBOX WRAP -->
-                            <div class="checkbox-wrap">
-                                <input type="checkbox" id="register-newsletter" name="register_newsletter" checked>
-                                <!-- CHECKBOX BOX -->
-                                <div class="checkbox-box">
-                                    <!-- ICON CROSS -->
-                                    <svg class="icon-cross">
-                                        <use xlink:href="#svg-cross"></use>
-                                    </svg>
-                                    <!-- /ICON CROSS -->
-                                </div>
-                                <!-- /CHECKBOX BOX -->
-                                <label for="register-newsletter">Send me news and updates via email</label>
-                            </div>
-                            <!-- /CHECKBOX WRAP -->
-                        </div>
-                        <!-- /FORM ITEM -->
-                    </div>
+                    <!--<div class="form-item">-->
+                    <!-- CHECKBOX WRAP -->
+                    <!--<div class="checkbox-wrap">
+                        <input type="checkbox" id="register-newsletter" name="register_newsletter" checked>-->
+                    <!-- CHECKBOX BOX -->
+                    <!--<div class="checkbox-box">-->
+                    <!-- ICON CROSS -->
+                    <!--<svg class="icon-cross">
+                        <use xlink:href="#svg-cross"></use>
+                    </svg>-->
+                    <!-- /ICON CROSS -->
+                    <!--</div>-->
+                    <!-- /CHECKBOX BOX -->
+                    <!--@*<label for="register-newsletter">Send me news and updates via email</label>*@
+                    </div>-->
+                    <!-- /CHECKBOX WRAP -->
+                    <!--</div>-->
+                    <!-- /FORM ITEM -->
+                    <!--</div>-->
                     <!-- /FORM ROW -->
                     <!-- FORM ROW -->
                     <div class="form-row">
@@ -273,7 +234,7 @@
                     </div>
                 </form>
 
-                <p class="form-text">You'll receive a confirmation email in your inbox with a link to activate your account. If you have any problems, <a href="#">contact us</a>!</p>
+                @*<p class="form-text">You'll receive a confirmation email in your inbox with a link to activate your account. If you have any problems, <a href="#">contact us</a>!</p>*@
             </div>
         </div>
     </div>
