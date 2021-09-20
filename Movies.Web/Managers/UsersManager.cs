@@ -30,7 +30,7 @@ namespace Movies.Web.Managers
             return viewModels;
         }
 
-        public void SetOrRemoveRole(int id, bool isAdmin) 
+        public void SetOrRemoveAdminRole(int id, bool isAdmin) 
         {
             _userManager.SetOrRemoveAdminRole(id, isAdmin);
         }

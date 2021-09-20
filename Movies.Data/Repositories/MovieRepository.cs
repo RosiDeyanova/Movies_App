@@ -7,16 +7,15 @@ namespace Movies.Data.Repositories
 {
     public class MovieRepository : IMovieRepository
     {
-        private readonly MoviesContext _moviesContext;
-
-        public MovieRepository(MoviesContext moviesContext)
+        private readonly IBaseRepository _baseRepository;
+        public MovieRepository(IBaseRepository baseRepository)
         {
-            _moviesContext = moviesContext;
+            _baseRepository = baseRepository;
         }
 
         public List<Movie> GetMovies()
         {
-            var movies = _moviesContext.Movie.Select(m => new Movie
+            var movies = _baseRepository.GetDb().Movie.Select(m => new Movie
             {
                 Id = m.Id,
                 Title = m.Title,
@@ -40,26 +39,23 @@ namespace Movies.Data.Repositories
 
         public void SaveMovie(Movie movie)
         {
-            _moviesContext.Movie.Add(movie);
-            SaveDb();
+            _baseRepository.GetDb().Movie.Add(movie);
+            _baseRepository.SaveDb();
         }
 
         public void UpdateMovie(Movie movie) 
         {
-            _moviesContext.Entry(movie).State = EntityState.Modified;
-            SaveDb();
+            _baseRepository.GetDb().Entry(movie).State = EntityState.Modified;
+            _baseRepository.SaveDb();
         }
 
         public void DeleteMovie(int id)
         {
-           var movieDeleted = _moviesContext.Movie.FirstOrDefault(x => x.Id == id);
-            _moviesContext.Movie.Remove(movieDeleted);
-            SaveDb();
+           var movieDeleted = _baseRepository.GetDb().Movie.FirstOrDefault(x => x.Id == id);
+           _baseRepository.GetDb().Movie.Remove(movieDeleted);
+            _baseRepository.SaveDb();
         }
 
-        public void SaveDb() 
-        {
-            _moviesContext.SaveChanges();
-        }
+        
     }
 }

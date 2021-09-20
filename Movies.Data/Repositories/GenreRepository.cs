@@ -6,19 +6,16 @@ namespace Movies.Data.Repositories
 {
     public class GenreRepository : IGenreRepository
     {
-        private readonly MoviesContext _moviesContext;
-
-        public GenreRepository(MoviesContext moviesContext)
+        private readonly IBaseRepository _baseRepository;
+        public GenreRepository(IBaseRepository baseRepository)
         {
-            _moviesContext = moviesContext;
+            _baseRepository = baseRepository;
         }
-
         public IEnumerable<Genre> GetGenres()
         {
-            var genres = _moviesContext.Genre.AsEnumerable();
+            var genres = _baseRepository.GetDb().Genre.AsEnumerable();
 
             return genres;
         }
-
     }
 }

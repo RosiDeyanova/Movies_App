@@ -32,6 +32,7 @@ namespace Movies.Web
             services.AddScoped<IStudioRepository, StudioRepository>();
             services.AddScoped<IGenreRepository, GenreRepository>();
             services.AddScoped<IUserRepository, UserRepository>();
+            services.AddScoped<IBaseRepository, BaseRepository>();
             services.AddScoped<IMovieManager, MovieManager>();
             services.AddScoped<IStudioManager, StudioManager>();
             services.AddScoped<IGenreManager, GenreManager>();

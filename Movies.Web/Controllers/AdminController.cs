@@ -23,7 +23,7 @@ namespace Movies.Web.Controllers
         {
             try
             {
-                _usersManager.SetOrRemoveRole(id, false);
+                _usersManager.SetOrRemoveAdminRole(id, false);
             }
             catch
             {
@@ -36,7 +36,7 @@ namespace Movies.Web.Controllers
         {
             try
             {
-                _usersManager.SetOrRemoveRole(id, true);
+                _usersManager.SetOrRemoveAdminRole(id, true);
             }
             catch
             {

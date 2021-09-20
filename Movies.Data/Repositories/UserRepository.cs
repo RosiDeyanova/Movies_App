@@ -7,30 +7,24 @@ namespace Movies.Data.Repositories
 {
     public class UserRepository : IUserRepository
     {
-        private readonly MoviesContext _moviesContext;
-
-        public UserRepository(MoviesContext moviesContext)
+        private readonly IBaseRepository _baseRepository;
+        public UserRepository(IBaseRepository baseRepository)
         {
-            _moviesContext = moviesContext;
+            _baseRepository = baseRepository;
         }
 
         public IEnumerable<User> GetUsers()
         {
-            var genres = _moviesContext.User.AsEnumerable();
+            var genres = _baseRepository.GetDb().User.AsEnumerable();
 
             return genres;
         }
 
         public void SetOrRemoveAdminRole(int id, bool isAdmin) 
         {
-            var user = _moviesContext.User.FirstOrDefault(x => x.Id == id);
+            var user = _baseRepository.GetDb().User.FirstOrDefault(x => x.Id == id);
             user.IsAdmin = isAdmin;
-            SaveDb();
-        }
-
-        public void SaveDb()
-        {
-            _moviesContext.SaveChanges();
+            _baseRepository.SaveDb();
         }
     }
 }

@@ -11,17 +11,11 @@ namespace Movies.Data.Entities
         public string Username { get; set; }
         public string Password { get; set; }
         public string Email { get; set; }
-        public string Summary { get; set; }
+        public string Summary { get; set; } = string.Empty;
 
         public virtual List<UserMovie> UserMovie { get;}
 
-        public bool IsAdmin { get; set; }
-
-        public User()
-        {
-            Summary = string.Empty;
-            IsAdmin = false;
-        }
+        public bool IsAdmin { get; set; } = false;
     }
 
 }
