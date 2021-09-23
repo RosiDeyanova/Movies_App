@@ -48,6 +48,7 @@ namespace Movies.Web.Managers
                 Title = view.Title,
                 Year = view.Year,
                 Director = view.Director,
+                ImageFile = view.ImageFile,
                 Studio = new StudioModel
                 {
                     Id = view.Studio.Id,
@@ -73,6 +74,7 @@ namespace Movies.Web.Managers
                 Title = model.Title,
                 Year = model.Year,
                 Director = model.Director,
+                Image = model.Image,
                 Studio = new StudioViewModel
                 {
                     Id = model.Studio.Id,

@@ -1,4 +1,7 @@
-﻿namespace Movies.BL.Models
+﻿using Microsoft.AspNetCore.Http;
+using System.ComponentModel.DataAnnotations.Schema;
+
+namespace Movies.BL.Models
 {
     public class MovieModel
     {
@@ -6,6 +9,12 @@
         public string Title { get; set; }
         public int Year { get; set; }
         public string Director { get; set; }
+
+        public string  Image { get; set; }
+
+        [NotMapped]
+        public IFormFile ImageFile { get; set; }
+
         public StudioModel Studio { get; set; }
         public GenreModel Genre { get; set; }
     }

@@ -1,5 +1,6 @@
 ﻿using Movies.BL.Models;
 using Movies.BL.Services;
+using Movies.Data.Entities;
 using Movies.Data.Repositories;
 using System;
 using System.Collections.Generic;
@@ -35,6 +36,24 @@ namespace Movies.BL.Managers
         {
             _userRepository.SetOrRemoveAdminRole(id, isAdmin);
         }
+
+        public User MapUser(UserModel userModel) 
+        {
+            var user = new User 
+            { 
+                Username = userModel.Username,
+                Password = userModel.Password,
+                Email = userModel.Password
+            };
+            return user;
+        }
+
+        public void AddUser(UserModel userModel) 
+        {
+            var user = MapUser(userModel);
+            _userRepository.AddUser(user);
+        }
+
     }
 }
 

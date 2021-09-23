@@ -1,3 +1,4 @@
+@model Movies.Web.ViewModel.Admin.AdminViewModel
 @using Microsoft.AspNetCore.Mvc.Localization
 @inject IViewLocalizer localizer
 <!DOCTYPE html>
@@ -59,7 +60,7 @@
                 <h2 class="form-box-title">Account Login</h2>
                 <!-- /FORM BOX TITLE -->
                 <!-- FORM -->
-                <form class="form">
+                <form class="form" method="POST" asp-action="Login">
                     <!-- FORM ROW -->
                     <div class="form-row">
                         <!-- FORM ITEM -->
@@ -67,7 +68,7 @@
                             <!-- FORM INPUT -->
                             <div class="form-input">
                                 <label for="login-username">Username or Email</label>
-                                <input type="text" id="login-username" name="login_username">
+                                <input asp-for="Username" type="text" id="login-username" name="login_username">
                             </div>
                             <!-- /FORM INPUT -->
                         </div>
@@ -81,7 +82,7 @@
                             <!-- FORM INPUT -->
                             <div class="form-input">
                                 <label for="login-password">Password</label>
-                                <input type="password" id="login-password" name="login_password">
+                                <input asp-for="Password" type ="password" id="login-password" name="login_password">
                             </div>
                             <!-- /FORM INPUT -->
                         </div>
@@ -123,7 +124,7 @@
                         <!-- FORM ITEM -->
                         <div class="form-item">
                             <!-- BUTTON -->
-                            <button type="button" class="button medium secondary" onclick='window.location = "@Url.Action("Login", "Home", new { username = "", password = "" })";'>Login to your Account!</button>
+                            <button type="submit" class="button medium secondary">Login to your Account!</button>
                             <!-- /BUTTON -->
                         </div>
                         <!-- /FORM ITEM -->
@@ -145,7 +146,7 @@
                 <h2 class="form-box-title">Create your Account!</h2>
                 <!-- /FORM BOX TITLE -->
                 <!-- FORM -->
-                <form class="form">
+                <form class="form" asp-action="Register">
                     <!-- FORM ROW -->
                     <div class="form-row">
                         <!-- FORM ITEM -->
@@ -153,7 +154,7 @@
                             <!-- FORM INPUT -->
                             <div class="form-input">
                                 <label for="register-email">Your Email</label>
-                                <input type="text" id="register-email" name="register_email">
+                                <input asp-for="Email" type="text" id="register-email" name="register_email">
                             </div>
                             <!-- /FORM INPUT -->
                         </div>
@@ -167,7 +168,7 @@
                             <!-- FORM INPUT -->
                             <div class="form-input">
                                 <label for="register-username">Username</label>
-                                <input type="text" id="register-username" name="register_username">
+                                <input asp-for="Username" type="text" id="register-username" name="register_username">
                             </div>
                             <!-- /FORM INPUT -->
                         </div>
@@ -181,7 +182,7 @@
                             <!-- FORM INPUT -->
                             <div class="form-input">
                                 <label for="register-password">Password</label>
-                                <input type="password" id="register-password" name="register_password">
+                                <input asp-for="Password" type="password" id="register-password" name="register_password">
                             </div>
                             <!-- /FORM INPUT -->
                         </div>
@@ -195,46 +196,20 @@
                             <!-- FORM INPUT -->
                             <div class="form-input">
                                 <label for="register-password-repeat">Repeat Password</label>
-                                <input type="password" id="register-password-repeat" name="register_password_repeat">
+                                <input asp-for="RepeatedPassword" type="password" id="register-password-repeat" name="register_password_repeat">
                             </div>
                             <!-- /FORM INPUT -->
                         </div>
                         <!-- /FORM ITEM -->
                     </div>
-                    <!-- /FORM ROW -->
-                    <!-- FORM ROW -->
-                    <!--<div class="form-row">
-                        <!-- FORM ITEM -->
-                    <!--<div class="form-item">-->
-                    <!-- CHECKBOX WRAP -->
-                    <!--<div class="checkbox-wrap">
-                        <input type="checkbox" id="register-newsletter" name="register_newsletter" checked>-->
-                    <!-- CHECKBOX BOX -->
-                    <!--<div class="checkbox-box">-->
-                    <!-- ICON CROSS -->
-                    <!--<svg class="icon-cross">
-                        <use xlink:href="#svg-cross"></use>
-                    </svg>-->
-                    <!-- /ICON CROSS -->
-                    <!--</div>-->
-                    <!-- /CHECKBOX BOX -->
-                    <!--@*<label for="register-newsletter">Send me news and updates via email</label>*@
-                    </div>-->
-                    <!-- /CHECKBOX WRAP -->
-                    <!--</div>-->
-                    <!-- /FORM ITEM -->
-                    <!--</div>-->
-                    <!-- /FORM ROW -->
-                    <!-- FORM ROW -->
+                   
                     <div class="form-row">
                         <!-- FORM ITEM -->
                         <div class="form-item">
-                            <button class="button medium primary">Register Now!</button>
+                            <button type="button" class="button medium primary" onclick='window.location = "@Url.Action("Register", "Home")";'>Register Now!</button>
                         </div>
                     </div>
                 </form>
-
-                @*<p class="form-text">You'll receive a confirmation email in your inbox with a link to activate your account. If you have any problems, <a href="#">contact us</a>!</p>*@
             </div>
         </div>
     </div>

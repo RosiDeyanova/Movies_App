@@ -1,8 +1,10 @@
-﻿using Microsoft.AspNetCore.Mvc.Rendering;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Movies.BL.Models;
 using Movies.Web.Attributes;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Movies.Web.ViewModel.Movies
 {
@@ -24,6 +26,11 @@ namespace Movies.Web.ViewModel.Movies
         [StringLength(30, ErrorMessage = "The name is too long")]
         [RegularExpression(@"^[A-Z]+[a-zA-Z'\s]*$", ErrorMessage = "The director name can only contain letters and spaces")]
         public string Director { set; get; }
+
+        public string Image { get; set; }
+
+        [NotMapped]
+        public IFormFile ImageFile { get; set; }
 
         public StudioViewModel Studio { get; set; }
 

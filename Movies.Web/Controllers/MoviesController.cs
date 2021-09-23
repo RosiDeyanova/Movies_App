@@ -7,6 +7,7 @@ using Movies.Web.Models;
 using Movies.Web.ViewModel.Movies;
 using System.Diagnostics;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace Movies.Web.Controllers
 {
@@ -53,12 +54,12 @@ namespace Movies.Web.Controllers
         }
 
         [HttpPost]
-        public ActionResult Create(CreateMovieViewModel createViewModel)
+        public async Task<ActionResult> Create(CreateMovieViewModel createViewModel)
         {
             if (ModelState.IsValid)
             {
                 var mappedMovie = _moviesManager.GetMovie(createViewModel);
-               _movieManager.SaveMovie(mappedMovie);
+                await _movieManager.SaveMovie(mappedMovie);
                 return RedirectToAction("Index");
             }
 

@@ -15,15 +15,21 @@ namespace Movies.Data.Repositories
 
         public IEnumerable<User> GetUsers()
         {
-            var genres = _baseRepository.GetDb().User.AsEnumerable();
+            var genres = _baseRepository.Db.User.AsEnumerable();
 
             return genres;
         }
 
         public void SetOrRemoveAdminRole(int id, bool isAdmin) 
         {
-            var user = _baseRepository.GetDb().User.FirstOrDefault(x => x.Id == id);
+            var user = _baseRepository.Db.User.FirstOrDefault(x => x.Id == id);
             user.IsAdmin = isAdmin;
+            _baseRepository.SaveDb();
+        }
+
+        public void AddUser(User user) 
+        {
+            _baseRepository.Db.User.Add(user);
             _baseRepository.SaveDb();
         }
     }

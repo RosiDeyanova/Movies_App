@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using Microsoft.AspNetCore.Http;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -12,6 +13,8 @@ namespace Movies.Data.Entities
         public string Title { set; get; }
         
         public int Year { set; get; }
+
+        public string Image { get; set; }
 
         public string Director { set; get; }
 

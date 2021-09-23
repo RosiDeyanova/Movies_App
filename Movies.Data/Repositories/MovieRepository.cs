@@ -1,6 +1,8 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Hosting;
+using Microsoft.EntityFrameworkCore;
 using Movies.Data.Entities;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 
 namespace Movies.Data.Repositories
@@ -8,6 +10,7 @@ namespace Movies.Data.Repositories
     public class MovieRepository : IMovieRepository
     {
         private readonly IBaseRepository _baseRepository;
+       
         public MovieRepository(IBaseRepository baseRepository)
         {
             _baseRepository = baseRepository;
@@ -15,12 +18,13 @@ namespace Movies.Data.Repositories
 
         public List<Movie> GetMovies()
         {
-            var movies = _baseRepository.GetDb().Movie.Select(m => new Movie
+            var movies = _baseRepository.Db.Movie.Select(m => new Movie
             {
                 Id = m.Id,
                 Title = m.Title,
                 Director = m.Director,
                 Year = m.Year,
+                Image = m.Image,
                 Studio = new Studio
                 {
                     Id = m.Studio.Id,
@@ -39,7 +43,7 @@ namespace Movies.Data.Repositories
 
         public void SaveMovie(Movie movie)
         {
-            _baseRepository.GetDb().Movie.Add(movie);
+            _baseRepository.Db.Movie.Add(movie);
             _baseRepository.SaveDb();
         }
 

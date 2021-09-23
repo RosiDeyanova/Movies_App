@@ -13,6 +13,9 @@ namespace Movies.Data.Repositories
             _moviesContext = moviesContext;
         }
 
+        public MoviesContext Db => _moviesContext;
+    
+
         public MoviesContext GetDb() 
         {
             return _moviesContext;

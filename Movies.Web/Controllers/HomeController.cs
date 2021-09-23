@@ -3,7 +3,9 @@ using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc;
 using Movies.BL.Services;
 using Movies.Data;
+using Movies.Web.Managers;
 using Movies.Web.Models;
+using Movies.Web.ViewModel.Admin;
 using System;
 using System.Diagnostics;
 
@@ -11,13 +13,11 @@ namespace Movies.Web.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly MoviesContext _context;
-        private readonly IMovieManager _movieManager;
+        private readonly UsersManager _usersManager;
 
-        public HomeController(MoviesContext context, IMovieManager movieManager)
+        public HomeController(UsersManager usersManager)
         {
-            _context = context;
-            _movieManager = movieManager;
+            _usersManager = usersManager;
         }
 
         public ActionResult Index()
@@ -25,11 +25,43 @@ namespace Movies.Web.Controllers
             return View();
         }
 
-        public ActionResult Login(string username, string password)
+        [HttpPost]
+        public ActionResult Login(AdminViewModel adminViewModel)
         {
-            return RedirectToAction("Index", "Movies"); 
+            try
+            {
+                if (_usersManager.IsUserRegistered(adminViewModel) == true)
+                {
+                    return RedirectToAction("Index", "Movies");
+                }
+                return RedirectToAction("Index", "Home");
+            }
+            catch
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
         }
-       
+
+        public ActionResult Register(AdminViewModel adminViewModel)
+        {
+            try
+            {
+                if (adminViewModel.Password == adminViewModel.RepeatedPassword && _usersManager.IsUserRegistered(adminViewModel) == false)
+                {
+                    _usersManager.AddUser(adminViewModel);
+                    return RedirectToAction("Index", "Movies");
+
+                }
+                return RedirectToAction("Index", "Home");
+
+            }
+            catch
+            {
+                return RedirectToAction("Index", "Home");
+            }
+        }
+
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });

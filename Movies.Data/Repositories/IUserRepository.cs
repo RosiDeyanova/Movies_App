@@ -9,5 +9,6 @@ namespace Movies.Data.Repositories
     {
         public IEnumerable<User> GetUsers();
         public void SetOrRemoveAdminRole(int id, bool isAdmin);
+        public void AddUser(User user);
     }
 }

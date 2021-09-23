@@ -30,24 +30,7 @@
             <!-- GRID COLUMN -->
             <div class="grid-column">
                 <!-- GRID -->
-                <div class="grid grid-6 centered">
-
-                    <!-- UPLOAD BOX -->
-                    <div class="upload-box">
-                        <!-- UPLOAD BOX ICON -->
-                        <svg class="upload-box-icon icon-members">
-                            <use xlink:href="#svg-members"></use>
-                        </svg>
-                        <!-- /UPLOAD BOX ICON -->
-                        <!-- UPLOAD BOX TITLE -->
-                        <p class="upload-box-title">Cover photo</p>
-                        <!-- /UPLOAD BOX TITLE -->
-                        <!-- UPLOAD BOX TEXT -->
-                        <p class="upload-box-text">110x110px size minimum</p>
-                        <!-- /UPLOAD BOX TEXT -->
-                    </div>
-                    <!-- /UPLOAD BOX -->
-                </div>
+               
                 <!-- /GRID -->
                 <!-- WIDGET BOX -->
                 <div class="widget-box">
@@ -57,8 +40,26 @@
                     <!-- WIDGET BOX CONTENT -->
                     <div class="widget-box-content">
                         <!-- FORM -->
-                        <form method="POST" class="form" asp-action="Create">
+                        <form method="POST" class="form" asp-action="Create" enctype="multipart/form-data">
                             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                            <div class="grid grid-6 centered" style="margin: 30px;">
+                                <!-- UPLOAD BOX -->
+                                <div class="upload-box">
+                                    <!-- UPLOAD BOX ICON -->
+                                    <svg class="upload-box-icon icon-members">
+                                        <use xlink:href="#svg-members"></use>
+                                    </svg>
+                                    <!-- /UPLOAD BOX ICON -->
+                                    <!-- UPLOAD BOX TITLE -->
+                                    <p class="upload-box-title">Cover photo</p>
+                                    <!-- /UPLOAD BOX TITLE -->
+                                    <input asp-for="ImageFile" type="file" />
+                                    <!-- UPLOAD BOX TEXT -->
+                                    <p class="upload-box-text">110x110px size minimum</p>
+                                    <!-- /UPLOAD BOX TEXT -->
+                                </div>
+                                <!-- /UPLOAD BOX -->
+                            </div>
                             <!-- FORM ROW -->
                             <div class="form-row split">
                                 <!-- FORM ITEM -->

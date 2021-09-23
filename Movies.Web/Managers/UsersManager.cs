@@ -34,5 +34,33 @@ namespace Movies.Web.Managers
         {
             _userManager.SetOrRemoveAdminRole(id, isAdmin);
         }
+
+        public bool IsUserRegistered(AdminViewModel adminViewModel) 
+        {
+            var user = GetUsers().Where(u => u.Username == adminViewModel.Username && u.Password == adminViewModel.Password).FirstOrDefault();
+            if (user == null)
+            {
+                return true;
+            }
+            return false;
+        }
+
+        public UserModel MapUser(AdminViewModel adminViewModel) 
+        {
+            var usermodel = new UserModel
+            {
+                Username = adminViewModel.Username,
+                Password = adminViewModel.Password,
+                Email = adminViewModel.Username
+            };
+            return usermodel;
+        }
+
+        public void AddUser(AdminViewModel adminViewModel) 
+        {
+            var userModel = MapUser(adminViewModel);
+            _userManager.MapUser(userModel);
+            _userManager.AddUser(userModel);
+        }
     }
 }
