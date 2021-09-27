@@ -7,6 +7,7 @@ using Movies.Web.Models;
 using Movies.Web.ViewModel.Movies;
 using System.Diagnostics;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace Movies.Web.Controllers
 {
@@ -30,10 +31,10 @@ namespace Movies.Web.Controllers
             return View(model);
         }
 
-        public IActionResult Details(int id)
+        public ActionResult Details(int id)
         {
             var info = _movieManager.GetMovieById(id);
-            var mappedInfo = _moviesManager.ReturnMovie(info);
+            var mappedInfo = _moviesManager.GetMovie(info);
 
             return View(mappedInfo);
         }
@@ -53,12 +54,12 @@ namespace Movies.Web.Controllers
         }
 
         [HttpPost]
-        public ActionResult Create(CreateMovieViewModel createViewModel)
+        public async Task<ActionResult> Create(CreateMovieViewModel createViewModel)
         {
             if (ModelState.IsValid)
             {
-                var mappedMovie = _moviesManager.ReturnMovie(createViewModel);
-               _movieManager.SaveMovie(mappedMovie);
+                var mappedMovie = _moviesManager.GetMovie(createViewModel);
+                await _movieManager.SaveMovie(mappedMovie);
                 return RedirectToAction("Index");
             }
 
@@ -68,7 +69,7 @@ namespace Movies.Web.Controllers
         public ActionResult Edit(int id)
         {
             var info = _movieManager.GetAllMovies().FirstOrDefault(x => x.Id == id);
-            var mappedInfo = _moviesManager.ReturnMovie(info);
+            var mappedInfo = _moviesManager.GetMovie(info);
 
             return View(mappedInfo);
         }
@@ -80,7 +81,7 @@ namespace Movies.Web.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    var mappedMovie = _moviesManager.ReturnMovie(id, createMovieViewModel);
+                    var mappedMovie = _moviesManager.GetMovie(id, createMovieViewModel);
                     _movieManager.UpdateMovie(mappedMovie);
                     return RedirectToAction("Details", createMovieViewModel);
                 }
@@ -101,7 +102,6 @@ namespace Movies.Web.Controllers
             }
             catch
             {
-
                 return RedirectToAction("Error", "Home");
             }
         }

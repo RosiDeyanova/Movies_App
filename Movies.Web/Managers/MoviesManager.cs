@@ -16,7 +16,7 @@ namespace Movies.Web.Managers
             _genreManager = genreManager;
         }
 
-        public MovieModel ReturnMovie(int id, CreateMovieViewModel view)
+        public MovieModel GetMovie(int id, CreateMovieViewModel view)
         {
             MovieModel movie = new MovieModel
             {
@@ -40,7 +40,7 @@ namespace Movies.Web.Managers
             return movie;
         }
 
-        public MovieModel ReturnMovie(CreateMovieViewModel view)
+        public MovieModel GetMovie(CreateMovieViewModel view)
         {
             MovieModel movie = new MovieModel
             {
@@ -48,6 +48,7 @@ namespace Movies.Web.Managers
                 Title = view.Title,
                 Year = view.Year,
                 Director = view.Director,
+                ImageFile = view.ImageFile,
                 Studio = new StudioModel
                 {
                     Id = view.Studio.Id,
@@ -63,7 +64,7 @@ namespace Movies.Web.Managers
             return movie;
         }
 
-        public CreateMovieViewModel ReturnMovie(MovieModel model)
+        public CreateMovieViewModel GetMovie(MovieModel model)
         {
             var genres = _genreManager.GetGenres().ToList();
 
@@ -73,6 +74,7 @@ namespace Movies.Web.Managers
                 Title = model.Title,
                 Year = model.Year,
                 Director = model.Director,
+                Image = model.Image,
                 Studio = new StudioViewModel
                 {
                     Id = model.Studio.Id,

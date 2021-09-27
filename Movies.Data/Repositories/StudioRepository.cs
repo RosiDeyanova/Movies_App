@@ -6,25 +6,21 @@ namespace Movies.Data.Repositories
 {
     public class StudioRepository : IStudioRepository
     {
-        private readonly MoviesContext _moviesContext;
-        private readonly IMovieRepository _movieRepository;
-
-        public StudioRepository(MoviesContext moviesContext, IMovieRepository movieRepository)
+        private readonly IBaseRepository _baseRepository;
+        public StudioRepository(IBaseRepository baseRepository)
         {
-            _moviesContext = moviesContext;
-            _movieRepository = movieRepository;
+            _baseRepository = baseRepository;
         }
-
         public int SaveStudio(Studio studio)
         {
-            _moviesContext.Studios.Add(studio);
-            _movieRepository.SaveDb();
+            _baseRepository.GetDb().Studio.Add(studio);
+            _baseRepository.SaveDb();
             return studio.Id;
         }
 
         public List<Studio> GetStudios()
         {
-            var studios = _moviesContext.Studios.ToList();
+            var studios = _baseRepository.GetDb().Studio.ToList();
             return studios;
         }
 

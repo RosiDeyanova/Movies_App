@@ -1,0 +1,36 @@
+﻿@model List<Movies.Web.ViewModel.Admin.AdminViewModel>
+
+<div class="content-grid">
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">id</th>
+                <th scope="col">Username</th>
+                <th scope="col">Email</th>
+                <th scope="col"></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <th scope="row">@item.Id</th>
+                    <td>@item.Username</td>
+                    <td>@item.Email</td>
+                    <td>
+                        @if (item.IsAdmin == true && item.Id != 1)
+                        {
+                            <a asp-controller="Admin" asp-action="RemoveAdminRole" asp-route-id="@item.Id">Remove Admin Role</a>
+                        }
+                        else if (item.IsAdmin == false && item.Id != 1)
+                        {
+                            <a asp-controller="Admin" asp-action="SetAdminRole" asp-route-id="@item.Id">Set Admin Role</a>
+                        }
+
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+

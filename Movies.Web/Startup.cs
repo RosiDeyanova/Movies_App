@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Mvc.Razor;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -27,14 +28,32 @@ namespace Movies.Web
             services.AddDbContext<MoviesContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
             services.AddControllersWithViews();
+            services.AddHttpContextAccessor();
 
             services.AddScoped<IMovieRepository, MovieRepository>();
             services.AddScoped<IStudioRepository, StudioRepository>();
             services.AddScoped<IGenreRepository, GenreRepository>();
+            services.AddScoped<IUserRepository, UserRepository>();
+            services.AddScoped<IBaseRepository, BaseRepository>();
             services.AddScoped<IMovieManager, MovieManager>();
             services.AddScoped<IStudioManager, StudioManager>();
             services.AddScoped<IGenreManager, GenreManager>();
+            services.AddScoped<IUserManager, UserManager>();
             services.AddScoped<MoviesManager>();
+            services.AddScoped<UsersManager>();
+
+            services.AddLocalization(options => options.ResourcesPath = "Resources");
+            services.AddMvc()
+                .AddViewLocalization(LanguageViewLocationExpanderFormat.Suffix)
+                .AddDataAnnotationsLocalization();
+
+            services.Configure<RequestLocalizationOptions>(options =>
+            {
+                var supportedCultures = new[] { "en", "bg" };
+                options.SetDefaultCulture(supportedCultures[1])
+                    .AddSupportedCultures(supportedCultures)
+                    .AddSupportedUICultures(supportedCultures);
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -50,6 +69,14 @@ namespace Movies.Web
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
+
+            var supportedCultures = new[] { "en", "bg" };
+            var localizationOptions = new RequestLocalizationOptions().SetDefaultCulture(supportedCultures[1])
+                .AddSupportedCultures(supportedCultures)
+                .AddSupportedUICultures(supportedCultures);
+
+            app.UseRequestLocalization(localizationOptions);
+
             app.UseHttpsRedirection();
             app.UseStaticFiles();
 
