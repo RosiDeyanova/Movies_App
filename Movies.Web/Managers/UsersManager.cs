@@ -24,6 +24,7 @@ namespace Movies.Web.Managers
                 Id = u.Id,
                 Username = u.Username,
                 Email = u.Email,
+                Password = u.Password,
                 IsAdmin = u.IsAdmin
             }).ToList();
 
@@ -35,14 +36,14 @@ namespace Movies.Web.Managers
             _userManager.SetOrRemoveAdminRole(id, isAdmin);
         }
 
-        public bool IsUserRegistered(AdminViewModel adminViewModel) 
+        public Tuple<bool,int> IsUserRegistered(AdminViewModel adminViewModel) 
         {
-            var user = GetUsers().Where(u => u.Username == adminViewModel.Username && u.Password == adminViewModel.Password).FirstOrDefault();
-            if (user == null)
+            var user = GetUsers().Where(u => u.Email == adminViewModel.Email && u.Password == adminViewModel.Password).FirstOrDefault();
+            if (user != null)
             {
-                return true;
+                return new Tuple<bool,int>(true, user.Id);
             }
-            return false;
+            return new Tuple<bool, int>(false, 0);
         }
 
         public UserModel MapUser(AdminViewModel adminViewModel) 

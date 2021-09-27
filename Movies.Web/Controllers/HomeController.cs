@@ -8,6 +8,7 @@ using Movies.Web.Models;
 using Movies.Web.ViewModel.Admin;
 using System;
 using System.Diagnostics;
+using System.Linq;
 
 namespace Movies.Web.Controllers
 {
@@ -30,8 +31,14 @@ namespace Movies.Web.Controllers
         {
             try
             {
-                if (_usersManager.IsUserRegistered(adminViewModel) == true)
+                if (_usersManager.IsUserRegistered(adminViewModel).Item1 == true)
                 {
+                    var user = _usersManager.GetUsers().Where(u => u.Id == _usersManager.IsUserRegistered(adminViewModel).Item2).FirstOrDefault();
+                    if (user.IsAdmin == true)
+                    {
+                        return RedirectToAction("Index", "Admin");
+
+                    }
                     return RedirectToAction("Index", "Movies");
                 }
                 return RedirectToAction("Index", "Home");
@@ -47,7 +54,7 @@ namespace Movies.Web.Controllers
         {
             try
             {
-                if (adminViewModel.Password == adminViewModel.RepeatedPassword && _usersManager.IsUserRegistered(adminViewModel) == false)
+                if (adminViewModel.Password == adminViewModel.RepeatedPassword && _usersManager.IsUserRegistered(adminViewModel).Item1 == false)
                 {
                     _usersManager.AddUser(adminViewModel);
                     return RedirectToAction("Index", "Movies");

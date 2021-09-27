@@ -25,6 +25,7 @@ namespace Movies.BL.Managers
                 Id = u.Id,
                 Username = u.Username,
                 Email = u.Email,
+                Password = u.Password,
                 IsAdmin = u.IsAdmin
 
             }).ToList();
