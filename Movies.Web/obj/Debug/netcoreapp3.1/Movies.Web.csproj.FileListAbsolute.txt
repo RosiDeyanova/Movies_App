@@ -180,3 +180,5 @@ C:\Users\Rosi Deyanova\source\repos\Movies_App\Movies.Web\obj\Debug\netcoreapp3.
 C:\Users\Rosi Deyanova\source\repos\Movies_App\Movies.Web\obj\Debug\netcoreapp3.1\Movies.Web.dll
 C:\Users\Rosi Deyanova\source\repos\Movies_App\Movies.Web\obj\Debug\netcoreapp3.1\Movies.Web.pdb
 C:\Users\Rosi Deyanova\source\repos\Movies_App\Movies.Web\obj\Debug\netcoreapp3.1\Movies.Web.genruntimeconfig.cache
+C:\Users\Rosi Deyanova\source\repos\Movies_App\Movies.Web\obj\Debug\netcoreapp3.1\Razor\Views\User\Index.cshtml.g.cs
+C:\Users\Rosi Deyanova\source\repos\Movies_App\Movies.Web\obj\Debug\netcoreapp3.1\Razor\Views\User\_ViewStart.cshtml.g.cs

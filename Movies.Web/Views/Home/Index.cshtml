@@ -1,217 +1,209 @@
-@model Movies.Web.ViewModel.Admin.AdminViewModel
+@model Movies.Web.ViewModel.User.UserViewModel
 @using Microsoft.AspNetCore.Mvc.Localization
 @inject IViewLocalizer localizer
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <!-- favicon -->
-    <link rel="icon" href="img/favicon.ico">
-    <title>Vikinger | Home</title>
-</head>
-<body>
 
-    <!-- LANDING -->
-    <div class="landing">
-        <!-- LANDING DECORATION -->
-        <div class="landing-decoration"></div>
-        <!-- /LANDING DECORATION -->
-        <!-- LANDING INFO -->
-        <div class="landing-info">
-            <!-- LOGO -->
-            <div class="logo">
-                <!-- ICON LOGO VIKINGER -->
-                <svg class="icon-logo-vikinger">
-                    <use xlink:href="#svg-logo-vikinger"></use>
-                </svg>
-                <!-- /ICON LOGO VIKINGER -->
-            </div>
-            <!-- /LOGO -->
-            <!-- LANDING INFO PRETITLE -->
-            <h2 class="landing-info-pretitle">@localizer["welcome"]</h2>
-            <!-- /LANDING INFO PRETITLE -->
-            <!-- LANDING INFO TITLE -->
-            <h1 class="landing-info-title">Binger</h1>
-            <!-- /LANDING INFO TITLE -->
-            <!-- LANDING INFO TEXT -->
-            <p class="landing-info-text">@localizer["description"]</p>
-            <!-- /LANDING INFO TEXT -->
-            <!-- TAB SWITCH -->
-            <div class="tab-switch">
-                <!-- TAB SWITCH BUTTON -->
-                <p class="tab-switch-button login-register-form-trigger">@localizer["login"]</p>
-                <!-- /TAB SWITCH BUTTON -->
-                <!-- TAB SWITCH BUTTON -->
-                <p class="tab-switch-button login-register-form-trigger">@localizer["register"]</p>
-                <!-- /TAB SWITCH BUTTON -->
-            </div>
-            <!-- /TAB SWITCH -->
+@{
+    var returnUrl = Context.Request.Query["returnurl"];
+}
+
+<!-- LANDING -->
+<div class="landing">
+    <!-- LANDING DECORATION -->
+    <div class="landing-decoration"></div>
+    <!-- /LANDING DECORATION -->
+    <!-- LANDING INFO -->
+    <div class="landing-info">
+        <!-- LOGO -->
+        <div class="logo">
+            <!-- ICON LOGO VIKINGER -->
+            <svg class="icon-logo-vikinger">
+                <use xlink:href="#svg-logo-vikinger"></use>
+            </svg>
+            <!-- /ICON LOGO VIKINGER -->
         </div>
-        <!-- /LANDING INFO -->
-        <!-- LANDING FORM -->
-        <div class="landing-form">
-            <!-- FORM BOX -->
-            <div class="form-box login-register-form-element">
-                <!-- FORM BOX DECORATION -->
-                <img class="form-box-decoration overflowing" src="img/landing/rocket.png" alt="rocket">
-                <!-- /FORM BOX DECORATION -->
-                <!-- FORM BOX TITLE -->
-                <h2 class="form-box-title">Account Login</h2>
-                <!-- /FORM BOX TITLE -->
-                <!-- FORM -->
-                <form class="form" method="POST" asp-action="Login">
-                    <!-- FORM ROW -->
-                    <div class="form-row">
-                        <!-- FORM ITEM -->
-                        <div class="form-item">
-                            <!-- FORM INPUT -->
-                            <div class="form-input">
-                                <label for="login-username">Email</label>
-                                <input asp-for="Email" type="text" id="login-username" name="Email">
+        <!-- /LOGO -->
+        <!-- LANDING INFO PRETITLE -->
+        <h2 class="landing-info-pretitle">@localizer["welcome"]</h2>
+        <!-- /LANDING INFO PRETITLE -->
+        <!-- LANDING INFO TITLE -->
+        <h1 class="landing-info-title">Binger</h1>
+        <!-- /LANDING INFO TITLE -->
+        <!-- LANDING INFO TEXT -->
+        <p class="landing-info-text">@localizer["description"]</p>
+        <!-- /LANDING INFO TEXT -->
+        <!-- TAB SWITCH -->
+        <div class="tab-switch">
+            <!-- TAB SWITCH BUTTON -->
+            <p class="tab-switch-button login-register-form-trigger">@localizer["login"]</p>
+            <!-- /TAB SWITCH BUTTON -->
+            <!-- TAB SWITCH BUTTON -->
+            <p class="tab-switch-button login-register-form-trigger">@localizer["register"]</p>
+            <!-- /TAB SWITCH BUTTON -->
+        </div>
+        <!-- /TAB SWITCH -->
+    </div>
+    <!-- /LANDING INFO -->
+    <!-- LANDING FORM -->
+    <div class="landing-form">
+        <!-- FORM BOX -->
+        <div class="form-box login-register-form-element">
+            <!-- FORM BOX DECORATION -->
+            <img class="form-box-decoration overflowing" src="img/landing/rocket.png" alt="rocket">
+            <!-- /FORM BOX DECORATION -->
+            <!-- FORM BOX TITLE -->
+            <h2 class="form-box-title">Account Login</h2>
+            <!-- /FORM BOX TITLE -->
+            <!-- FORM -->
+            <form class="form" method="POST" asp-route-returnurl = "@returnUrl" asp-action="Login">
+                <!-- FORM ROW -->
+                <div class="form-row">
+                    <!-- FORM ITEM -->
+                    <div class="form-item">
+                        <!-- FORM INPUT -->
+                        <div class="form-input">
+                            <label for="login-username">Email</label>
+                            <input asp-for="Email" type="text" id="login-username" name="Email">
+                        </div>
+                        <!-- /FORM INPUT -->
+                    </div>
+                    <!-- /FORM ITEM -->
+                </div>
+                <!-- /FORM ROW -->
+                <!-- FORM ROW -->
+                <div class="form-row">
+                    <!-- FORM ITEM -->
+                    <div class="form-item">
+                        <!-- FORM INPUT -->
+                        <div class="form-input">
+                            <label for="login-password">Password</label>
+                            <input asp-for="Password" type="password" id="login-password" name="Password">
+                        </div>
+                        <!-- /FORM INPUT -->
+                    </div>
+                    <!-- /FORM ITEM -->
+                </div>
+                <!-- /FORM ROW -->
+                <!-- FORM ROW -->
+                <div class="form-row space-between">
+                    <!-- FORM ITEM -->
+                    <div class="form-item">
+                        <!-- CHECKBOX WRAP -->
+                        <div class="checkbox-wrap">
+                            <input type="checkbox" id="login-remember" name="login_remember" checked>
+                            <!-- CHECKBOX BOX -->
+                            <div class="checkbox-box">
+                                <!-- ICON CROSS -->
+                                <svg class="icon-cross">
+                                    <use xlink:href="#svg-cross"></use>
+                                </svg>
+                                <!-- /ICON CROSS -->
                             </div>
-                            <!-- /FORM INPUT -->
+                            <!-- /CHECKBOX BOX -->
+                            <label for="login-remember">Remember Me</label>
                         </div>
-                        <!-- /FORM ITEM -->
+                        <!-- /CHECKBOX WRAP -->
                     </div>
-                    <!-- /FORM ROW -->
-                    <!-- FORM ROW -->
-                    <div class="form-row">
-                        <!-- FORM ITEM -->
-                        <div class="form-item">
-                            <!-- FORM INPUT -->
-                            <div class="form-input">
-                                <label for="login-password">Password</label>
-                                <input asp-for="Password" type ="password" id="login-password" name="Password">
-                            </div>
-                            <!-- /FORM INPUT -->
+                    <!-- /FORM ITEM -->
+                    <!-- FORM ITEM -->
+                    <div class="form-item">
+                        <!-- FORM LINK -->
+                        <a class="form-link" href="#">Forgot Password?</a>
+                        <!-- /FORM LINK -->
+                    </div>
+                    <!-- /FORM ITEM -->
+                </div>
+                <!-- /FORM ROW -->
+                <!-- FORM ROW -->
+                <div class="form-row">
+                    <!-- FORM ITEM -->
+                    <div class="form-item">
+                        <!-- BUTTON -->
+                        <button type="submit" class="button medium secondary">Login to your Account!</button>
+                        <!-- /BUTTON -->
+                    </div>
+                    <!-- /FORM ITEM -->
+                </div>
+                <div class="form-row">
+                    @await Html.PartialAsync("_SelectLanguagePartial")
+                </div>
+                <!-- /FORM ROW -->
+            </form>
+            <!-- /FORM -->
+        </div>
+        <!-- /FORM BOX -->
+        <!-- FORM BOX -->
+        <div class="form-box login-register-form-element">
+            <!-- FORM BOX DECORATION -->
+            <img class="form-box-decoration" src="img/landing/rocket.png" alt="rocket">
+            <!-- /FORM BOX DECORATION -->
+            <!-- FORM BOX TITLE -->
+            <h2 class="form-box-title">Create your Account!</h2>
+            <!-- /FORM BOX TITLE -->
+            <!-- FORM -->
+            <form class="form" method="POST" asp-route-returnurl = "@returnUrl" asp-action="Register">
+                <!-- FORM ROW -->
+                <div class="form-row">
+                    <!-- FORM ITEM -->
+                    <div class="form-item">
+                        <!-- FORM INPUT -->
+                        <div class="form-input">
+                            <label for="register-email">Your Email</label>
+                            <input asp-for="Email" type="text" id="register-email" name="Email">
                         </div>
-                        <!-- /FORM ITEM -->
+                        <!-- /FORM INPUT -->
                     </div>
-                    <!-- /FORM ROW -->
-                    <!-- FORM ROW -->
-                    <div class="form-row space-between">
-                        <!-- FORM ITEM -->
-                        <div class="form-item">
-                            <!-- CHECKBOX WRAP -->
-                            <div class="checkbox-wrap">
-                                <input type="checkbox" id="login-remember" name="login_remember" checked>
-                                <!-- CHECKBOX BOX -->
-                                <div class="checkbox-box">
-                                    <!-- ICON CROSS -->
-                                    <svg class="icon-cross">
-                                        <use xlink:href="#svg-cross"></use>
-                                    </svg>
-                                    <!-- /ICON CROSS -->
-                                </div>
-                                <!-- /CHECKBOX BOX -->
-                                <label for="login-remember">Remember Me</label>
-                            </div>
-                            <!-- /CHECKBOX WRAP -->
+                    <!-- /FORM ITEM -->
+                </div>
+                <!-- /FORM ROW -->
+                <!-- FORM ROW -->
+                <div class="form-row">
+                    <!-- FORM ITEM -->
+                    <div class="form-item">
+                        <!-- FORM INPUT -->
+                        <div class="form-input">
+                            <label for="register-username">Username</label>
+                            <input asp-for="Username" type="text" id="register-username" name="Username">
                         </div>
-                        <!-- /FORM ITEM -->
-                        <!-- FORM ITEM -->
-                        <div class="form-item">
-                            <!-- FORM LINK -->
-                            <a class="form-link" href="#">Forgot Password?</a>
-                            <!-- /FORM LINK -->
+                        <!-- /FORM INPUT -->
+                    </div>
+                    <!-- /FORM ITEM -->
+                </div>
+                <!-- /FORM ROW -->
+                <!-- FORM ROW -->
+                <div class="form-row">
+                    <!-- FORM ITEM -->
+                    <div class="form-item">
+                        <!-- FORM INPUT -->
+                        <div class="form-input">
+                            <label for="register-password">Password</label>
+                            <input asp-for="Password" type="password" id="register-password" name="Password">
                         </div>
-                        <!-- /FORM ITEM -->
+                        <!-- /FORM INPUT -->
                     </div>
-                    <!-- /FORM ROW -->
-                    <!-- FORM ROW -->
-                    <div class="form-row">
-                        <!-- FORM ITEM -->
-                        <div class="form-item">
-                            <!-- BUTTON -->
-                            <button type="submit" class="button medium secondary">Login to your Account!</button>
-                            <!-- /BUTTON -->
+                    <!-- /FORM ITEM -->
+                </div>
+                <!-- /FORM ROW -->
+                <!-- FORM ROW -->
+                <div class="form-row">
+                    <!-- FORM ITEM -->
+                    <div class="form-item">
+                        <!-- FORM INPUT -->
+                        <div class="form-input">
+                            <label for="register-password-repeat">Repeat Password</label>
+                            <input asp-for="RepeatedPassword" type="password" id="register-password-repeat" name="RepeatedPassword">
                         </div>
-                        <!-- /FORM ITEM -->
+                        <!-- /FORM INPUT -->
                     </div>
-                    <div class="form-row">
-                            @await Html.PartialAsync("_SelectLanguagePartial")
+                    <!-- /FORM ITEM -->
+                </div>
+
+                <div class="form-row">
+                    <!-- FORM ITEM -->
+                    <div class="form-item">
+                        <button type="submit" class="button medium primary">Register Now!</button>
                     </div>
-                    <!-- /FORM ROW -->
-                </form>
-                <!-- /FORM -->
-            </div>
-            <!-- /FORM BOX -->
-            <!-- FORM BOX -->
-            <div class="form-box login-register-form-element">
-                <!-- FORM BOX DECORATION -->
-                <img class="form-box-decoration" src="img/landing/rocket.png" alt="rocket">
-                <!-- /FORM BOX DECORATION -->
-                <!-- FORM BOX TITLE -->
-                <h2 class="form-box-title">Create your Account!</h2>
-                <!-- /FORM BOX TITLE -->
-                <!-- FORM -->
-                <form class="form" asp-action="Register">
-                    <!-- FORM ROW -->
-                    <div class="form-row">
-                        <!-- FORM ITEM -->
-                        <div class="form-item">
-                            <!-- FORM INPUT -->
-                            <div class="form-input">
-                                <label for="register-email">Your Email</label>
-                                <input asp-for="Email" type="text" id="register-email" name="register_email">
-                            </div>
-                            <!-- /FORM INPUT -->
-                        </div>
-                        <!-- /FORM ITEM -->
-                    </div>
-                    <!-- /FORM ROW -->
-                    <!-- FORM ROW -->
-                    <div class="form-row">
-                        <!-- FORM ITEM -->
-                        <div class="form-item">
-                            <!-- FORM INPUT -->
-                            <div class="form-input">
-                                <label for="register-username">Username</label>
-                                <input asp-for="Username" type="text" id="register-username" name="register_username">
-                            </div>
-                            <!-- /FORM INPUT -->
-                        </div>
-                        <!-- /FORM ITEM -->
-                    </div>
-                    <!-- /FORM ROW -->
-                    <!-- FORM ROW -->
-                    <div class="form-row">
-                        <!-- FORM ITEM -->
-                        <div class="form-item">
-                            <!-- FORM INPUT -->
-                            <div class="form-input">
-                                <label for="register-password">Password</label>
-                                <input asp-for="Password" type="password" id="register-password" name="register_password">
-                            </div>
-                            <!-- /FORM INPUT -->
-                        </div>
-                        <!-- /FORM ITEM -->
-                    </div>
-                    <!-- /FORM ROW -->
-                    <!-- FORM ROW -->
-                    <div class="form-row">
-                        <!-- FORM ITEM -->
-                        <div class="form-item">
-                            <!-- FORM INPUT -->
-                            <div class="form-input">
-                                <label for="register-password-repeat">Repeat Password</label>
-                                <input asp-for="RepeatedPassword" type="password" id="register-password-repeat" name="register_password_repeat">
-                            </div>
-                            <!-- /FORM INPUT -->
-                        </div>
-                        <!-- /FORM ITEM -->
-                    </div>
-                   
-                    <div class="form-row">
-                        <!-- FORM ITEM -->
-                        <div class="form-item">
-                            <button type="button" class="button medium primary" onclick='window.location = "@Url.Action("Register", "Home")";'>Register Now!</button>
-                        </div>
-                    </div>
-                </form>
-            </div>
+                </div>
+            </form>
         </div>
     </div>
-</body>
-</html>
+</div>

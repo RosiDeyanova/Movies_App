@@ -1,6 +1,6 @@
-﻿namespace Movies.Web.ViewModel.Admin
+﻿namespace Movies.Web.ViewModel.User
 {
-    public class AdminViewModel
+    public class UserViewModel
     {
         public int Id { get; set; }
         public string Username { get; set; }

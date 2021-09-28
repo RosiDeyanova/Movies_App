@@ -44,7 +44,7 @@ namespace Movies.BL.Managers
             { 
                 Username = userModel.Username,
                 Password = userModel.Password,
-                Email = userModel.Password
+                Email = userModel.Email
             };
             return user;
         }

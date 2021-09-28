@@ -1,14 +1,15 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc;
-using Movies.BL.Services;
-using Movies.Data;
 using Movies.Web.Managers;
 using Movies.Web.Models;
-using Movies.Web.ViewModel.Admin;
+using Movies.Web.ViewModel.User;
 using System;
 using System.Diagnostics;
-using System.Linq;
+using System.Security.Claims;
+using System.Threading.Tasks;
 
 namespace Movies.Web.Controllers
 {
@@ -27,37 +28,57 @@ namespace Movies.Web.Controllers
         }
 
         [HttpPost]
-        public ActionResult Login(AdminViewModel adminViewModel)
+        public async Task<ActionResult> Login(UserViewModel adminViewModel, string returnUrl)
         {
             try
             {
-                if (_usersManager.IsUserRegistered(adminViewModel).Item1 == true)
+                var user = _usersManager.GetRegisteredUser(adminViewModel);
+                if (user != null)
                 {
-                    var user = _usersManager.GetUsers().Where(u => u.Id == _usersManager.IsUserRegistered(adminViewModel).Item2).FirstOrDefault();
-                    if (user.IsAdmin == true)
+                    var claimsIdentity = new ClaimsIdentity(new[]
+                       {
+                            new Claim(ClaimTypes.Email, user.Email)
+                            //...
+                        }, CookieAuthenticationDefaults.AuthenticationScheme);
+                    var claimsPrincipal = new ClaimsPrincipal(claimsIdentity);
+                    await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, claimsPrincipal);
+
+                    if (!string.IsNullOrEmpty(returnUrl) && Url.IsLocalUrl(returnUrl))
+                    {
+                        return Redirect(returnUrl);
+                    }
+                    else if (user.IsAdmin == true)
                     {
                         return RedirectToAction("Index", "Admin");
-
                     }
-                    return RedirectToAction("Index", "Movies");
+                    else
+                    {
+                        return RedirectToAction("Index", "User");
+                    }
                 }
                 return RedirectToAction("Index", "Home");
             }
-            catch
+            catch (Exception e)
             {
                 return RedirectToAction("Index", "Home");
             }
 
         }
 
-        public ActionResult Register(AdminViewModel adminViewModel)
+        public async Task<ActionResult> Logout()
+        {
+            await HttpContext.SignOutAsync();
+            return RedirectToAction("Index", "Home");
+        }
+
+        public ActionResult Register(UserViewModel adminViewModel)
         {
             try
             {
-                if (adminViewModel.Password == adminViewModel.RepeatedPassword && _usersManager.IsUserRegistered(adminViewModel).Item1 == false)
+                if (adminViewModel.Password == adminViewModel.RepeatedPassword && _usersManager.GetRegisteredUser(adminViewModel) == null)
                 {
                     _usersManager.AddUser(adminViewModel);
-                    return RedirectToAction("Index", "Movies");
+                    return RedirectToAction("Index", "User");
 
                 }
                 return RedirectToAction("Index", "Home");

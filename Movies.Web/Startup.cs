@@ -1,5 +1,7 @@
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc.Razor;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -10,6 +12,8 @@ using Movies.BL.Services;
 using Movies.Data;
 using Movies.Data.Repositories;
 using Movies.Web.Managers;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace Movies.Web
 {
@@ -54,6 +58,12 @@ namespace Movies.Web
                     .AddSupportedCultures(supportedCultures)
                     .AddSupportedUICultures(supportedCultures);
             });
+
+            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie(o =>
+            {
+                o.LoginPath = "/";
+            });
+            services.AddControllersWithViews();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -78,10 +88,15 @@ namespace Movies.Web
             app.UseRequestLocalization(localizationOptions);
 
             app.UseHttpsRedirection();
+            app.UseDefaultFiles(new DefaultFilesOptions
+            {
+                DefaultFileNames = new List<string> { "index.html" }
+            });
             app.UseStaticFiles();
 
             app.UseRouting();
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
@@ -90,6 +105,8 @@ namespace Movies.Web
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
             });
+            
+          //  app.UseMvc();
         }
     }
 }

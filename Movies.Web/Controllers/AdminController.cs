@@ -1,8 +1,10 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Movies.Web.Managers;
 
 namespace Movies.Web.Controllers
 {
+    [Authorize]
     public class AdminController : Controller
     {
         private readonly UsersManager _usersManager;
@@ -12,6 +14,7 @@ namespace Movies.Web.Controllers
             _usersManager = usersManager;
         }
 
+        [HttpGet("admin")]
         public IActionResult Index()
         {
             var users = _usersManager.GetUsers();

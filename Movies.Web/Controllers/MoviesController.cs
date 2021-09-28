@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Movies.BL.Models;
 using Movies.BL.Services;
@@ -11,6 +12,7 @@ using System.Threading.Tasks;
 
 namespace Movies.Web.Controllers
 {
+    [Authorize]
     public class MoviesController : Controller
     {
         private readonly IMovieManager _movieManager;

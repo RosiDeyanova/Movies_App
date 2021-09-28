@@ -13,7 +13,10 @@ namespace Movies.Data.Entities
         public string Email { get; set; }
         public string Summary { get; set; } = string.Empty;
 
-        public virtual List<UserMovie> UserMovie { get;}
+        public virtual List<UserMovie> UserMovie { get; }
+
+        //public virtual List<User> Followers { get; set; }
+        //public virtual List<User> Following { get; set; }
 
         public bool IsAdmin { get; set; } = false;
     }
