@@ -27,8 +27,6 @@ namespace Movies.Data
             modelBuilder.Entity<Genre>().HasData(new Genre { Id = 5, Name = "Fantasy" });
             modelBuilder.Entity<Genre>().HasData(new Genre { Id = 6, Name = "Historical" });
 
-            modelBuilder.Entity<User>().HasData(new User {Id = 1, Username = "admin", Email = "admin@movies.bg", Password = "1234", IsAdmin = true });
-            modelBuilder.Entity<User>().HasData(new User { Id = 2, Username = "user1", Email = "user1@movies.bg", Password = "0000", IsAdmin = false });
 
         }
     }

@@ -182,3 +182,8 @@ C:\Users\Rosi Deyanova\source\repos\Movies_App\Movies.Web\obj\Debug\netcoreapp3.
 C:\Users\Rosi Deyanova\source\repos\Movies_App\Movies.Web\obj\Debug\netcoreapp3.1\Movies.Web.genruntimeconfig.cache
 C:\Users\Rosi Deyanova\source\repos\Movies_App\Movies.Web\obj\Debug\netcoreapp3.1\Razor\Views\User\Index.cshtml.g.cs
 C:\Users\Rosi Deyanova\source\repos\Movies_App\Movies.Web\obj\Debug\netcoreapp3.1\Razor\Views\User\_ViewStart.cshtml.g.cs
+C:\Users\Rosi Deyanova\source\repos\Movies_App\Movies.Web\bin\Debug\netcoreapp3.1\Microsoft.AspNetCore.Cryptography.Internal.dll
+C:\Users\Rosi Deyanova\source\repos\Movies_App\Movies.Web\bin\Debug\netcoreapp3.1\Microsoft.AspNetCore.Cryptography.KeyDerivation.dll
+C:\Users\Rosi Deyanova\source\repos\Movies_App\Movies.Web\bin\Debug\netcoreapp3.1\Microsoft.AspNetCore.Identity.EntityFrameworkCore.dll
+C:\Users\Rosi Deyanova\source\repos\Movies_App\Movies.Web\bin\Debug\netcoreapp3.1\Microsoft.Extensions.Identity.Core.dll
+C:\Users\Rosi Deyanova\source\repos\Movies_App\Movies.Web\bin\Debug\netcoreapp3.1\Microsoft.Extensions.Identity.Stores.dll

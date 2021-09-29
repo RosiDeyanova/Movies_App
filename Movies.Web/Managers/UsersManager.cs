@@ -13,12 +13,10 @@ namespace Movies.Web.Managers
     public class UsersManager
     {
         private readonly IUserManager _userManager;
-        private readonly IHttpContextAccessor _httpContextAccessor;
 
         public UsersManager(IUserManager userManager, IHttpContextAccessor httpContextAccessor)
         {
             _userManager = userManager;
-            _httpContextAccessor = httpContextAccessor;
         }
 
         public List<UserViewModel> GetUsers()
@@ -48,16 +46,28 @@ namespace Movies.Web.Managers
             return user;
         }
 
-        public UserModel MapUser(UserViewModel adminViewModel) 
+        public UserModel MapUser(UserViewModel userModel) 
         {
             var usermodel = new UserModel
             {
-                Username = adminViewModel.Username,
-                Password = adminViewModel.Password,
-                Email = adminViewModel.Email,
+                Username = userModel.Username,
+                Password = userModel.Password,
+                Email = userModel.Email,
                 
             };
             return usermodel;
+        }
+
+        public UserViewModel MapUser(UserModel userModel)
+        {
+            var userViewModel = new UserViewModel
+            {
+                Username = userModel.Username,
+                Password = userModel.Password,
+                Email = userModel.Email,
+                IsAdmin = userModel.IsAdmin
+            };
+            return userViewModel;
         }
 
         public void AddUser(UserViewModel adminViewModel) 
@@ -65,22 +75,6 @@ namespace Movies.Web.Managers
             var userModel = MapUser(adminViewModel);
             _userManager.MapUser(userModel);
             _userManager.AddUser(userModel);
-        }
-
-        public string ReturnMailFromCookie() 
-        {
-            var httpContextUser = _httpContextAccessor.HttpContext.User;
-            var email = httpContextUser.FindFirstValue(ClaimTypes.Email);
-            return email;
-        }
-
-        public UserViewModel ReturnUserFromCookie() 
-        {
-            var email = ReturnMailFromCookie();
-            var users = GetUsers();
-            var userWithEmail = users.FirstOrDefault(u => u.Email == email);
-            return userWithEmail;
-
         }
     }
 }

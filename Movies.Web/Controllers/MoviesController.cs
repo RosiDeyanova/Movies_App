@@ -13,13 +13,13 @@ using System.Threading.Tasks;
 namespace Movies.Web.Controllers
 {
     [Authorize]
-    public class MoviesController : Controller
+    public class MoviesController : BaseController
     {
         private readonly IMovieManager _movieManager;
         private readonly IGenreManager _genreManager;
         private readonly MoviesManager _moviesManager;
 
-        public MoviesController(IMovieManager movieManager, IGenreManager genreManager, MoviesManager moviesManager)
+        public MoviesController(IMovieManager movieManager, IGenreManager genreManager, MoviesManager moviesManager, AuthenticationManager authenticationManager) : base (authenticationManager)
         {
             _movieManager = movieManager;
             _genreManager = genreManager;

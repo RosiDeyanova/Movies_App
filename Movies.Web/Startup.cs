@@ -1,7 +1,8 @@
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc.Razor;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -10,10 +11,11 @@ using Microsoft.Extensions.Hosting;
 using Movies.BL.Managers;
 using Movies.BL.Services;
 using Movies.Data;
+using Movies.Data.Entities;
 using Movies.Data.Repositories;
 using Movies.Web.Managers;
+using System;
 using System.Collections.Generic;
-using System.Threading.Tasks;
 
 namespace Movies.Web
 {
@@ -39,12 +41,15 @@ namespace Movies.Web
             services.AddScoped<IGenreRepository, GenreRepository>();
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<IBaseRepository, BaseRepository>();
+
             services.AddScoped<IMovieManager, MovieManager>();
             services.AddScoped<IStudioManager, StudioManager>();
             services.AddScoped<IGenreManager, GenreManager>();
             services.AddScoped<IUserManager, UserManager>();
+
             services.AddScoped<MoviesManager>();
             services.AddScoped<UsersManager>();
+            services.AddScoped<AuthenticationManager>();
 
             services.AddLocalization(options => options.ResourcesPath = "Resources");
             services.AddMvc()
@@ -63,7 +68,8 @@ namespace Movies.Web
             {
                 o.LoginPath = "/";
             });
-            services.AddControllersWithViews();
+
+           services.AddControllersWithViews();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -105,8 +111,8 @@ namespace Movies.Web
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
             });
-            
-          //  app.UseMvc();
+
+            //  app.UseMvc();
         }
     }
 }

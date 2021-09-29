@@ -30,8 +30,8 @@ namespace Movies.Web.Controllers
         [HttpPost]
         public async Task<ActionResult> Login(UserViewModel adminViewModel, string returnUrl)
         {
-            try
-            {
+            //try
+            //{
                 var user = _usersManager.GetRegisteredUser(adminViewModel);
                 if (user != null)
                 {
@@ -57,11 +57,11 @@ namespace Movies.Web.Controllers
                     }
                 }
                 return RedirectToAction("Index", "Home");
-            }
-            catch (Exception e)
-            {
-                return RedirectToAction("Index", "Home");
-            }
+            //}
+            //catch (Exception e)
+            //{
+            //    return RedirectToAction("Index", "Home");
+            //}
 
         }
 

@@ -2,10 +2,8 @@
 using Movies.BL.Services;
 using Movies.Data.Entities;
 using Movies.Data.Repositories;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 namespace Movies.BL.Managers
 {
@@ -55,6 +53,12 @@ namespace Movies.BL.Managers
             _userRepository.AddUser(user);
         }
 
+        public UserModel GetUserByMail(string email) 
+        {
+            var users = GetUsers();
+            var user = users.FirstOrDefault(u => u.Email == email);
+            return user;
+        }
     }
 }
 
