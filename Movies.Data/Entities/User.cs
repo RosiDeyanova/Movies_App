@@ -11,13 +11,12 @@ namespace Movies.Data.Entities
         public string Password { get; set; }
         public string Email { get; set; }
         public string Summary { get; set; } = string.Empty;
-
-        public virtual List<UserMovie> UserMovie { get; }
-
-        //public virtual List<User> Followers { get; set; }
-        //public virtual List<User> Following { get; set; }
-
         public bool IsAdmin { get; set; } = false;
+
+
+        public ICollection<UserMovie> AddedMovies { get; set; }
+        public ICollection<Follower> Followers { get; set; }
+        //public ICollection<Follower> Users { get; set; }
     }
 
 }
