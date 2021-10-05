@@ -1,4 +1,5 @@
-﻿using Movies.BL.Models;
+﻿using AutoMapper;
+using Movies.BL.Models;
 using Movies.BL.Services;
 using Movies.Web.ViewModel.Movies;
 using System.Linq;
@@ -9,87 +10,36 @@ namespace Movies.Web.Managers
     {
         private readonly IMovieManager _movieManager;
         private readonly IGenreManager _genreManager;
+        private readonly IMapper _mapper;
 
-        public MoviesManager(IMovieManager movieManager, IGenreManager genreManager)
+        public MoviesManager(IMovieManager movieManager, IGenreManager genreManager, IMapper mapper)
         {
             _movieManager = movieManager;
             _genreManager = genreManager;
+            _mapper = mapper;
         }
 
         public MovieModel GetMovie(int id, CreateMovieViewModel view)
         {
-            MovieModel movie = new MovieModel
-            {
-                Id = id,
-                Title = view.Title,
-                Year = view.Year,
-                Director = view.Director,
-                Studio = new StudioModel
-                {
-                    Id = view.Studio.Id,
-                    Name = view.Studio.Name,
-                    Address = view.Studio.Address
-                }
-                ,
-                Genre = new GenreModel 
-                { 
-                    Id = view.Genre.Id,
-                    Name = view.Genre.Name
-                }
-            };
+
+            var movie = _mapper.Map<MovieModel>(view);
+            movie.Id = id;
             return movie;
         }
 
         public MovieModel GetMovie(CreateMovieViewModel view)
         {
-            MovieModel movie = new MovieModel
-            {
-                Id = view.Id,
-                Title = view.Title,
-                Year = view.Year,
-                Director = view.Director,
-                ImageFile = view.ImageFile,
-                Studio = new StudioModel
-                {
-                    Id = view.Studio.Id,
-                    Name = view.Studio.Name,
-                    Address = view.Studio.Address
-                },
-                Genre = new GenreModel()
-                {
-                    Id = view.Genre.Id,
-                    Name = view.Genre.Name
-                }
-            };
-            return movie;
+            var mappedMovie = _mapper.Map<MovieModel>(view);
+            return mappedMovie;
         }
 
         public CreateMovieViewModel GetMovie(MovieModel model)
         {
             var genres = _genreManager.GetGenres().ToList();
+            var movie = _mapper.Map<CreateMovieViewModel>(model);
+            movie.Genres = genres;
 
-            CreateMovieViewModel view = new CreateMovieViewModel
-            {
-                Id = model.Id,
-                Title = model.Title,
-                Year = model.Year,
-                Director = model.Director,
-                Image = model.Image,
-                Studio = new StudioViewModel
-                {
-                    Id = model.Studio.Id,
-                    Name = model.Studio.Name,
-                    Address = model.Studio.Address
-                },
-                Genre = new GenreViewModel
-                {
-                    Id = model.Genre.Id,
-                    Name = model.Genre.Name
-                },
-                Genres = genres
-            };
-
-            return view;
+            return movie;
         }
     }
 }

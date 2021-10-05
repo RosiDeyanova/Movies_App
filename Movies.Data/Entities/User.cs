@@ -14,9 +14,9 @@ namespace Movies.Data.Entities
         public bool IsAdmin { get; set; } = false;
 
 
-        public ICollection<UserMovie> AddedMovies { get; set; }
-        public ICollection<Follower> Followers { get; set; }
-        //public ICollection<Follower> Users { get; set; }
+        public ICollection<UserMovie> UserMovies { get; set; }
+        //public ICollection<UserFollower> Followers { get; set; }
+        //public ICollection<UserFollower> Following { get; set; }
     }
 
 }

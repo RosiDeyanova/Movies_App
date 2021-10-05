@@ -1,4 +1,4 @@
-@model IEnumerable<Movies.BL.Models.MovieModel>
+@model Tuple<List<Movies.Web.ViewModel.Movies.CreateMovieViewModel>,Movies.Web.ViewModel.User.UserViewModel>
 
     <!-- FLOATY BAR -->
     <aside class="floaty-bar">
@@ -121,7 +121,7 @@
                             
                             @using (Html.BeginForm("AllMovies", "Front", FormMethod.Get))
                             {
-                                @if (Model.Count() == 0) //stupid, but it works
+                                @if (Model.Item1.Count() == 0) //stupid, but it works
                                 {
                                     @Html.TextBox("Search", null, new { @placeholder = "Search" })
                                
@@ -158,9 +158,11 @@
             <!-- GRID -->
             <div class="grid grid-3-3-3 centered">
                 <!-- PRODUCT PREVIEW -->
-                @foreach (var item in Model)
-	            {
-                <div class="product-preview">
+                @foreach (var item in Model.Item1)
+                {
+
+
+<div class="product-preview">
                     <!-- PRODUCT PREVIEW IMAGE -->
                     <a href="marketplace-product.html">
                         <figure class="product-preview-image liquid">
@@ -171,7 +173,15 @@
                     <!-- PRODUCT PREVIEW INFO -->
                     <div class="product-preview-info">
                         <!-- TEXT STICKER -->
-                        <p class="text-sticker"><span class="highlighted">+</span></p>
+                        @if (Model.Item2.AddedMovies == null || !(Model.Item2.AddedMovies.Contains(item)))
+                        {
+                            <p class="text-sticker"><span class="highlighted"><a asp-action="AddMovie" asp-controller="User" asp-route-id="@item.Id">+</a></span></p>
+                        }
+                        else
+                        {
+                           <p class="text-sticker"><span class="highlighted"><a asp-action="RemoveMovie" asp-controller="Movie" asp-route-id="@item.Id">-</a>></span></p>
+                        }
+
                         <!-- /TEXT STICKER -->
                         <!-- PRODUCT PREVIEW TITLE -->
                         <p class="product-preview-title"><a asp-action="Details" asp-route-id="@item.Id">@Html.DisplayFor(modelItem => item.Title)</a></p>

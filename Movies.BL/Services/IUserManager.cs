@@ -13,5 +13,6 @@ namespace Movies.BL.Services
         public User MapUser(UserModel userModel);
         public void AddUser(UserModel userModel);
         public UserModel GetUserByMail(string email);
+        public void AddMovieToUser(int userId, int movieId);
     }
 }

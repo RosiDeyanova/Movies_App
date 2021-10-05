@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Movies.BL.Models;
@@ -6,6 +7,9 @@ using Movies.BL.Services;
 using Movies.Web.Managers;
 using Movies.Web.Models;
 using Movies.Web.ViewModel.Movies;
+using Movies.Web.ViewModel.User;
+using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
@@ -18,19 +22,23 @@ namespace Movies.Web.Controllers
         private readonly IMovieManager _movieManager;
         private readonly IGenreManager _genreManager;
         private readonly MoviesManager _moviesManager;
+        private readonly IMapper _mapper;
 
-        public MoviesController(IMovieManager movieManager, IGenreManager genreManager, MoviesManager moviesManager, AuthenticationManager authenticationManager) : base (authenticationManager)
+        public MoviesController(IMovieManager movieManager, IGenreManager genreManager, MoviesManager moviesManager, AuthenticationManager authenticationManager, IMapper mapper) : base (authenticationManager)
         {
             _movieManager = movieManager;
             _genreManager = genreManager;
             _moviesManager = moviesManager;
+            _mapper = mapper;
         }
 
         public ActionResult Index(string movieTitle)
         {
-            var model = _movieManager.SearchMovies(movieTitle);
-
-            return View(model);
+            var model = _movieManager.SearchMovies(movieTitle).ToList();
+            var mappedModel = _mapper.Map<List<CreateMovieViewModel>>(model);
+            var mappedUser = _mapper.Map<UserViewModel>(User);
+            var result = new Tuple<List<CreateMovieViewModel>, UserViewModel>(mappedModel, mappedUser);
+            return View(result);
         }
 
         public ActionResult Details(int id)

@@ -1,4 +1,5 @@
-﻿using Movies.BL.Models;
+﻿using AutoMapper;
+using Movies.BL.Models;
 using Movies.BL.Services;
 using Movies.Data.Entities;
 using Movies.Data.Repositories;
@@ -10,25 +11,20 @@ namespace Movies.BL.Managers
     public class UserManager : IUserManager
     {
         private readonly IUserRepository _userRepository;
+        private readonly IMapper _mapper;
 
-        public UserManager(IUserRepository userRepository)
+        public UserManager(IUserRepository userRepository, IMapper mapper)
         {
             _userRepository = userRepository;
+            _mapper = mapper;
         }
 
         public List<UserModel> GetUsers()
         {
-            var userModels = _userRepository.GetUsers().Select(u => new UserModel
-            {
-                Id = u.Id,
-                Username = u.Username,
-                Email = u.Email,
-                Password = u.Password,
-                IsAdmin = u.IsAdmin
-
-            }).ToList();
-
-            return userModels;
+            var userModels = _userRepository.GetUsers().ToList();
+            //var first = _mapper.Map<UserModel>(userModels);
+            var mappedModel =_mapper.Map<List<UserModel>>(userModels);
+            return mappedModel;
         }
 
         public void SetOrRemoveAdminRole(int id, bool isAdmin)
@@ -38,12 +34,7 @@ namespace Movies.BL.Managers
 
         public User MapUser(UserModel userModel) 
         {
-            var user = new User 
-            { 
-                Username = userModel.Username,
-                Password = userModel.Password,
-                Email = userModel.Email
-            };
+            var user = _mapper.Map<User>(userModel);
             return user;
         }
 
@@ -59,6 +50,11 @@ namespace Movies.BL.Managers
             var user = users.FirstOrDefault(u => u.Email == email);
             return user;
         }
+        public void AddMovieToUser(int userId, int movieId) 
+        {
+            _userRepository.AddMovieToUser(userId, movieId);
+        }
+
     }
 }
 

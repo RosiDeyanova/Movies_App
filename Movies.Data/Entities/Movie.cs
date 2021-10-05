@@ -22,7 +22,7 @@ namespace Movies.Data.Entities
 
         public int GenreId { set; get; }
 
-        public virtual List<UserMovie> UserMovie { set; get; }
+        public virtual List<UserMovie> UserMovies { set; get; }
 
         [ForeignKey("StudioId")]
         public virtual Studio Studio { set; get; }

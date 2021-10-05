@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Movies.Data.Entities;
-using System.Linq;
+//using System.Data.Entity;
 
 namespace Movies.Data
 {
@@ -15,15 +15,22 @@ namespace Movies.Data
         public DbSet<Genre> Genre { set; get; }
 
         public DbSet<User> User { set; get; }
-        public DbSet<UserMovie> UserMovie { get; }
-        public DbSet<Follower> Follower { get; }
+        public DbSet<UserMovie> UserMovie { set; get; }
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
 
+            modelBuilder.Entity<UserMovie>()
+           .HasOne(p => p.User)
+           .WithMany(b => b.UserMovies)
+           .HasForeignKey("UserId");
 
+            modelBuilder.Entity<UserMovie>()
+           .HasOne(p => p.Movie)
+           .WithMany(b => b.UserMovies)
+           .HasForeignKey("MovieId");
 
             //modelBuilder.Entity<Follower>()
             //        .HasOne(u => u.User).WithMany(u => u.Followers).IsRequired().OnDelete(DeleteBehavior.Restrict);
@@ -38,10 +45,10 @@ namespace Movies.Data
             //    .HasOne(f => f.User)
             //    .WithMany(u => u.Users)
             //    .HasForeignKey(f => f.UserId).IsRequired().OnDelete(DeleteBehavior.Restrict);
-            modelBuilder.Entity<Follower>()
-                .HasOne(f => f.UserFollower)
-                .WithMany(u => u.Followers)
-                .HasForeignKey(f => f.FollowerId).IsRequired().OnDelete(DeleteBehavior.Restrict);
+            //modelBuilder.Entity<Follower>()
+            //    .HasOne(f => f.UserFollower)
+            //    .WithMany(u => u.Followers)
+            //    .HasForeignKey(f => f.FollowerId).IsRequired().OnDelete(DeleteBehavior.Restrict);
 
             //modelBuilder.Entity<User>()
             //    .HasMany(uf => uf.Followers)
@@ -51,6 +58,38 @@ namespace Movies.Data
             //    .HasMany(uf => uf.Users)
             //    .WithOne(f => f.User)
             //    .OnDelete(DeleteBehavior.Restrict);
+
+            //modelBuilder.Entity<UserFollower>()
+            //    .HasKey(k => new { k.UserId, k.FollowerId });
+            //modelBuilder.Entity<UserFollower>()
+            //    .HasOne(f => f.User)
+            //    .WithMany(u => u.Followers)
+            //    .OnDelete(DeleteBehavior.Cascade);
+            //modelBuilder.Entity<UserFollower>()
+            //    .HasOne(f => f.Follower)
+            //    .WithMany(u => u.Following)
+            //    .OnDelete(DeleteBehavior.Cascade);
+
+            //modelBuilder.Entity<UserFollower>(entity =>
+            //{
+            //    entity.HasOne(d => d.User)
+            //            .WithMany(p => p.Followers)
+            //            .HasForeignKey(d => d.UserId)
+            //            .OnDelete(DeleteBehavior.Cascade);
+            //    //.HasConstraintName("FK_Account_Language");
+
+            //    entity.HasOne(d => d.Follower)
+            //            .WithMany(p => p.Followers)
+            //            .HasForeignKey(d => d.FollowerId)
+            //            .OnDelete(DeleteBehavior.Cascade);
+            //});
+
+            //modelBuilder.Entity<User>()
+            //    .HasMany(x => x.Followers).WithMany(x => x.Following)
+            //    .Map(x => x.ToTable("Followers")
+            //        .MapLeftKey("UserId")
+            //        .MapRightKey("FollowerId"));
+
 
 
             modelBuilder.Entity<Genre>().HasData(new Genre { Id = 1, Name = "Action" });

@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Http;
 using Movies.BL.Models;
 using Movies.BL.Services;
 using Movies.Web.ViewModel.User;
@@ -13,24 +14,19 @@ namespace Movies.Web.Managers
     public class UsersManager
     {
         private readonly IUserManager _userManager;
+        private readonly IMapper _mapper;
 
-        public UsersManager(IUserManager userManager, IHttpContextAccessor httpContextAccessor)
+        public UsersManager(IUserManager userManager, IHttpContextAccessor httpContextAccessor, IMapper mapper)
         {
             _userManager = userManager;
+            _mapper = mapper;
         }
 
         public List<UserViewModel> GetUsers()
         {
-            var viewModels = _userManager.GetUsers().Select(u => new UserViewModel
-            {
-                Id = u.Id,
-                Username = u.Username,
-                Email = u.Email,
-                Password = u.Password,
-                IsAdmin = u.IsAdmin
-            }).ToList();
-
-            return viewModels;
+            var userModels = _userManager.GetUsers().ToList();
+            var userViewModels = _mapper.Map<List<UserViewModel>>(userModels);
+            return userViewModels;
         }
 
         public void SetOrRemoveAdminRole(int id, bool isAdmin) 
@@ -75,6 +71,11 @@ namespace Movies.Web.Managers
             var userModel = MapUser(adminViewModel);
             _userManager.MapUser(userModel);
             _userManager.AddUser(userModel);
+        }
+
+        public void AddMovieToUser(int userId, int movieId)
+        {
+            _userManager.AddMovieToUser(userId, movieId);
         }
     }
 }

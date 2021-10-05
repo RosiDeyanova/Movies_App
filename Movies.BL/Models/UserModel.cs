@@ -11,5 +11,7 @@ namespace Movies.BL.Models
         public string Username { get; set; }
         public string Email { get; set; }
         public bool IsAdmin { get; set; }
+
+        public ICollection<MovieModel> Movies { get; set; }
     }
 }

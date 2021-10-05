@@ -19,26 +19,6 @@ namespace Movies_App.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("Movies.Data.Entities.Follower", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int>("FollowerId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("UserId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("FollowerId");
-
-                    b.ToTable("Follower");
-                });
-
             modelBuilder.Entity("Movies.Data.Entities.Genre", b =>
                 {
                     b.Property<int>("Id")
@@ -209,15 +189,6 @@ namespace Movies_App.Migrations
                     b.ToTable("UserMovie");
                 });
 
-            modelBuilder.Entity("Movies.Data.Entities.Follower", b =>
-                {
-                    b.HasOne("Movies.Data.Entities.User", "UserFollower")
-                        .WithMany("Followers")
-                        .HasForeignKey("FollowerId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-                });
-
             modelBuilder.Entity("Movies.Data.Entities.Movie", b =>
                 {
                     b.HasOne("Movies.Data.Entities.Genre", "Genre")
@@ -232,6 +203,7 @@ namespace Movies_App.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
+
 
             modelBuilder.Entity("Movies.Data.Entities.UserMovie", b =>
                 {

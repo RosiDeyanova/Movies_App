@@ -59,7 +59,12 @@ namespace Movies.Data.Repositories
            _baseRepository.GetDb().Movie.Remove(movieDeleted);
             _baseRepository.SaveDb();
         }
+        public Movie GetMovieById(int id) 
+        {
+            var movie = GetMovies().FirstOrDefault(m => m.Id == id);
+            return movie;
+        }
 
-        
+
     }
 }

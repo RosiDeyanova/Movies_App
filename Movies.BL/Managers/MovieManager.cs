@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Hosting;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Hosting;
 using Movies.BL.Models;
 using Movies.BL.Services;
 using Movies.Data.Entities;
@@ -16,106 +17,50 @@ namespace Movies.BL.Managers
         private readonly IMovieRepository _movieRepository;
         private readonly IStudioManager _studioManager;
         private readonly IWebHostEnvironment _webHostEnvironment;
+        private readonly IMapper _mapper;
 
-        public MovieManager(IMovieRepository movieRepository, IStudioManager studioManager, IWebHostEnvironment webHostEnvironment)
+        public MovieManager(IMovieRepository movieRepository, IStudioManager studioManager, IWebHostEnvironment webHostEnvironment, IMapper mapper)
         {
             _movieRepository = movieRepository;
             _studioManager = studioManager;
             _webHostEnvironment = webHostEnvironment;
-
+            _mapper = mapper;
         }
 
         public IEnumerable<MovieModel> SearchMovies(string movieTitle)
         {
-            var model = _movieRepository.GetMovies().Where(x => movieTitle == null || x.Title.Contains(movieTitle)).Select(m => new MovieModel
-            {
-                Id = m.Id,
-                Title = m.Title,
-                Year = m.Year,
-                Director = m.Director,
-                Studio = new StudioModel
-                {
-                    Id = m.Studio.Id,
-                    Name = m.Studio.Name,
-                    Address = m.Studio.Address
-                },
-                Genre = new GenreModel
-                {
-                    Id = m.Genre.Id,
-                    Name = m.Genre.Name
-                }
-            });
+            var model = _movieRepository.GetMovies().Where(x => movieTitle == null || x.Title.Contains(movieTitle));
+            var mappedMovies = _mapper.Map<IEnumerable<MovieModel>>(model);
 
-            return model;
+            return mappedMovies;
         }
 
         public MovieModel GetMovieById(int Id)
         {
-            var movie = _movieRepository.GetMovies().Where(x => x.Id == Id).Select(m => new MovieModel
-            {
-                Id = m.Id,
-                Title = m.Title,
-                Year = m.Year,
-                Image = m.Image,
-                Director = m.Director,
-                
-                Studio = new StudioModel
-                {
-                    Id = m.Studio.Id,
-                    Name = m.Studio.Name,
-                    Address = m.Studio.Address
-                },
-                Genre = new GenreModel
-                {
-                    Id = m.Genre.Id,
-                    Name = m.Genre.Name
-                }
-            }).FirstOrDefault();
-            return movie;
+            var movie = _movieRepository.GetMovies().FirstOrDefault(x => x.Id == Id);
+            var mappedMovie = _mapper.Map<MovieModel>(movie);
+            return mappedMovie;
         }
 
         public IEnumerable<MovieModel> GetAllMovies()
         {
-            var model = _movieRepository.GetMovies().Select(m => new MovieModel
-            {
-                Id = m.Id,
-                Title = m.Title,
-                Director = m.Director,
-                Year = m.Year,
-                Studio = new StudioModel
-                {
-                    Id = m.Studio.Id,
-                    Name = m.Studio.Name,
-                    Address = m.Studio.Address
-                },
-                Genre = new GenreModel
-                {
-                    Id = m.Genre.Id,
-                    Name = m.Genre.Name
-                }
-            }).ToList();
+            var model = _movieRepository.GetMovies();
+            var mappedMovies = _mapper.Map<IEnumerable<MovieModel>>(model);
 
-            return model;
+            return mappedMovies;
         }
 
         public async Task SaveMovie(MovieModel movie)
         {
             Studio studioData = new Studio
             {
-                Id = movie.Studio.Id,
                 Name = movie.Studio.Name,
                 Address = movie.Studio.Address
             };
-            int studioId = _studioManager.SaveStudio(studioData);
-            Movie movieData = new Movie
-            {
-                Title = movie.Title,
-                Year = movie.Year,
-                Director = movie.Director,
-                StudioId = studioId,
-                GenreId = movie.Genre.Id
-            };
+            int studioId = _studioManager.GetStudioIdByName(movie.Studio.Name);
+            studioData.Id = studioId;
 
+            var movieData = _mapper.Map<Movie>(movie);
             string filename = Guid.NewGuid().ToString() + Path.GetExtension(movie.ImageFile.FileName);
             movieData.Image = filename;
 
@@ -140,19 +85,9 @@ namespace Movies.BL.Managers
             };
 
             int studioId = _studioManager.SaveStudio(studioData);
-
-            Movie movieData = new Movie
-            {
-                Id = movie.Id,
-                Title = movie.Title,
-                Year = movie.Year,
-                Director = movie.Director,
-                StudioId = studioId,
-                GenreId = movie.Genre.Id
-            };
+            var movieData = _mapper.Map<Movie>(movie);
 
             _movieRepository.UpdateMovie(movieData);
-
         }
 
         public void DeleteMovie(int id)
