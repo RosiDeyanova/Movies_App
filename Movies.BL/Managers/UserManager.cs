@@ -21,10 +21,10 @@ namespace Movies.BL.Managers
 
         public List<UserModel> GetUsers()
         {
-            var userModels = _userRepository.GetUsers().ToList();
+            var users = _userRepository.GetUsers().ToList();
             //var first = _mapper.Map<UserModel>(userModels);
-            var mappedModel =_mapper.Map<List<UserModel>>(userModels);
-            return mappedModel;
+            var userModels =_mapper.Map<List<UserModel>>(users);
+            return userModels;
         }
 
         public void SetOrRemoveAdminRole(int id, bool isAdmin)
