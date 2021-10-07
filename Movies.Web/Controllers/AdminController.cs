@@ -51,7 +51,6 @@ namespace Movies.Web.Controllers
         {
             try
             {
-                Task.Delay(10000).Wait();
                 _usersManager.SetOrRemoveAdminRole(id, true);
             }
             catch

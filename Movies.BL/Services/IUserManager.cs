@@ -12,7 +12,9 @@ namespace Movies.BL.Services
         public void SetOrRemoveAdminRole(int id, bool isAdmin);
         public User MapUser(UserModel userModel);
         public void AddUser(UserModel userModel);
-        public UserModel GetUserByMail(string email);
+        public UserModel GetUserByEmail(string email);
         public void AddMovieToUser(int userId, int movieId);
+        public void RemoveMovieFromUser(int userId, int movieId);
+
     }
 }

@@ -18,26 +18,7 @@ namespace Movies.Data.Repositories
 
         public List<Movie> GetMovies()
         {
-            var movies = _baseRepository.Db.Movie.Select(m => new Movie
-            {
-                Id = m.Id,
-                Title = m.Title,
-                Director = m.Director,
-                Year = m.Year,
-                Image = m.Image,
-                Studio = new Studio
-                {
-                    Id = m.Studio.Id,
-                    Name = m.Studio.Name,
-                    Address = m.Studio.Address
-                },
-                Genre = new Genre
-                {
-                    Id = m.Genre.Id,
-                    Name = m.Genre.Name
-                }
-            }).ToList();
-
+            var movies = _baseRepository.Db.Movie.Include(m => m.UserMovies).Include(m => m.Genre).Include(m => m.Studio).ToList();
             return movies;
         }
 
@@ -64,7 +45,5 @@ namespace Movies.Data.Repositories
             var movie = GetMovies().FirstOrDefault(m => m.Id == id);
             return movie;
         }
-
-
     }
 }

@@ -23,9 +23,15 @@ namespace Movies.Web.Controllers
         }
         public ActionResult AddMovie(int id)
         {
-            var user = _userManager.GetUserByMail(User.Email);
+            var user = _userManager.GetUserByEmail(User.Email);
             _usersManager.AddMovieToUser(user.Id, id);
             return RedirectToAction("Index","Movies");
+        }
+        public ActionResult RemoveMovie(int id)
+        {
+            var user = _userManager.GetUserByEmail(User.Email);
+            _usersManager.RemoveMovieFromUser(user.Id, id);
+            return RedirectToAction("Index", "Movies");
         }
     }
 }

@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Movies.BL.Managers;
 using Movies.BL.Models;
+using Movies.BL.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,26 +14,27 @@ namespace Movies.Web.Managers
     public class AuthenticationManager
     {
         private readonly IHttpContextAccessor _httpContextAccessor;
-        private readonly UsersManager _usersManager;
+        private readonly IUserManager _userManager;
 
-        public AuthenticationManager(IHttpContextAccessor httpContextAccessor, UsersManager usersManager)
+        public AuthenticationManager(IHttpContextAccessor httpContextAccessor, IUserManager userManager)
         {
             _httpContextAccessor = httpContextAccessor;
-            _usersManager = usersManager;
+            _userManager = userManager;
         }
+
         public UserModel GetUserFromCookie()
         {
             var email = GetMailFromCookie();
-            var users = _usersManager.GetUsers();
-            var userWithEmail = users.FirstOrDefault(u => u.Email == email);
-            var mappedUser = _usersManager.MapUser(userWithEmail);
-            return mappedUser;
+            var user = _userManager.GetUserByEmail(email);
+
+            return user;
         }
 
         private string GetMailFromCookie()
         {
             var httpContextUser = _httpContextAccessor.HttpContext.User;
             var email = httpContextUser.FindFirstValue(ClaimTypes.Email);
+
             return email;
         }
     }

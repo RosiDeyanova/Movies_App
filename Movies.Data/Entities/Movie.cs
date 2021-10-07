@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Linq;
 
 namespace Movies.Data.Entities
 {
@@ -29,5 +30,8 @@ namespace Movies.Data.Entities
 
         [ForeignKey("GenreId")]
         public virtual Genre Genre { set; get; }
+        [NotMapped]
+        public List<User> Users => UserMovies.Select(um => um.User).ToList();
+
     }
 }

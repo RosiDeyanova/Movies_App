@@ -22,22 +22,26 @@ namespace Movies.Web.Controllers
         private readonly IMovieManager _movieManager;
         private readonly IGenreManager _genreManager;
         private readonly MoviesManager _moviesManager;
+        private readonly IUserManager _userManager;
         private readonly IMapper _mapper;
 
-        public MoviesController(IMovieManager movieManager, IGenreManager genreManager, MoviesManager moviesManager, AuthenticationManager authenticationManager, IMapper mapper) : base (authenticationManager)
+        public MoviesController(IMovieManager movieManager, IGenreManager genreManager, MoviesManager moviesManager, AuthenticationManager authenticationManager, IMapper mapper, IUserManager userManager) : base(authenticationManager)
         {
             _movieManager = movieManager;
             _genreManager = genreManager;
             _moviesManager = moviesManager;
             _mapper = mapper;
+            _userManager = userManager;
         }
 
         public ActionResult Index(string movieTitle)
         {
             var model = _movieManager.SearchMovies(movieTitle).ToList();
             var mappedModel = _mapper.Map<List<CreateMovieViewModel>>(model);
-            var mappedUser = _mapper.Map<UserViewModel>(User);
+            var userModel = _userManager.GetUserByEmail(User.Email);
+            var mappedUser = _mapper.Map<UserViewModel>(userModel);
             var result = new Tuple<List<CreateMovieViewModel>, UserViewModel>(mappedModel, mappedUser);
+                       
             return View(result);
         }
 

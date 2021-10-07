@@ -1,5 +1,14 @@
 @model Tuple<List<Movies.Web.ViewModel.Movies.CreateMovieViewModel>,Movies.Web.ViewModel.User.UserViewModel>
-
+@{ 
+    if (Model.Item2.IsAdmin == true)
+    {
+        Layout = "_AdminLayout";
+    }
+    else
+    {
+        Layout = "_MoviesLayout";
+    }
+}
     <!-- FLOATY BAR -->
     <aside class="floaty-bar">
         <!-- BAR ACTIONS -->
@@ -173,13 +182,13 @@
                     <!-- PRODUCT PREVIEW INFO -->
                     <div class="product-preview-info">
                         <!-- TEXT STICKER -->
-                        @if (Model.Item2.AddedMovies == null || !(Model.Item2.AddedMovies.Contains(item)))
+                        @if (Model.Item2.Movies == null || !Model.Item2.Movies.Any(m => m.Id == item.Id))
                         {
-                            <p class="text-sticker"><span class="highlighted"><a asp-action="AddMovie" asp-controller="User" asp-route-id="@item.Id">+</a></span></p>
+                            <p class="text-sticker"><span class="highlighted"><a asp-action="AddMovie" asp-controller="User" asp-route-id="@item.Id"><strong>+</strong></a></span></p>
                         }
                         else
                         {
-                           <p class="text-sticker"><span class="highlighted"><a asp-action="RemoveMovie" asp-controller="Movie" asp-route-id="@item.Id">-</a>></span></p>
+                           <p class="text-sticker"><span class="highlighted"><a asp-action="RemoveMovie" asp-controller="User" asp-route-id="@item.Id"><strong>-</strong></a></span></p>
                         }
 
                         <!-- /TEXT STICKER -->

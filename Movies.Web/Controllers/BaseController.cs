@@ -7,10 +7,10 @@ namespace Movies.Web.Controllers
     public class BaseController : Controller
     {
         protected UserModel User { get; private set; }
+
         public BaseController(AuthenticationManager authenticationManager)
         {
             User = authenticationManager.GetUserFromCookie();
         }
-
     }
 }

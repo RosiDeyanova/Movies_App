@@ -15,10 +15,12 @@ namespace Movies.Data.Repositories
             _movieRepository = movieRepository;
         }
 
-        public IEnumerable<User> GetUsers()
+        public List<User> GetUsers()
         {
-            //var userMovie = _baseRepository.Db.UserMovie.Include(um => um.Movie).Include(um => um.User).First();
-            var users = _baseRepository.Db.User.Include(u => u.UserMovies).AsEnumerable();
+            var users = _baseRepository.Db.User
+                .Include(u => u.UserMovies).ThenInclude(um => um.Movie).ThenInclude(m => m.Studio)
+                .Include(u => u.UserMovies).ThenInclude(um => um.Movie).ThenInclude(m => m.Genre)
+                .ToList();
 
             return users;
         }
@@ -41,18 +43,36 @@ namespace Movies.Data.Repositories
             return user;
         }
 
+        public User GetUserByEmail(string email) 
+        {
+            var user = GetUsers().FirstOrDefault(u => u.Email == email);
+            return user;
+        }
+
         public void AddMovieToUser(int userId, int movieId) 
         {
-            var user = GetUserById(userId);
-            var movie = _movieRepository.GetMovieById(movieId);
             var usermovie = new UserMovie
             {
-                UserId = user.Id,
-                MovieId = movie.Id,
+                UserId = userId,
+                MovieId = movieId,
             };
             _baseRepository.Db.UserMovie.Add(usermovie);
             _baseRepository.SaveDb();
         }
 
+        public void RemoveMovieFromUser(int userId, int movieId)
+        {
+             var usermovie = _baseRepository.Db.UserMovie.FirstOrDefault(u => u.MovieId == movieId && u.UserId == userId);
+            _baseRepository.Db.UserMovie.Remove(usermovie);
+            _baseRepository.SaveDb();
+        }
+
+        public List<Movie> GetMovies(int userId) 
+        {
+            var user = GetUserById(userId);
+            var movies = user.UserMovies.Select(um => um.Movie).ToList();
+
+            return movies;
+        }
     }
 }

@@ -11,6 +11,6 @@ namespace Movies.Web.ViewModel.User
         public string RepeatedPassword { get; set; }
         public string Email { get; set; }
         public bool IsAdmin { get; set; }
-        public ICollection<CreateMovieViewModel> AddedMovies { get; set; }
+        public ICollection<CreateMovieViewModel> Movies { get; set; }
     }
 }

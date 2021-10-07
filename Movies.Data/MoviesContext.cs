@@ -22,15 +22,15 @@ namespace Movies.Data
         {
             base.OnModelCreating(modelBuilder);
 
-            modelBuilder.Entity<UserMovie>()
-           .HasOne(p => p.User)
-           .WithMany(b => b.UserMovies)
-           .HasForeignKey("UserId");
+           // modelBuilder.Entity<UserMovie>()
+           //.HasOne(p => p.User)
+           //.WithMany(b => b.UserMovies)
+           //.HasForeignKey("UserId");
 
-            modelBuilder.Entity<UserMovie>()
-           .HasOne(p => p.Movie)
-           .WithMany(b => b.UserMovies)
-           .HasForeignKey("MovieId");
+           // modelBuilder.Entity<UserMovie>()
+           //.HasOne(p => p.Movie)
+           //.WithMany(b => b.UserMovies)
+           //.HasForeignKey("MovieId");
 
             //modelBuilder.Entity<Follower>()
             //        .HasOne(u => u.User).WithMany(u => u.Followers).IsRequired().OnDelete(DeleteBehavior.Restrict);

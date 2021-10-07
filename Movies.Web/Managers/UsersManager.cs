@@ -77,5 +77,9 @@ namespace Movies.Web.Managers
         {
             _userManager.AddMovieToUser(userId, movieId);
         }
+        public void RemoveMovieFromUser(int userId, int movieId)
+        {
+            _userManager.RemoveMovieFromUser(userId, movieId);
+        }
     }
 }

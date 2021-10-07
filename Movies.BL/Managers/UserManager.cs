@@ -22,9 +22,16 @@ namespace Movies.BL.Managers
         public List<UserModel> GetUsers()
         {
             var users = _userRepository.GetUsers().ToList();
-            //var first = _mapper.Map<UserModel>(userModels);
             var userModels =_mapper.Map<List<UserModel>>(users);
             return userModels;
+        }
+
+        public UserModel GetUserByEmail(string email)
+        {
+            var user = _userRepository.GetUserByEmail(email);
+            var userModel = _mapper.Map<UserModel>(user);
+
+            return userModel;
         }
 
         public void SetOrRemoveAdminRole(int id, bool isAdmin)
@@ -36,7 +43,7 @@ namespace Movies.BL.Managers
         {
             var user = _mapper.Map<User>(userModel);
             return user;
-        }
+        } //TODO mahni go
 
         public void AddUser(UserModel userModel) 
         {
@@ -44,17 +51,14 @@ namespace Movies.BL.Managers
             _userRepository.AddUser(user);
         }
 
-        public UserModel GetUserByMail(string email) 
-        {
-            var users = GetUsers();
-            var user = users.FirstOrDefault(u => u.Email == email);
-            return user;
-        }
         public void AddMovieToUser(int userId, int movieId) 
         {
             _userRepository.AddMovieToUser(userId, movieId);
         }
-
+        public void RemoveMovieFromUser(int userId, int movieId)
+        {
+            _userRepository.RemoveMovieFromUser(userId, movieId);
+        }
     }
 }
 
