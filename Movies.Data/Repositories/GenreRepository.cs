@@ -4,18 +4,29 @@ using System.Linq;
 
 namespace Movies.Data.Repositories
 {
-    public class GenreRepository : IGenreRepository
+    public class GenreRepository : BaseRepository, IGenreRepository
     {
-        private readonly IBaseRepository _baseRepository;
-        public GenreRepository(IBaseRepository baseRepository)
+        public GenreRepository(MoviesContext moviesContext) : base (moviesContext)
         {
-            _baseRepository = baseRepository;
         }
+
         public IEnumerable<Genre> GetGenres()
         {
-            var genres = _baseRepository.GetDb().Genre.AsEnumerable();
+            var genres = Db.Genre.AsEnumerable();
 
             return genres;
+        }
+
+        public Genre GetGenreById(int id) 
+        {
+            var genre = Db.Genre.FirstOrDefault(g => g.Id == id);
+            return genre;
+        }
+
+        public Genre GetGenreByName(string name) 
+        {
+            var genre = Db.Genre.FirstOrDefault(g => g.Name == name);
+            return genre;
         }
     }
 }

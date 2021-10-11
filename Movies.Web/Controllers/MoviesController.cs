@@ -55,13 +55,10 @@ namespace Movies.Web.Controllers
 
         public ActionResult Create()
         {
+            var genres = _genreManager.GetGenres();
             CreateMovieViewModel model = new CreateMovieViewModel
             {
-                Genres = _genreManager.GetGenres().Select(m => new GenreModel
-                {
-                    Id = m.Id,
-                    Name = m.Name
-                }).ToList()
+                Genres = _mapper.Map<List<GenreModel>>(genres)
             };
 
             return View(model);

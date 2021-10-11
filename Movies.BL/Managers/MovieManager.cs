@@ -35,9 +35,9 @@ namespace Movies.BL.Managers
             return mappedMovies;
         }
 
-        public MovieModel GetMovieById(int Id)
+        public MovieModel GetMovieById(int id)
         {
-            var movie = _movieRepository.GetMovies().FirstOrDefault(x => x.Id == Id);
+            var movie = _movieRepository.GetMovieById(id);
             var mappedMovie = _mapper.Map<MovieModel>(movie);
             return mappedMovie;
         }

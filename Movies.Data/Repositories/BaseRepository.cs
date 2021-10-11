@@ -15,12 +15,6 @@ namespace Movies.Data.Repositories
 
         public MoviesContext Db => _moviesContext;
     
-
-        public MoviesContext GetDb() 
-        {
-            return _moviesContext;
-        }
-
         public void SaveDb()
         {
             _moviesContext.SaveChanges();
