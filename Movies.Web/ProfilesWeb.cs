@@ -7,6 +7,9 @@ using Movies.Web.ViewModel.User;
 
 
 
+
+
+
 namespace Movies.Web
 {
     public class ProfilesWeb : Profile
