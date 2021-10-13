@@ -1,8 +1,5 @@
-﻿using Microsoft.AspNetCore.Hosting;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Movies.Data.Entities;
-using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 
 namespace Movies.Data.Repositories

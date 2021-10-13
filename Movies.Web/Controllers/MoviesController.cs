@@ -49,8 +49,11 @@ namespace Movies.Web.Controllers
             var genres = _genreManager.GetGenres().ToList();
             var movie = _mapper.Map<CreateMovieViewModel>(info);
             movie.Genres = genres;
+            var userModel = _userManager.GetUserByEmail(User.Email);
+            var mappedUser = _mapper.Map<UserViewModel>(userModel);
+            var result = new Tuple <CreateMovieViewModel, UserViewModel>(movie, mappedUser);
 
-            return View(movie);
+            return View(result);
         }
 
         public ActionResult Create()
