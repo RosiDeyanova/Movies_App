@@ -5,69 +5,80 @@ using System.Linq;
 
 namespace Movies.Data.Repositories
 {
-    public class UserRepository : IUserRepository
+    public class UserRepository : BaseRepository, IUserRepository
     {
-        private readonly IBaseRepository _baseRepository;
-        private readonly IMovieRepository _movieRepository;
-        public UserRepository(IBaseRepository baseRepository, IMovieRepository movieRepository)
+        public UserRepository(MoviesContext moviesContext) : base(moviesContext)
         {
-            _baseRepository = baseRepository;
-            _movieRepository = movieRepository;
         }
 
-        public List<User> GetUsers()
+        public IQueryable<User> GetUsers()
         {
-            var users = _baseRepository.Db.User
+            var users = Db.User
                 .Include(u => u.UserMovies).ThenInclude(um => um.Movie).ThenInclude(m => m.Studio)
-                .Include(u => u.UserMovies).ThenInclude(um => um.Movie).ThenInclude(m => m.Genre)
-                .ToList();
+                .Include(u => u.UserMovies).ThenInclude(um => um.Movie).ThenInclude(m => m.Genre);
 
             return users;
         }
 
-        public void SetOrRemoveAdminRole(int id, bool isAdmin) 
+        public User GetUserById(int id)
         {
-            var user = _baseRepository.Db.User.FirstOrDefault(x => x.Id == id);
+            var user = Db.User
+               .Include(u => u.UserMovies).ThenInclude(um => um.Movie).ThenInclude(m => m.Studio)
+               .Include(u => u.UserMovies).ThenInclude(um => um.Movie).ThenInclude(m => m.Genre)
+               .FirstOrDefault(u => u.Id == id);
+            return user;
+        }
+
+        public User GetUserByEmail(string email)
+        {
+            var user = Db.User
+               .Include(u => u.UserMovies).ThenInclude(um => um.Movie).ThenInclude(m => m.Studio)
+               .Include(u => u.UserMovies).ThenInclude(um => um.Movie).ThenInclude(m => m.Genre)
+               .FirstOrDefault(u => u.Email == email);
+            return user;
+        }
+
+        public User GetRegisteredUser(string email, string password)
+        {
+            var user = Db.User
+               .Include(u => u.UserMovies).ThenInclude(um => um.Movie).ThenInclude(m => m.Studio)
+               .Include(u => u.UserMovies).ThenInclude(um => um.Movie).ThenInclude(m => m.Genre)
+               .FirstOrDefault(u => u.Email == email && u.Password == password);
+
+            return user;
+        }
+        public void SetOrRemoveAdminRole(int id, bool isAdmin)
+        {
+            var user = Db.User.FirstOrDefault(x => x.Id == id);
             user.IsAdmin = isAdmin;
-            _baseRepository.SaveDb();
+            SaveDb();
         }
 
-        public void AddUser(User user) 
+        public void AddUser(User user)
         {
-            _baseRepository.Db.User.Add(user);
-            _baseRepository.SaveDb();
-        }
-        public User GetUserById(int id) 
-        {
-            var user = GetUsers().FirstOrDefault(u => u.Id == id);
-            return user;
+            Db.User.Add(user);
+            SaveDb();
         }
 
-        public User GetUserByEmail(string email) 
-        {
-            var user = GetUsers().FirstOrDefault(u => u.Email == email);
-            return user;
-        }
-
-        public void AddMovieToUser(int userId, int movieId) 
+        public void AddMovieToUser(int userId, int movieId)
         {
             var usermovie = new UserMovie
             {
                 UserId = userId,
                 MovieId = movieId,
             };
-            _baseRepository.Db.UserMovie.Add(usermovie);
-            _baseRepository.SaveDb();
+            Db.UserMovie.Add(usermovie);
+            SaveDb();
         }
 
         public void RemoveMovieFromUser(int userId, int movieId)
         {
-             var usermovie = _baseRepository.Db.UserMovie.FirstOrDefault(u => u.MovieId == movieId && u.UserId == userId);
-            _baseRepository.Db.UserMovie.Remove(usermovie);
-            _baseRepository.SaveDb();
+            var usermovie = Db.UserMovie.FirstOrDefault(u => u.MovieId == movieId && u.UserId == userId);
+            Db.UserMovie.Remove(usermovie);
+            SaveDb();
         }
 
-        public List<Movie> GetMovies(int userId) 
+        public List<Movie> GetMovies(int userId)
         {
             var user = GetUserById(userId);
             var movies = user.UserMovies.Select(um => um.Movie).ToList();

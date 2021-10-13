@@ -6,6 +6,8 @@
 
   <ItemGroup>
     <Compile Remove="Managers\CreateViewModelManager.cs" />
+    <Compile Remove="Managers\MoviesManager.cs" />
+    <Compile Remove="Managers\UsersManager.cs" />
     <Compile Remove="Models\Genre.cs" />
     <Compile Remove="Models\Movie.cs" />
     <Compile Remove="Models\MoviesContext.cs" />

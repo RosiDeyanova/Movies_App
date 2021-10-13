@@ -1,5 +1,6 @@
 ﻿using Movies.Data.Entities;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Movies.Data.Repositories
 {
@@ -7,7 +8,7 @@ namespace Movies.Data.Repositories
     {
         public int SaveStudio(Studio studio);
 
-        public List<Studio> GetStudios();
+        public IQueryable<Studio> GetStudios();
 
     }
 }

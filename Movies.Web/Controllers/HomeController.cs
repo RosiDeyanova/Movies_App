@@ -1,9 +1,11 @@
-﻿using Microsoft.AspNetCore.Authentication;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc;
-using Movies.Web.Managers;
+using Movies.BL.Models;
+using Movies.BL.Services;
 using Movies.Web.Models;
 using Movies.Web.ViewModel.User;
 using System;
@@ -15,11 +17,12 @@ namespace Movies.Web.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly UsersManager _usersManager;
+        private readonly IUserManager _userManager;
+        private readonly IMapper _mapper;
 
-        public HomeController(UsersManager usersManager)
+        public HomeController(IUserManager userManager)
         {
-            _usersManager = usersManager;
+            _userManager = userManager;
         }
 
         public ActionResult Index()
@@ -28,9 +31,9 @@ namespace Movies.Web.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> Login(UserViewModel adminViewModel, string returnUrl)
+        public async Task<ActionResult> Login(UserViewModel userViewModel, string returnUrl)
         {
-                var user = _usersManager.GetRegisteredUser(adminViewModel);
+                var user = _userManager.GetRegisteredUser(userViewModel.Email,userViewModel.Password);
                 if (user != null)
                 {
                     var claimsIdentity = new ClaimsIdentity(new[]
@@ -63,13 +66,14 @@ namespace Movies.Web.Controllers
             return RedirectToAction("Index", "Home");
         }
 
-        public ActionResult Register(UserViewModel adminViewModel)
+        public ActionResult Register(UserViewModel userViewModel)
         {
             try
             {
-                if (adminViewModel.Password == adminViewModel.RepeatedPassword && _usersManager.GetRegisteredUser(adminViewModel) == null)
+                if (userViewModel.Password == userViewModel.RepeatedPassword && _userManager.GetRegisteredUser(userViewModel.Email,userViewModel.Password) == null)
                 {
-                    _usersManager.AddUser(adminViewModel);
+                    var userModel = _mapper.Map<UserModel>(userViewModel);
+                    _userManager.AddUser(userModel);
                     return RedirectToAction("Index", "User");
 
                 }

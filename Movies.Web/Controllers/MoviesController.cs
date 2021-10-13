@@ -21,15 +21,13 @@ namespace Movies.Web.Controllers
     {
         private readonly IMovieManager _movieManager;
         private readonly IGenreManager _genreManager;
-        private readonly MoviesManager _moviesManager;
         private readonly IUserManager _userManager;
         private readonly IMapper _mapper;
 
-        public MoviesController(IMovieManager movieManager, IGenreManager genreManager, MoviesManager moviesManager, AuthenticationManager authenticationManager, IMapper mapper, IUserManager userManager) : base(authenticationManager)
+        public MoviesController(IMovieManager movieManager, IGenreManager genreManager, AuthenticationManager authenticationManager, IMapper mapper, IUserManager userManager) : base(authenticationManager)
         {
             _movieManager = movieManager;
             _genreManager = genreManager;
-            _moviesManager = moviesManager;
             _mapper = mapper;
             _userManager = userManager;
         }
@@ -48,9 +46,11 @@ namespace Movies.Web.Controllers
         public ActionResult Details(int id)
         {
             var info = _movieManager.GetMovieById(id);
-            var mappedInfo = _moviesManager.GetMovie(info);
+            var genres = _genreManager.GetGenres().ToList();
+            var movie = _mapper.Map<CreateMovieViewModel>(info);
+            movie.Genres = genres;
 
-            return View(mappedInfo);
+            return View(movie);
         }
 
         public ActionResult Create()
@@ -69,7 +69,7 @@ namespace Movies.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                var mappedMovie = _moviesManager.GetMovie(createViewModel);
+                var mappedMovie = _mapper.Map<MovieModel>(createViewModel);
                 await _movieManager.SaveMovie(mappedMovie);
                 return RedirectToAction("Index");
             }
@@ -79,10 +79,12 @@ namespace Movies.Web.Controllers
 
         public ActionResult Edit(int id)
         {
-            var info = _movieManager.GetAllMovies().FirstOrDefault(x => x.Id == id);
-            var mappedInfo = _moviesManager.GetMovie(info);
+            var info = _movieManager.GetMovieById(id);
+            var genres = _genreManager.GetGenres().ToList();
+            var movie = _mapper.Map<CreateMovieViewModel>(info);
+            movie.Genres = genres;
 
-            return View(mappedInfo);
+            return View(movie); 
         }
 
         [HttpPost]
@@ -92,7 +94,8 @@ namespace Movies.Web.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    var mappedMovie = _moviesManager.GetMovie(id, createMovieViewModel);
+                    var mappedMovie = _mapper.Map<MovieModel>(createMovieViewModel);
+                    mappedMovie.Id = id;
                     _movieManager.UpdateMovie(mappedMovie);
                     return RedirectToAction("Details", createMovieViewModel);
                 }

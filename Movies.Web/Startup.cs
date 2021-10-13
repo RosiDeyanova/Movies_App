@@ -42,15 +42,13 @@ namespace Movies.Web
             services.AddScoped<IStudioRepository, StudioRepository>();
             services.AddScoped<IGenreRepository, GenreRepository>();
             services.AddScoped<IUserRepository, UserRepository>();
-            services.AddScoped<IBaseRepository, BaseRepository>();
+            services.AddScoped<BaseRepository>();
 
             services.AddScoped<IMovieManager, MovieManager>();
             services.AddScoped<IStudioManager, StudioManager>();
             services.AddScoped<IGenreManager, GenreManager>();
             services.AddScoped<IUserManager, UserManager>();
 
-            services.AddScoped<MoviesManager>();
-            services.AddScoped<UsersManager>();
             services.AddScoped<AuthenticationManager>();
 
             services.AddLocalization(options => options.ResourcesPath = "Resources");

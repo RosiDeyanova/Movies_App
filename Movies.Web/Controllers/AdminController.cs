@@ -13,12 +13,10 @@ namespace Movies.Web.Controllers
     [Authorize]
     public class AdminController : BaseController
     {
-        private readonly UsersManager _usersManager;
         private readonly IUserManager _userManager;
 
-        public AdminController(UsersManager usersManager, IUserManager userManager, AuthenticationManager authenticationManager) : base (authenticationManager)
+        public AdminController(IUserManager userManager, AuthenticationManager authenticationManager) : base (authenticationManager)
         {
-            _usersManager = usersManager;
             _userManager = userManager;
         }
 
@@ -38,7 +36,7 @@ namespace Movies.Web.Controllers
         {
             try
             {
-                _usersManager.SetOrRemoveAdminRole(id, false);
+                _userManager.SetOrRemoveAdminRole(id, false);
             }
             catch
             {
@@ -51,7 +49,7 @@ namespace Movies.Web.Controllers
         {
             try
             {
-                _usersManager.SetOrRemoveAdminRole(id, true);
+                _userManager.SetOrRemoveAdminRole(id, true);
             }
             catch
             {

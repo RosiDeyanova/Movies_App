@@ -34,20 +34,20 @@ namespace Movies.BL.Managers
             return userModel;
         }
 
+        public UserModel GetRegisteredUser(string email, string password) 
+        {
+            var user = _userRepository.GetRegisteredUser(email, password);
+            var userModel = _mapper.Map<UserModel>(user);
+            return userModel;
+        }
         public void SetOrRemoveAdminRole(int id, bool isAdmin)
         {
             _userRepository.SetOrRemoveAdminRole(id, isAdmin);
         }
 
-        public User MapUser(UserModel userModel) 
-        {
-            var user = _mapper.Map<User>(userModel);
-            return user;
-        } //TODO mahni go
-
         public void AddUser(UserModel userModel) 
         {
-            var user = MapUser(userModel);
+            var user = _mapper.Map<User>(userModel);
             _userRepository.AddUser(user);
         }
 

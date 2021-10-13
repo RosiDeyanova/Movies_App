@@ -15,24 +15,34 @@ namespace Movies.BL.Managers
     public class MovieManager : IMovieManager
     {
         private readonly IMovieRepository _movieRepository;
+        private readonly IGenreManager _genreManager;
         private readonly IStudioManager _studioManager;
         private readonly IWebHostEnvironment _webHostEnvironment;
         private readonly IMapper _mapper;
 
-        public MovieManager(IMovieRepository movieRepository, IStudioManager studioManager, IWebHostEnvironment webHostEnvironment, IMapper mapper)
+        public MovieManager(IMovieRepository movieRepository, IStudioManager studioManager, IWebHostEnvironment webHostEnvironment, IMapper mapper, IGenreManager genreManager)
         {
             _movieRepository = movieRepository;
             _studioManager = studioManager;
+            _genreManager = genreManager;
             _webHostEnvironment = webHostEnvironment;
             _mapper = mapper;
         }
 
         public IEnumerable<MovieModel> SearchMovies(string movieTitle)
         {
-            var model = _movieRepository.GetMovies().Where(x => movieTitle == null || x.Title.Contains(movieTitle));
-            var mappedMovies = _mapper.Map<IEnumerable<MovieModel>>(model);
-
-            return mappedMovies;
+            if (movieTitle == null)
+            {
+                IQueryable<Movie> model = _movieRepository.GetMovies();
+                var mappedMovies = _mapper.Map<IQueryable<MovieModel>>(model);
+                return mappedMovies;
+            }
+            else
+            {
+                IQueryable<Movie> model = _movieRepository.GetMoviesByTitle(movieTitle);
+                var mappedMovies = _mapper.Map<IQueryable<MovieModel>>(model);
+                return mappedMovies;
+            }
         }
 
         public MovieModel GetMovieById(int id)
@@ -42,7 +52,7 @@ namespace Movies.BL.Managers
             return mappedMovie;
         }
 
-        public IEnumerable<MovieModel> GetAllMovies()
+        public IEnumerable<MovieModel> GetMovies()
         {
             var model = _movieRepository.GetMovies();
             var mappedMovies = _mapper.Map<IEnumerable<MovieModel>>(model);
@@ -65,7 +75,7 @@ namespace Movies.BL.Managers
             movieData.Image = filename;
 
             string webRootPath = _webHostEnvironment.WebRootPath;
-            string filePath = Path.Combine(webRootPath, "UploadedImages",filename);
+            string filePath = Path.Combine(webRootPath, "UploadedImages", filename);
             using (Stream fileStream = new FileStream(filePath, FileMode.Create))
             {
                 await movie.ImageFile.CopyToAsync(fileStream);
@@ -92,7 +102,8 @@ namespace Movies.BL.Managers
 
         public void DeleteMovie(int id)
         {
-           _movieRepository.DeleteMovie(id);
+            _movieRepository.DeleteMovie(id);
         }
+
     }
 }

@@ -17,7 +17,7 @@ namespace Movies.BL.Managers
 
         public int SaveStudio(Studio studio)
         {
-            List<Studio> studios = _studioRepository.GetStudios();
+            IQueryable<Studio> studios = _studioRepository.GetStudios();
 
             int? id = studios.FirstOrDefault(s => s.Equals(studio))?.Id;
 

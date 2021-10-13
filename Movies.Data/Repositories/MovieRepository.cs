@@ -7,24 +7,22 @@ using System.Linq;
 
 namespace Movies.Data.Repositories
 {
-    public class MovieRepository : BaseRepository,IMovieRepository
+    public class MovieRepository : BaseRepository, IMovieRepository
     {
-        private readonly IBaseRepository _baseRepository;
        
-        public MovieRepository(IBaseRepository baseRepository, MoviesContext moviesContext) : base(moviesContext)
+        public MovieRepository (MoviesContext moviesContext) : base(moviesContext)
         {
-            _baseRepository = baseRepository;
         }
 
-        public List<Movie> GetMovies()
+        public IQueryable<Movie> GetMovies()
         {
-            var movies = _baseRepository.Db.Movie.Include(m => m.UserMovies).Include(m => m.Genre).Include(m => m.Studio).ToList();
+            var movies = Db.Movie.Include(m => m.UserMovies).Include(m => m.Genre).Include(m => m.Studio);
             return movies;
         }
 
-        public List<Movie> GetMoviesByTitle(string title) 
+        public IQueryable<Movie> GetMoviesByTitle(string title) 
         {
-            var movies = _baseRepository.Db.Movie.Include(m => m.UserMovies).Include(m => m.Genre).Include(m => m.Studio).Where(m => m.Title.Contains(title)).ToList();
+            var movies = Db.Movie.Include(m => m.UserMovies).Include(m => m.Genre).Include(m => m.Studio).Where(m => m.Title.Contains(title));
             return movies;
         }
 
@@ -36,21 +34,21 @@ namespace Movies.Data.Repositories
 
         public void SaveMovie(Movie movie)
         {
-            _baseRepository.Db.Movie.Add(movie);
-            _baseRepository.SaveDb();
+            Db.Movie.Add(movie);
+            SaveDb();
         }
 
         public void UpdateMovie(Movie movie) 
         {
-            _baseRepository.Db.Entry(movie).State = EntityState.Modified;
-            _baseRepository.SaveDb();
+            Db.Entry(movie).State = EntityState.Modified;
+            SaveDb();
         }
 
         public void DeleteMovie(int id)
         {
-           var movieDeleted = _baseRepository.Db.Movie.FirstOrDefault(x => x.Id == id);
-           _baseRepository.Db.Movie.Remove(movieDeleted);
-           _baseRepository.SaveDb();
+           var movieDeleted = Db.Movie.FirstOrDefault(x => x.Id == id);
+           Db.Movie.Remove(movieDeleted);
+           SaveDb();
         }
     }
 }
