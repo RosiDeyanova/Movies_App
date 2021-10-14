@@ -52,7 +52,7 @@ namespace Movies.BL.Managers
             return mappedMovie;
         }
 
-        public IEnumerable<MovieModel> GetMovies()
+        public IEnumerable<MovieModel> GetAllMovies()
         {
             var model = _movieRepository.GetMovies();
             var mappedMovies = _mapper.Map<IEnumerable<MovieModel>>(model);
