@@ -33,8 +33,8 @@ namespace Movies.BL.Managers
         {
             if (movieTitle == null)
             {
-                IQueryable<Movie> model = _movieRepository.GetMovies();
-                var mappedMovies = _mapper.Map<IQueryable<MovieModel>>(model);
+                IEnumerable<Movie> model = _movieRepository.GetMovies().AsEnumerable();
+                var mappedMovies = _mapper.Map<IEnumerable<MovieModel>>(model);
                 return mappedMovies;
             }
             else
