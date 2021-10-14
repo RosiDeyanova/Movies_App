@@ -387,3 +387,4 @@ FodyWeavers.xsd
 .idea/
 *.sln.iml
 .vs/Movies_App/DesignTimeBuild/.dtbcache.v2
+*.v2
