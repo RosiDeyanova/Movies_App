@@ -1,14 +1,14 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Movies.BL.IManagers;
 using Movies.BL.Models;
-using Movies.Web.Managers;
 
 namespace Movies.Web.Controllers
 {
     public class BaseController : Controller
     {
-        protected UserModel User { get; private set; }
+        protected new UserModel User { get; private set; }
 
-        public BaseController(AuthenticationManager authenticationManager)
+        public BaseController(IAuthenticationManager authenticationManager)
         {
             User = authenticationManager.GetUserFromCookie();
         }

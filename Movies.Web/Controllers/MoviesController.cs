@@ -1,18 +1,17 @@
-﻿using AutoMapper;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using Movies.BL.Models;
-using Movies.BL.Services;
-using Movies.Web.Managers;
-using Movies.Web.Models;
-using Movies.Web.ViewModel.Movies;
-using Movies.Web.ViewModel.User;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+using Movies.BL.IManagers;
+using Movies.BL.Models;
+using Movies.Web.Models;
+using Movies.Web.ViewModel.Movies;
+using Movies.Web.ViewModel.User;
 
 namespace Movies.Web.Controllers
 {
@@ -24,7 +23,7 @@ namespace Movies.Web.Controllers
         private readonly IUserManager _userManager;
         private readonly IMapper _mapper;
 
-        public MoviesController(IMovieManager movieManager, IGenreManager genreManager, AuthenticationManager authenticationManager, IMapper mapper, IUserManager userManager) : base(authenticationManager)
+        public MoviesController(IMovieManager movieManager, IGenreManager genreManager, IMapper mapper, IUserManager userManager, IAuthenticationManager authenticationManager) : base(authenticationManager)
         {
             _movieManager = movieManager;
             _genreManager = genreManager;
@@ -32,16 +31,17 @@ namespace Movies.Web.Controllers
             _userManager = userManager;
         }
 
-        public ActionResult Index(string SearchResult)
+        [HttpGet("movies")]
+        public ActionResult Index(string searchResult)
         {
             List<MovieModel> movieModels;
-            if (string.IsNullOrEmpty(SearchResult))
+            if (string.IsNullOrEmpty(searchResult))
             {
                 movieModels = _movieManager.GetAllMovies().ToList();
             }
             else
             {
-                movieModels = _movieManager.SearchMovies(SearchResult).ToList();
+                movieModels = _movieManager.SearchMovies(searchResult).ToList();
             }
             var userModel = _userManager.GetUserByEmail(User.Email);
 
@@ -49,7 +49,7 @@ namespace Movies.Web.Controllers
             { 
                 User = _mapper.Map<UserViewModel>(userModel),
                 Movies = _mapper.Map<List<CreateMovieViewModel>>(movieModels),
-                SearchResult = SearchResult
+                SearchResult = searchResult
             };
                        
             return View(indexMovieViewModel);

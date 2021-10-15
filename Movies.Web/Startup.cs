@@ -11,7 +11,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Movies.BL;
 using Movies.BL.Managers;
-using Movies.BL.Services;
+using Movies.BL.IManagers;
 using Movies.Data;
 using Movies.Data.Entities;
 using Movies.Data.Repositories;
@@ -47,8 +47,7 @@ namespace Movies.Web
             services.AddScoped<IStudioManager, StudioManager>();
             services.AddScoped<IGenreManager, GenreManager>();
             services.AddScoped<IUserManager, UserManager>();
-
-            services.AddScoped<AuthenticationManager>();
+            services.AddScoped<IAuthenticationManager,AuthenticationManager>();
 
             services.AddLocalization(options => options.ResourcesPath = "Resources");
             services.AddMvc()

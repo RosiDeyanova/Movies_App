@@ -4,7 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Movies.BL.Services
+namespace Movies.BL.IManagers
 {
     public interface IUserManager
     {

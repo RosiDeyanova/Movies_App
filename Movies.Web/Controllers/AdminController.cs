@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Movies.BL.Services;
+using Movies.BL.IManagers;
 using Movies.Web.Managers;
 using Movies.Web.ViewModel.Admin;
 using Movies.Web.ViewModel.User;
@@ -15,13 +15,13 @@ namespace Movies.Web.Controllers
     {
         private readonly IUserManager _userManager;
 
-        public AdminController(IUserManager userManager, AuthenticationManager authenticationManager) : base (authenticationManager)
+        public AdminController(IUserManager userManager, IAuthenticationManager authenticationManager) : base (authenticationManager)
         {
             _userManager = userManager;
         }
 
         [HttpGet("admin")]
-        public IActionResult Index()
+        public ActionResult Index()
         {
             var users = _userManager.GetUsers();
             var adminInfo = new AdminViewModel()

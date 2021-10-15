@@ -1,6 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using System.Linq;
+using Microsoft.EntityFrameworkCore;
 using Movies.Data.Entities;
-using System.Linq;
 
 namespace Movies.Data.Repositories
 {

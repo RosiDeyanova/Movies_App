@@ -5,8 +5,10 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc;
 using Movies.BL.Models;
-using Movies.BL.Services;
+using Movies.BL.IManagers;
+using Movies.Web.Managers;
 using Movies.Web.Models;
+using Movies.Web.ViewModel.Admin;
 using Movies.Web.ViewModel.User;
 using System;
 using System.Diagnostics;
@@ -15,19 +17,31 @@ using System.Threading.Tasks;
 
 namespace Movies.Web.Controllers
 {
-    public class HomeController : Controller
+    public class HomeController : BaseController
     {
         private readonly IUserManager _userManager;
         private readonly IMapper _mapper;
 
-        public HomeController(IUserManager userManager)
+        public HomeController(IUserManager userManager, IMapper mapper, IAuthenticationManager authenticationManager) : base(authenticationManager)
         {
             _userManager = userManager;
+            _mapper = mapper;
         }
 
         public ActionResult Index()
         {
-            return View();
+            if (User != null && User.IsAdmin == true)
+            {
+                return RedirectToAction("Index", "Admin");
+            }
+            else if (User != null && User.IsAdmin == false)
+            {
+                return RedirectToAction("Index", "User");
+            }
+            else 
+            {
+                return View();
+            }
         }
 
         [HttpPost]

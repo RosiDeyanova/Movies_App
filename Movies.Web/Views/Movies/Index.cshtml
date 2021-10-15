@@ -131,7 +131,7 @@
                     </div>
                     <!-- /FORM INPUT -->
                     <!-- BUTTON -->
-                    <button asp-action="Index" asp-controller="Movies" asp-route-data="Model.SearchResult" class="button primary">
+                    <button asp-action="Index" asp-controller="Movies" asp-route-searchResult="Model.SearchResult" class="button primary">
                         <!-- ICON MAGNIFYING GLASS -->
                         <svg class="icon-magnifying-glass">
                             <use xlink:href="#svg-magnifying-glass"></use>
@@ -170,11 +170,11 @@
                                 <!-- TEXT STICKER -->
                                 @if (Model.User.Movies == null || !Model.User.Movies.Any(m => m.Id == item.Id))
                                 {
-                                    <p class="text-sticker"><span class="highlighted"><a asp-action="AddMovie" asp-controller="User" asp-route-id="@item.Id"><strong>+</strong></a></span></p>
+                                    <p class="text-sticker"><span class="highlighted"><a asp-action="AddMovie" asp-controller="User" asp-route-movieId="@item.Id"><strong>+</strong></a></span></p>
                                 }
                                 else
                                 {
-                                    <p class="text-sticker"><span class="highlighted"><a asp-action="RemoveMovie" asp-controller="User" asp-route-id="@item.Id"><strong>-</strong></a></span></p>
+                                    <p class="text-sticker"><span class="highlighted"><a asp-action="RemoveMovie" asp-controller="User" asp-route-movieId="@item.Id"><strong>-</strong></a></span></p>
                                 }
 
                                 <!-- /TEXT STICKER -->

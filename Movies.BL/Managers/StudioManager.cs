@@ -1,4 +1,4 @@
-﻿using Movies.BL.Services;
+﻿using Movies.BL.IManagers;
 using Movies.Data.Entities;
 using Movies.Data.Repositories;
 using System.Collections.Generic;

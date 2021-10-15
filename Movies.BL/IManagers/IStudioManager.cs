@@ -1,6 +1,6 @@
 ﻿using Movies.Data.Entities;
 
-namespace Movies.BL.Services
+namespace Movies.BL.IManagers
 {
     public interface IStudioManager
     {
