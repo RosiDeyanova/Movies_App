@@ -32,15 +32,27 @@ namespace Movies.Web.Controllers
             _userManager = userManager;
         }
 
-        public ActionResult Index(string movieTitle)
+        public ActionResult Index(string SearchResult)
         {
-            var model = _movieManager.SearchMovies(movieTitle).ToList();
-            var mappedModel = _mapper.Map<List<CreateMovieViewModel>>(model);
+            List<MovieModel> movieModels;
+            if (string.IsNullOrEmpty(SearchResult))
+            {
+                movieModels = _movieManager.GetAllMovies().ToList();
+            }
+            else
+            {
+                movieModels = _movieManager.SearchMovies(SearchResult).ToList();
+            }
             var userModel = _userManager.GetUserByEmail(User.Email);
-            var mappedUser = _mapper.Map<UserViewModel>(userModel);
-            var result = new Tuple<List<CreateMovieViewModel>, UserViewModel>(mappedModel, mappedUser);
+
+            var IndexMovieViewModel = new IndexMovieViewModel 
+            { 
+                User = _mapper.Map<UserViewModel>(userModel),
+                Movies = _mapper.Map<List<CreateMovieViewModel>>(movieModels),
+                SearchResult = SearchResult
+            };
                        
-            return View(result);
+            return View(IndexMovieViewModel);
         }
 
         public ActionResult Details(int id)

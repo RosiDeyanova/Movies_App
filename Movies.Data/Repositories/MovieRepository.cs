@@ -19,7 +19,7 @@ namespace Movies.Data.Repositories
 
         public IQueryable<Movie> GetMoviesByTitle(string title) 
         {
-            var movies = Db.Movie.Include(m => m.UserMovies).Include(m => m.Genre).Include(m => m.Studio).Where(m => m.Title.Contains(title));
+            var movies = Db.Movie.Include(m => m.UserMovies).Include(m => m.Genre).Include(m => m.Studio).Where(m => m.Title.ToLower().Contains(title.ToLower()));
             return movies;
         }
 

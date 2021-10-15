@@ -32,18 +32,9 @@ namespace Movies.BL.Managers
 
         public IEnumerable<MovieModel> SearchMovies(string movieTitle)
         {
-            if (movieTitle == null)
-            {
-                IEnumerable<Movie> model = _movieRepository.GetMovies().AsEnumerable();
-                var mappedMovies = _mapper.Map<IEnumerable<MovieModel>>(model);
-                return mappedMovies;
-            }
-            else
-            {
-                IQueryable<Movie> model = _movieRepository.GetMoviesByTitle(movieTitle);
-                var mappedMovies = _mapper.Map<IQueryable<MovieModel>>(model);
-                return mappedMovies;
-            }
+            List<Movie> model = _movieRepository.GetMoviesByTitle(movieTitle).ToList();
+            var mappedMovies = _mapper.Map<List<MovieModel>>(model);
+            return mappedMovies;
         }
 
         public MovieModel GetMovieById(int id)
@@ -76,7 +67,7 @@ namespace Movies.BL.Managers
             movieData.Image = filename;
 
             string webRootPath = _webHostEnvironment.WebRootPath;
-            string filePath = Path.Combine(webRootPath,imageFolder, filename);
+            string filePath = Path.Combine(webRootPath, imageFolder, filename);
             using (Stream fileStream = new FileStream(filePath, FileMode.Create))
             {
                 await movie.ImageFile.CopyToAsync(fileStream);
