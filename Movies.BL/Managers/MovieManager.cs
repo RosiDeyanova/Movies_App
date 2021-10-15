@@ -19,6 +19,7 @@ namespace Movies.BL.Managers
         private readonly IStudioManager _studioManager;
         private readonly IWebHostEnvironment _webHostEnvironment;
         private readonly IMapper _mapper;
+        private const string imageFolder = "UploadedImages";
 
         public MovieManager(IMovieRepository movieRepository, IStudioManager studioManager, IWebHostEnvironment webHostEnvironment, IMapper mapper, IGenreManager genreManager)
         {
@@ -75,7 +76,7 @@ namespace Movies.BL.Managers
             movieData.Image = filename;
 
             string webRootPath = _webHostEnvironment.WebRootPath;
-            string filePath = Path.Combine(webRootPath, "UploadedImages", filename);
+            string filePath = Path.Combine(webRootPath,imageFolder, filename);
             using (Stream fileStream = new FileStream(filePath, FileMode.Create))
             {
                 await movie.ImageFile.CopyToAsync(fileStream);
