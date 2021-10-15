@@ -45,14 +45,14 @@ namespace Movies.Web.Controllers
             }
             var userModel = _userManager.GetUserByEmail(User.Email);
 
-            var IndexMovieViewModel = new IndexMovieViewModel 
+            var indexMovieViewModel = new IndexMovieViewModel 
             { 
                 User = _mapper.Map<UserViewModel>(userModel),
                 Movies = _mapper.Map<List<CreateMovieViewModel>>(movieModels),
                 SearchResult = SearchResult
             };
                        
-            return View(IndexMovieViewModel);
+            return View(indexMovieViewModel);
         }
 
         public ActionResult Details(int id)
