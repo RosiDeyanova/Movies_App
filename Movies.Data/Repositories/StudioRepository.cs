@@ -21,6 +21,10 @@ namespace Movies.Data.Repositories
             var studios = Db.Studio;
             return studios;
         }
-
+        public Studio GetStudioById(int id) 
+        {
+            var studio = Db.Studio.Where(s => s.Id == id).FirstOrDefault();
+            return studio;
+        }
     }
 }

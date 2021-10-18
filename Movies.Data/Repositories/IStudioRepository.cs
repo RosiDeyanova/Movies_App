@@ -9,6 +9,7 @@ namespace Movies.Data.Repositories
         public int SaveStudio(Studio studio);
 
         public IQueryable<Studio> GetStudios();
+        public Studio GetStudioById(int id);
 
     }
 }
