@@ -9,7 +9,7 @@ using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 
-namespace Movies.Web.Managers
+namespace Movies.BL.Managers
 {
     public class AuthenticationManager : IAuthenticationManager
     {
