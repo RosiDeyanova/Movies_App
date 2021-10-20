@@ -1,14 +1,4 @@
 @model Movies.Web.ViewModel.Movies.IndexMovieViewModel
-@{
-    if (Model.User.IsAdmin == true)
-    {
-        Layout = "_AdminLayout";
-    }
-    else
-    {
-        Layout = "_MoviesLayout";
-    }
-}
 <!-- FLOATY BAR -->
 <aside class="floaty-bar">
     <!-- BAR ACTIONS -->

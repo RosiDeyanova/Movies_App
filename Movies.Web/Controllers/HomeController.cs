@@ -4,11 +4,9 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc;
-using Movies.BL.Models;
 using Movies.BL.IManagers;
-using Movies.Web.Managers;
+using Movies.BL.Models;
 using Movies.Web.Models;
-using Movies.Web.ViewModel.Admin;
 using Movies.Web.ViewModel.User;
 using System;
 using System.Diagnostics;
@@ -20,12 +18,10 @@ namespace Movies.Web.Controllers
     public class HomeController : BaseController
     {
         private readonly IUserManager _userManager;
-        private readonly IMapper _mapper;
 
-        public HomeController(IUserManager userManager, IMapper mapper, IAuthenticationManager authenticationManager) : base(authenticationManager)
+        public HomeController(IUserManager userManager, IAuthenticationManager authenticationManager, IMapper mapper) : base(authenticationManager,mapper)
         {
             _userManager = userManager;
-            _mapper = mapper;
         }
 
         public ActionResult Index()

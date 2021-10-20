@@ -52,41 +52,35 @@ namespace Movies.BL.Managers
             return mappedMovies;
         }
 
-        public async Task SaveMovie(MovieModel movie)
+        public async Task SaveMovie(MovieModel movieModel)
         {
-            Studio studioData = new Studio
+            var movie = _mapper.Map<Movie>(movieModel);
+            movie.Genre = null;
+            movie.Studio = null;
+            if (movieModel.ImageFile != null)
             {
-                Name = movie.Studio.Name,
-                Address = movie.Studio.Address
-            };
-            int studioId = _studioManager.GetStudioIdByName(movie.Studio.Name);
-            studioData.Id = studioId;
-
-            var movieData = _mapper.Map<Movie>(movie);
-            string filename = Guid.NewGuid().ToString() + Path.GetExtension(movie.ImageFile.FileName);
-            movieData.Image = filename;
-
-            string webRootPath = _webHostEnvironment.WebRootPath;
-            string filePath = Path.Combine(webRootPath, imageFolder, filename);
-            using (Stream fileStream = new FileStream(filePath, FileMode.Create))
-            {
-                await movie.ImageFile.CopyToAsync(fileStream);
+                string filename = Guid.NewGuid().ToString() + Path.GetExtension(movieModel.ImageFile.FileName);
+                string webRootPath = _webHostEnvironment.WebRootPath;
+                string filePath = Path.Combine(webRootPath, imageFolder, filename);
+                try
+                {
+                    using (var fileStream = new FileStream(filePath, FileMode.Create))
+                    {
+                        await movieModel.ImageFile.CopyToAsync(fileStream);
+                    }
+                    movie.Image = filename;
+                }
+                catch (Exception)
+                {
+                    //empty on purpose
+                }
             }
 
-            _movieRepository.SaveMovie(movieData);
-            _studioManager.SaveStudio(studioData);
+            _movieRepository.SaveMovie(movie);
         }
 
         public void UpdateMovie(MovieModel movie)
         {
-            Studio studioData = new Studio
-            {
-                Id = movie.Studio.Id,
-                Name = movie.Studio.Name,
-                Address = movie.Studio.Address
-            };
-
-            int studioId = _studioManager.SaveStudio(studioData);
             var movieData = _mapper.Map<Movie>(movie);
 
             _movieRepository.UpdateMovie(movieData);

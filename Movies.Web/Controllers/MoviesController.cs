@@ -21,14 +21,14 @@ namespace Movies.Web.Controllers
         private readonly IMovieManager _movieManager;
         private readonly IGenreManager _genreManager;
         private readonly IUserManager _userManager;
-        private readonly IMapper _mapper;
+        private readonly IStudioManager _studioManager;
 
-        public MoviesController(IMovieManager movieManager, IGenreManager genreManager, IMapper mapper, IUserManager userManager, IAuthenticationManager authenticationManager) : base(authenticationManager)
+        public MoviesController(IMovieManager movieManager, IGenreManager genreManager, IUserManager userManager, IStudioManager studioManager, IAuthenticationManager authenticationManager, IMapper mapper) : base(authenticationManager, mapper)
         {
             _movieManager = movieManager;
             _genreManager = genreManager;
-            _mapper = mapper;
             _userManager = userManager;
+            _studioManager = studioManager;
         }
 
         [HttpGet("movies")]
@@ -69,9 +69,11 @@ namespace Movies.Web.Controllers
         public ActionResult Create()
         {
             var genres = _genreManager.GetGenres();
+            var studios = _studioManager.GetStudios();
             CreateMovieViewModel model = new CreateMovieViewModel
             {
-                Genres = _mapper.Map<List<GenreModel>>(genres)
+                Genres = _mapper.Map<List<GenreModel>>(genres),
+                Studios = _mapper.Map<List<StudioModel>>(studios)
             };
 
             return View(model);
@@ -94,9 +96,10 @@ namespace Movies.Web.Controllers
         {
             var info = _movieManager.GetMovieById(id);
             var genres = _genreManager.GetGenres().ToList();
+            var studios = _studioManager.GetStudios().ToList();
             var movie = _mapper.Map<CreateMovieViewModel>(info);
             movie.Genres = genres;
-
+            movie.Studios = studios;
             return View(movie); 
         }
 

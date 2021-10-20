@@ -1,9 +1,7 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Movies.BL.Managers;
 using Movies.BL.IManagers;
-using Movies.Web.Managers;
 using Movies.Web.ViewModel.User;
 
 namespace Movies.Web.Controllers
@@ -12,12 +10,10 @@ namespace Movies.Web.Controllers
     public class UserController : BaseController
     {
         private readonly IUserManager _userManager;
-        private readonly IMapper _mapper;
 
-        public UserController(IUserManager userManager, IMapper mapper, IAuthenticationManager authenticationManager) : base (authenticationManager)
+        public UserController(IUserManager userManager, IAuthenticationManager authenticationManager, IMapper mapper) : base (authenticationManager, mapper)
         {
             _userManager = userManager;
-            _mapper = mapper;
         }
 
         [HttpGet("user")]

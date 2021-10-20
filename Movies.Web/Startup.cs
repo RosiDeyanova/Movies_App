@@ -1,22 +1,16 @@
-using AutoMapper;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc.Razor;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Movies.BL;
-using Movies.BL.Managers;
 using Movies.BL.IManagers;
+using Movies.BL.Managers;
 using Movies.Data;
-using Movies.Data.Entities;
 using Movies.Data.Repositories;
-using Movies.Web.Managers;
-using System;
 using System.Collections.Generic;
 
 namespace Movies.Web

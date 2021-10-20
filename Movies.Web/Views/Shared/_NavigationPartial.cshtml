@@ -1,33 +1,29 @@
-﻿
+﻿@model bool
 <nav class="navigation">
-    <!-- MENU MAIN -->
     <ul class="menu-main">
-        <!-- MENU MAIN ITEM -->
+        @if (Model == true)
+        {
+            <li class="menu-main-item">
+                <a class="menu-main-item-link" href="/Admin">Home</a>
+            </li>
+            <li class="menu-main-item">
+                <a class="menu-main-item-link" href="/Movies">All Movies</a>
+            </li>
+            <li class="menu-main-item">
+                <a class="menu-main-item-link" href="/Movies/Create">New Movie</a>
+            </li>
+        }
+        else
+        {
+            <li class="menu-main-item">
+                <a class="menu-main-item-link" href="/User">Home</a>
+            </li>
+            <li class="menu-main-item">
+                <a class="menu-main-item-link" href="/Movies">Movies</a>
+            </li>
+        }
         <li class="menu-main-item">
-            <!-- MENU MAIN ITEM LINK -->
-            <a class="menu-main-item-link" href="/Admin">Home</a>
-            <!-- /MENU MAIN ITEM LINK -->
+            <a class="menu-main-item-link" asp-action="Logout" asp-controller="Home">Log out</a>
         </li>
-        <li class="menu-main-item">
-            <!-- MENU MAIN ITEM LINK -->
-            <a class="menu-main-item-link" href="/Movies">All Movies</a>
-            <!-- /MENU MAIN ITEM LINK -->
-        </li>
-        <!-- /MENU MAIN ITEM -->
-        <!-- MENU MAIN ITEM -->
-        <li class="menu-main-item">
-            <!-- MENU MAIN ITEM LINK -->
-            <a class="menu-main-item-link" href="/Movies/Create">New Movie</a>
-            <!-- /MENU MAIN ITEM LINK -->
-        </li>
-        <!-- /MENU MAIN ITEM -->
-        <!-- MENU MAIN ITEM -->
-        <li class="menu-main-item">
-            <!-- MENU MAIN ITEM LINK -->
-            <a class="menu-main-item-link" href="/Home/Index">Log out</a>
-            <!-- /MENU MAIN ITEM LINK -->
-        </li>
-
     </ul>
-    <!-- /MENU MAIN -->
 </nav>

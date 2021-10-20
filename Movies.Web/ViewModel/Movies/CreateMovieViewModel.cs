@@ -38,6 +38,11 @@ namespace Movies.Web.ViewModel.Movies
 
         public List<GenreModel> Genres { get; set; }
 
+        public List<StudioModel> Studios { get; set; }
+
         public SelectList GenreOptions => Genres != null ? new SelectList(Genres, "Id", "Name") : null;
+
+        public SelectList StudioOptions => Studios != null ? new SelectList(Studios, "Id", "Name") : null;
+
     }
 }

@@ -1,14 +1,11 @@
 ﻿using Movies.BL.Models;
-using System;
+using Movies.Web.ViewModel.User;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace Movies.Web.ViewModel.Admin
 {
-    public class AdminViewModel
+    public class AdminViewModel : UserViewModel
     {
-        public UserModel Admin { get; set; }
         public List<UserModel> AllUsers { get; set; }
     }
 }
