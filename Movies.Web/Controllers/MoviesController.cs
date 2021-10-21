@@ -43,12 +43,13 @@ namespace Movies.Web.Controllers
             {
                 movieModels = _movieManager.SearchMovies(searchResult).ToList();
             }
-            var userModel = _userManager.GetUserByEmail(User.Email);
 
-            var indexMovieViewModel = new IndexMovieViewModel 
-            { 
-                User = _mapper.Map<UserViewModel>(userModel),
-                Movies = _mapper.Map<List<CreateMovieViewModel>>(movieModels),
+            var indexMovieViewModel = new IndexMovieViewModel
+            {
+                IsAdmin = User.IsAdmin,
+                Username = User.Username,
+                UserMovies = _mapper.Map<ICollection<CreateMovieViewModel>>(User.Movies),
+                Movies = _mapper.Map<ICollection<CreateMovieViewModel>>(movieModels),
                 SearchResult = searchResult
             };
                        
@@ -59,11 +60,10 @@ namespace Movies.Web.Controllers
         {
             var info = _movieManager.GetMovieById(id);
             var movie = _mapper.Map<CreateMovieViewModel>(info);
-            var userModel = _userManager.GetUserByEmail(User.Email);
-            var mappedUser = _mapper.Map<UserViewModel>(userModel);
-            var result = new Tuple <CreateMovieViewModel, UserViewModel>(movie, mappedUser);
+            movie.IsAdmin = User.IsAdmin;
+            movie.Username = User.Username;
 
-            return View(result);
+            return View(movie);
         }
 
         [Authorize(Policy = "AdminRole")]
@@ -73,6 +73,8 @@ namespace Movies.Web.Controllers
             var studios = _studioManager.GetStudios();
             CreateMovieViewModel model = new CreateMovieViewModel
             {
+                IsAdmin = User.IsAdmin,
+                Username = User.Username,
                 Genres = _mapper.Map<List<GenreModel>>(genres),
                 Studios = _mapper.Map<List<StudioModel>>(studios)
             };
@@ -102,6 +104,9 @@ namespace Movies.Web.Controllers
             var movie = _mapper.Map<CreateMovieViewModel>(info);
             movie.Genres = genres;
             movie.Studios = studios;
+            movie.IsAdmin = User.IsAdmin;
+            movie.Username = User.Username;
+
             return View(movie); 
         }
 

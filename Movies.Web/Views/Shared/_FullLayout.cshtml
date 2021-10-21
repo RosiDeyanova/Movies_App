@@ -1,4 +1,4 @@
-﻿@model Movies.Web.ViewModel.User.UserViewModel
+﻿@model Movies.Web.ViewModel.FullLayoutViewModel
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -46,7 +46,9 @@
         <div class="header-actions">
             <partial name="_NavigationPartial.cshtml" for="@Model.IsAdmin">
         </div>
-        @RenderSection("welcome", required: false)
+        <div class="header-actions offset-7">
+            <a class="menu-main-item-link" style="color:white">Welcome, @Model.Username</a>
+        </div>
     </header>
     <div>
         <main role="main" class="pb-3">

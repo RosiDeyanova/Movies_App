@@ -2,14 +2,17 @@
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Movies.BL.Models;
 using Movies.Web.Attributes;
+using Movies.Web.ViewModel.User;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Movies.Web.ViewModel.Movies
 {
-    public class CreateMovieViewModel
+    public class CreateMovieViewModel : FullLayoutViewModel
     {
+        public UserViewModel User { get; set; }
+
         public int Id { get; set; }
 
         [Required(ErrorMessage = "Enter a title")]

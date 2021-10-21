@@ -158,7 +158,7 @@
                             <!-- PRODUCT PREVIEW INFO -->
                             <div class="product-preview-info">
                                 <!-- TEXT STICKER -->
-                                @if (Model.User.Movies == null || !Model.User.Movies.Any(m => m.Id == item.Id))
+                                @if (Model.UserMovies == null || !Model.UserMovies.Any(m => m.Id == item.Id))
                                 {
                                     <p class="text-sticker"><span class="highlighted"><a asp-action="AddMovie" asp-controller="User" asp-route-movieId="@item.Id"><strong>+</strong></a></span></p>
                                 }

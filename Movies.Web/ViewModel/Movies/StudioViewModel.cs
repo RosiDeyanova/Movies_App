@@ -2,7 +2,7 @@
 
 namespace Movies.Web.ViewModel.Movies
 {
-    public class StudioViewModel
+    public class StudioViewModel : FullLayoutViewModel
     {
         public int Id { get; set; }
 
