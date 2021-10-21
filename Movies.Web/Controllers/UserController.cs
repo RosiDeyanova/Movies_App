@@ -6,7 +6,7 @@ using Movies.Web.ViewModel.User;
 
 namespace Movies.Web.Controllers
 {
-    [Authorize]
+    [Authorize(Policy = "UserRole")]
     public class UserController : BaseController
     {
         private readonly IUserManager _userManager;

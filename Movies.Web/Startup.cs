@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Razor;
@@ -60,6 +61,18 @@ namespace Movies.Web
             {
                 o.LoginPath = "/";
             });
+
+            services.AddAuthorization(options => {
+                options.AddPolicy("UserRole", policy => policy.Requirements.Add(new UserRequirement(false)));
+            });
+            services.AddAuthorization(options => {
+                options.AddPolicy("AdminRole", policy => policy.Requirements.Add(new AdminRequirement(true)));
+            });
+
+
+            services.AddScoped<IAuthorizationHandler,UserRequirementHandler>();
+            services.AddScoped<IAuthorizationHandler, AdminRequirementHandler>();
+
 
             services.AddAutoMapper(typeof(ProfilesWeb));
             services.AddAutoMapper(typeof(ProfilesBL));

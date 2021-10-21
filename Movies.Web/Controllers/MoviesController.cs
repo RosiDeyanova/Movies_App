@@ -66,6 +66,7 @@ namespace Movies.Web.Controllers
             return View(result);
         }
 
+        [Authorize(Policy = "AdminRole")]
         public ActionResult Create()
         {
             var genres = _genreManager.GetGenres();
@@ -92,6 +93,7 @@ namespace Movies.Web.Controllers
             return View();
         }
 
+        [Authorize(Policy = "AdminRole")]
         public ActionResult Edit(int id)
         {
             var info = _movieManager.GetMovieById(id);
@@ -123,6 +125,7 @@ namespace Movies.Web.Controllers
             }
         }
 
+        [Authorize(Policy = "AdminRole")]
         public ActionResult Delete(int id)
         {
             try

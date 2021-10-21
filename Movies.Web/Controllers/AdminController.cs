@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace Movies.Web.Controllers
 {
-    //[Authorize(Roles = "Admin")]
+    [Authorize(Policy = "AdminRole")]
     public class AdminController : BaseController
     {
         private readonly IUserManager _userManager;
