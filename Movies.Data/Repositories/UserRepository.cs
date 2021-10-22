@@ -55,7 +55,7 @@ namespace Movies.Data.Repositories
                     return user;
                 }
             }
-            catch (System.Exception)
+            catch
             {
                return null;
             }

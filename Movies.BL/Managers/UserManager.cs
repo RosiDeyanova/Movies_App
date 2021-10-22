@@ -50,7 +50,6 @@ namespace Movies.BL.Managers
         {
             var user = new User {
                Username = userModel.Username,
-               Password = userModel.Password,
                Email = userModel.Email,
                IsAdmin = userModel.IsAdmin
             };

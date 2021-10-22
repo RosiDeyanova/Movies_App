@@ -46,6 +46,5 @@ namespace Movies.Web.ViewModel.Movies
         public SelectList GenreOptions => Genres != null ? new SelectList(Genres, "Id", "Name") : null;
 
         public SelectList StudioOptions => Studios != null ? new SelectList(Studios, "Id", "Name") : null;
-
     }
 }
