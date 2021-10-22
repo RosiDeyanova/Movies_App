@@ -5,6 +5,7 @@ using Movies.Data.Entities;
 using Movies.Data.Repositories;
 using System.Collections.Generic;
 using System.Linq;
+using Scrypt;
 
 namespace Movies.BL.Managers
 {
@@ -45,9 +46,16 @@ namespace Movies.BL.Managers
             _userRepository.SetOrRemoveAdminRole(id, isAdmin);
         }
 
-        public void AddUser(UserModel userModel) 
+        public void AddUser(UserModel userModel)
         {
-            var user = _mapper.Map<User>(userModel);
+            var user = new User {
+               Username = userModel.Username,
+               Password = userModel.Password,
+               Email = userModel.Email,
+               IsAdmin = userModel.IsAdmin
+            };
+            ScryptEncoder encoder = new ScryptEncoder();
+            user.Password = encoder.Encode(userModel.Password);
             _userRepository.AddUser(user);
         }
 

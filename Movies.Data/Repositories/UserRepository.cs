@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Movies.Data.Entities;
+using Scrypt;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -40,12 +41,26 @@ namespace Movies.Data.Repositories
 
         public User GetRegisteredUser(string email, string password)
         {
-            var user = Db.User
-               .Include(u => u.UserMovies).ThenInclude(um => um.Movie).ThenInclude(m => m.Studio)
-               .Include(u => u.UserMovies).ThenInclude(um => um.Movie).ThenInclude(m => m.Genre)
-               .FirstOrDefault(u => u.Email == email && u.Password == password);
+            ScryptEncoder encoder = new ScryptEncoder();
+            var user = new User();
+            try
+            {
+                 user = Db.User
+                .Include(u => u.UserMovies).ThenInclude(um => um.Movie).ThenInclude(m => m.Studio)
+                .Include(u => u.UserMovies).ThenInclude(um => um.Movie).ThenInclude(m => m.Genre)
+                .FirstOrDefault(u => u.Email == email);
 
-            return user;
+                if (encoder.Compare(password, user.Password))
+                {
+                    return user;
+                }
+            }
+            catch (System.Exception)
+            {
+               return null;
+            }
+
+            return null;
         }
         public void SetOrRemoveAdminRole(int id, bool isAdmin)
         {
