@@ -48,13 +48,14 @@ namespace Movies.BL.Managers
 
         public void AddUser(UserModel userModel)
         {
+            ScryptEncoder encoder = new ScryptEncoder();
             var user = new User {
                Username = userModel.Username,
-               Email = userModel.Email,
+               Password = encoder.Encode(userModel.Password),
+            Email = userModel.Email,
                IsAdmin = userModel.IsAdmin
             };
-            ScryptEncoder encoder = new ScryptEncoder();
-            user.Password = encoder.Encode(userModel.Password);
+
             _userRepository.AddUser(user);
         }
 
