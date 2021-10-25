@@ -42,25 +42,21 @@ namespace Movies.Data.Repositories
         public User GetRegisteredUser(string email, string password)
         {
             ScryptEncoder encoder = new ScryptEncoder();
+            var hashedPassword = encoder.Encode(password);
             var user = new User();
             try
             {
                  user = Db.User
                 .Include(u => u.UserMovies).ThenInclude(um => um.Movie).ThenInclude(m => m.Studio)
                 .Include(u => u.UserMovies).ThenInclude(um => um.Movie).ThenInclude(m => m.Genre)
-                .FirstOrDefault(u => u.Email == email);
+                .FirstOrDefault(u => u.Email == email && u.Password == hashedPassword);
 
-                if (encoder.Compare(password, user.Password))
-                {
-                    return user;
-                }
+                return user;
             }
             catch
             {
                return null;
             }
-
-            return null;
         }
         public void SetOrRemoveAdminRole(int id, bool isAdmin)
         {
