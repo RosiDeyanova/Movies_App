@@ -43,10 +43,9 @@ namespace Movies.Data.Repositories
         {
             ScryptEncoder encoder = new ScryptEncoder();
             var hashedPassword = encoder.Encode(password);
-            var user = new User();
             try
             {
-                 user = Db.User
+                var user = Db.User
                 .Include(u => u.UserMovies).ThenInclude(um => um.Movie).ThenInclude(m => m.Studio)
                 .Include(u => u.UserMovies).ThenInclude(um => um.Movie).ThenInclude(m => m.Genre)
                 .FirstOrDefault(u => u.Email == email && u.Password == hashedPassword);

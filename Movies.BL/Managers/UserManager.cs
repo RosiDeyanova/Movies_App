@@ -1,11 +1,11 @@
 ﻿using AutoMapper;
-using Movies.BL.Models;
 using Movies.BL.IManagers;
+using Movies.BL.Models;
 using Movies.Data.Entities;
 using Movies.Data.Repositories;
+using Scrypt;
 using System.Collections.Generic;
 using System.Linq;
-using Scrypt;
 
 namespace Movies.BL.Managers
 {
@@ -52,7 +52,7 @@ namespace Movies.BL.Managers
             var user = new User {
                Username = userModel.Username,
                Password = encoder.Encode(userModel.Password),
-            Email = userModel.Email,
+               Email = userModel.Email,
                IsAdmin = userModel.IsAdmin
             };
 
