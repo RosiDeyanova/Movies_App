@@ -112,7 +112,7 @@
         <!-- SECTION FILTERS BAR ACTIONS -->
         <div class="section-filters-bar-actions">
             <!-- FORM -->
-            <form class="form">
+            <form class="form" method="post" asp-action="Index" asp-controller="Movies">
                 <!-- FORM ITEM -->
                 <div class="form-item split">
                     <!-- FORM INPUT -->
@@ -187,7 +187,7 @@
             else
             {
                 <div class="grid grid-6 centered">
-                    <h6>There are no movies with such title</h6>
+                    <h6>There are no movies with such title, make sure the search is not empty</h6>
                 </div>
             }
         }

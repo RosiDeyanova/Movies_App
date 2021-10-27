@@ -32,12 +32,26 @@ namespace Movies.Web.Controllers
         }
 
         [HttpGet("movies")]
+        public ActionResult Index()
+        {
+            var indexMovieViewModel = new IndexMovieViewModel
+            {
+                Movies = _mapper.Map<ICollection<CreateMovieViewModel>>(_movieManager.GetAllMovies()),
+                UserMovies = _mapper.Map<ICollection<CreateMovieViewModel>>(User.Movies),
+                Username = User.Username,
+                IsAdmin = User.IsAdmin
+            };
+
+            return View(indexMovieViewModel);
+        }
+
+        [HttpPost]
         public ActionResult Index(string searchResult)
         {
             List<MovieModel> movieModels;
-            if (string.IsNullOrEmpty(searchResult))
+            if (string.IsNullOrWhiteSpace(searchResult))
             {
-                movieModels = _movieManager.GetAllMovies().ToList();
+                movieModels = null;
             }
             else
             {
@@ -52,9 +66,10 @@ namespace Movies.Web.Controllers
                 Movies = _mapper.Map<ICollection<CreateMovieViewModel>>(movieModels),
                 SearchResult = searchResult
             };
-                       
+
             return View(indexMovieViewModel);
         }
+
 
         public ActionResult Details(int id)
         {

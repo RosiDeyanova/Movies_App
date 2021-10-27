@@ -48,9 +48,14 @@ namespace Movies.Data.Repositories
                 var user = Db.User
                 .Include(u => u.UserMovies).ThenInclude(um => um.Movie).ThenInclude(m => m.Studio)
                 .Include(u => u.UserMovies).ThenInclude(um => um.Movie).ThenInclude(m => m.Genre)
-                .FirstOrDefault(u => u.Email == email && u.Password == hashedPassword);
+                .FirstOrDefault(u => u.Email == email);
 
-                return user;
+                if (encoder.Compare(password, user.Password))
+                {
+                    return user;
+                }
+
+                return null;
             }
             catch
             {
