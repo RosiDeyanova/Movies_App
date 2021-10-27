@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Hosting;
 using Movies.BL.Models;
-using Movies.BL.Services;
+using Movies.BL.IManagers;
 using Movies.Data.Entities;
 using Movies.Data.Repositories;
 using System;
@@ -15,23 +15,25 @@ namespace Movies.BL.Managers
     public class MovieManager : IMovieManager
     {
         private readonly IMovieRepository _movieRepository;
+        private readonly IGenreManager _genreManager;
         private readonly IStudioManager _studioManager;
         private readonly IWebHostEnvironment _webHostEnvironment;
         private readonly IMapper _mapper;
+        private const string imageFolder = "UploadedImages";
 
-        public MovieManager(IMovieRepository movieRepository, IStudioManager studioManager, IWebHostEnvironment webHostEnvironment, IMapper mapper)
+        public MovieManager(IMovieRepository movieRepository, IStudioManager studioManager, IWebHostEnvironment webHostEnvironment, IMapper mapper, IGenreManager genreManager)
         {
             _movieRepository = movieRepository;
             _studioManager = studioManager;
+            _genreManager = genreManager;
             _webHostEnvironment = webHostEnvironment;
             _mapper = mapper;
         }
 
         public IEnumerable<MovieModel> SearchMovies(string movieTitle)
         {
-            var model = _movieRepository.GetMovies().Where(x => movieTitle == null || x.Title.Contains(movieTitle));
-            var mappedMovies = _mapper.Map<IEnumerable<MovieModel>>(model);
-
+            List<Movie> model = _movieRepository.GetMoviesByTitle(movieTitle).ToList();
+            var mappedMovies = _mapper.Map<List<MovieModel>>(model);
             return mappedMovies;
         }
 
@@ -50,41 +52,35 @@ namespace Movies.BL.Managers
             return mappedMovies;
         }
 
-        public async Task SaveMovie(MovieModel movie)
+        public async Task SaveMovie(MovieModel movieModel)
         {
-            Studio studioData = new Studio
+            var movie = _mapper.Map<Movie>(movieModel);
+            movie.Genre = null;
+            movie.Studio = null;
+            if (movieModel.ImageFile != null)
             {
-                Name = movie.Studio.Name,
-                Address = movie.Studio.Address
-            };
-            int studioId = _studioManager.GetStudioIdByName(movie.Studio.Name);
-            studioData.Id = studioId;
-
-            var movieData = _mapper.Map<Movie>(movie);
-            string filename = Guid.NewGuid().ToString() + Path.GetExtension(movie.ImageFile.FileName);
-            movieData.Image = filename;
-
-            string webRootPath = _webHostEnvironment.WebRootPath;
-            string filePath = Path.Combine(webRootPath, "UploadedImages",filename);
-            using (Stream fileStream = new FileStream(filePath, FileMode.Create))
-            {
-                await movie.ImageFile.CopyToAsync(fileStream);
+                string filename = Guid.NewGuid().ToString() + Path.GetExtension(movieModel.ImageFile.FileName);
+                string webRootPath = _webHostEnvironment.WebRootPath;
+                string filePath = Path.Combine(webRootPath, imageFolder, filename);
+                try
+                {
+                    using (var fileStream = new FileStream(filePath, FileMode.Create))
+                    {
+                        await movieModel.ImageFile.CopyToAsync(fileStream);
+                    }
+                    movie.Image = filename;
+                }
+                catch (Exception)
+                {
+                    //empty on purpose
+                }
             }
 
-            _movieRepository.SaveMovie(movieData);
-            _studioManager.SaveStudio(studioData);
+            _movieRepository.SaveMovie(movie);
         }
 
         public void UpdateMovie(MovieModel movie)
         {
-            Studio studioData = new Studio
-            {
-                Id = movie.Studio.Id,
-                Name = movie.Studio.Name,
-                Address = movie.Studio.Address
-            };
-
-            int studioId = _studioManager.SaveStudio(studioData);
             var movieData = _mapper.Map<Movie>(movie);
 
             _movieRepository.UpdateMovie(movieData);
@@ -92,7 +88,8 @@ namespace Movies.BL.Managers
 
         public void DeleteMovie(int id)
         {
-           _movieRepository.DeleteMovie(id);
+            _movieRepository.DeleteMovie(id);
         }
+
     }
 }

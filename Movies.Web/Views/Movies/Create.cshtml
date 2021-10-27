@@ -1,7 +1,5 @@
 @model Movies.Web.ViewModel.Movies.CreateMovieViewModel
-@{
-    Layout = "_AdminLayout";
-}
+
 <div class="content-grid" style="transform: translate(0px, 0px); transition: transform 0.4s ease-in-out 0s;">
     <!-- SECTION BANNER -->
     <div class="section-banner">
@@ -138,24 +136,18 @@
                             <div class="form-row split">
                                 <!-- FORM ITEM -->
                                 <div class="form-item">
-                                    <!-- FORM INPUT -->
-                                    <div class="form-input small active">
-                                        <label asp-for="Studio.Name">Studio Name</label>
-                                        <input asp-for="Studio.Name" type="text" id="profile-psid">
-                                        <span asp-validation-for="Studio.Name" class="text-danger"></span>
+                                    <!-- FORM SELECT -->
+                                    <div class="form-select">
+                                        <label asp-for="Studio">Studio</label>
+                                        <select asp-items="@Model.StudioOptions" asp-for="Studio.Id"></select>
+                                        <span asp-validation-for="Studio.Id" class="text-danger"></span>
+                                        <!-- FORM SELECT ICON -->
+                                        <svg class="form-select-icon icon-small-arrow">
+                                            <use xlink:href="#svg-small-arrow"></use>
+                                        </svg>
+                                        <!-- /FORM SELECT ICON -->
                                     </div>
-                                    <!-- /FORM INPUT -->
-                                </div>
-                                <!-- /FORM ITEM -->
-                                <!-- FORM ITEM -->
-                                <div class="form-item">
-                                    <!-- FORM INPUT -->
-                                    <div class="form-input small active">
-                                        <label asp-for="Studio.Address">Studio Address</label>
-                                        <input asp-for="Studio.Address" type="text" id="profile-xbid">
-                                        <span asp-validation-for="Studio.Address" class="text-danger"></span>
-                                    </div>
-                                    <!-- /FORM INPUT -->
+                                    <!-- /FORM SELECT -->
                                 </div>
                                 <!-- /FORM ITEM -->
                             </div>

@@ -2,16 +2,16 @@
 using Microsoft.AspNetCore.Mvc;
 using Movies.BL.Managers;
 using Movies.BL.Models;
-using Movies.BL.Services;
+using Movies.BL.IManagers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 
-namespace Movies.Web.Managers
+namespace Movies.BL.Managers
 {
-    public class AuthenticationManager
+    public class AuthenticationManager : IAuthenticationManager
     {
         private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly IUserManager _userManager;

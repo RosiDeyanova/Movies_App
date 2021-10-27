@@ -4,25 +4,35 @@ using System.Linq;
 
 namespace Movies.Data.Repositories
 {
-    public class StudioRepository : IStudioRepository
+    public class StudioRepository : BaseRepository, IStudioRepository
     {
-        private readonly IBaseRepository _baseRepository;
-        public StudioRepository(IBaseRepository baseRepository)
+        public StudioRepository(MoviesContext moviesContext) : base (moviesContext)
         {
-            _baseRepository = baseRepository;
         }
+
         public int SaveStudio(Studio studio)
         {
-            _baseRepository.Db.Studio.Add(studio);
-            _baseRepository.SaveDb();
+            Db.Studio.Add(studio);
+            SaveDb();
             return studio.Id;
         }
 
-        public List<Studio> GetStudios()
+        public IQueryable<Studio> GetStudios()
         {
-            var studios = _baseRepository.Db.Studio.ToList();
+            var studios = Db.Studio;
             return studios;
         }
 
+        public Studio GetStudioById(int id) 
+        {
+            var studio = Db.Studio.Where(s => s.Id == id).FirstOrDefault();
+            return studio;
+        }
+
+        public Studio GetStudioByName(string name) 
+        {
+            var studio = Db.Studio.Where(s => s.Name == name).FirstOrDefault();
+            return studio;
+        }
     }
 }

@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using Movies.BL.Models;
-using Movies.BL.Services;
+using Movies.BL.IManagers;
 using Movies.Data.Repositories;
 using System.Collections.Generic;
 using System.Linq;

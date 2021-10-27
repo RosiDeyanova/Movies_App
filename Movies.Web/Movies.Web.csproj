@@ -5,7 +5,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Managers\CreateViewModelManager.cs" />
     <Compile Remove="Models\Genre.cs" />
     <Compile Remove="Models\Movie.cs" />
     <Compile Remove="Models\MoviesContext.cs" />

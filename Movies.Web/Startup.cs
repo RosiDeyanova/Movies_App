@@ -1,22 +1,17 @@
-using AutoMapper;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc.Razor;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Movies.BL;
+using Movies.BL.IManagers;
 using Movies.BL.Managers;
-using Movies.BL.Services;
 using Movies.Data;
-using Movies.Data.Entities;
 using Movies.Data.Repositories;
-using Movies.Web.Managers;
-using System;
 using System.Collections.Generic;
 
 namespace Movies.Web
@@ -42,16 +37,12 @@ namespace Movies.Web
             services.AddScoped<IStudioRepository, StudioRepository>();
             services.AddScoped<IGenreRepository, GenreRepository>();
             services.AddScoped<IUserRepository, UserRepository>();
-            services.AddScoped<IBaseRepository, BaseRepository>();
 
             services.AddScoped<IMovieManager, MovieManager>();
             services.AddScoped<IStudioManager, StudioManager>();
             services.AddScoped<IGenreManager, GenreManager>();
             services.AddScoped<IUserManager, UserManager>();
-
-            services.AddScoped<MoviesManager>();
-            services.AddScoped<UsersManager>();
-            services.AddScoped<AuthenticationManager>();
+            services.AddScoped<IAuthenticationManager,AuthenticationManager>();
 
             services.AddLocalization(options => options.ResourcesPath = "Resources");
             services.AddMvc()
@@ -70,6 +61,18 @@ namespace Movies.Web
             {
                 o.LoginPath = "/";
             });
+
+            services.AddAuthorization(options => {
+                options.AddPolicy("UserRole", policy => policy.Requirements.Add(new UserRequirement(false)));
+            });
+            services.AddAuthorization(options => {
+                options.AddPolicy("AdminRole", policy => policy.Requirements.Add(new AdminRequirement(true)));
+            });
+
+
+            services.AddScoped<IAuthorizationHandler,UserRequirementHandler>();
+            services.AddScoped<IAuthorizationHandler, AdminRequirementHandler>();
+
 
             services.AddAutoMapper(typeof(ProfilesWeb));
             services.AddAutoMapper(typeof(ProfilesBL));

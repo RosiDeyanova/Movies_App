@@ -10,9 +10,9 @@ namespace Movies.Data.Repositories
         {
         }
 
-        public IEnumerable<Genre> GetGenres()
+        public IQueryable<Genre> GetGenres()
         {
-            var genres = Db.Genre.AsEnumerable();
+            var genres = Db.Genre;
 
             return genres;
         }

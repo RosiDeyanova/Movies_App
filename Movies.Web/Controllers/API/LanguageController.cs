@@ -14,7 +14,7 @@ namespace Movies.Web.Controllers.API
             _localizer = localizer;
         }
         [HttpGet]
-        public async Task<IActionResult> Get()
+        public ActionResult Get()
         {
             var guid = Guid.NewGuid();
             return Ok(_localizer["RandomGUID", guid.ToString()].Value);

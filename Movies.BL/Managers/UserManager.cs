@@ -1,8 +1,9 @@
 ﻿using AutoMapper;
+using Movies.BL.IManagers;
 using Movies.BL.Models;
-using Movies.BL.Services;
 using Movies.Data.Entities;
 using Movies.Data.Repositories;
+using Scrypt;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -34,20 +35,27 @@ namespace Movies.BL.Managers
             return userModel;
         }
 
+        public UserModel GetRegisteredUser(string email, string password) 
+        {
+            var user = _userRepository.GetRegisteredUser(email, password);
+            var userModel = _mapper.Map<UserModel>(user);
+            return userModel;
+        }
         public void SetOrRemoveAdminRole(int id, bool isAdmin)
         {
             _userRepository.SetOrRemoveAdminRole(id, isAdmin);
         }
 
-        public User MapUser(UserModel userModel) 
+        public void AddUser(UserModel userModel)
         {
-            var user = _mapper.Map<User>(userModel);
-            return user;
-        } //TODO mahni go
+            ScryptEncoder encoder = new ScryptEncoder();
+            var user = new User {
+               Username = userModel.Username,
+               Password = encoder.Encode(userModel.Password),
+               Email = userModel.Email,
+               IsAdmin = userModel.IsAdmin
+            };
 
-        public void AddUser(UserModel userModel) 
-        {
-            var user = MapUser(userModel);
             _userRepository.AddUser(user);
         }
 

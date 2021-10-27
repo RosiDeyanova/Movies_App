@@ -1,18 +1,17 @@
-﻿using AutoMapper;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using Movies.BL.Models;
-using Movies.BL.Services;
-using Movies.Web.Managers;
-using Movies.Web.Models;
-using Movies.Web.ViewModel.Movies;
-using Movies.Web.ViewModel.User;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+using Movies.BL.IManagers;
+using Movies.BL.Models;
+using Movies.Web.Models;
+using Movies.Web.ViewModel.Movies;
+using Movies.Web.ViewModel.User;
 
 namespace Movies.Web.Controllers
 {
@@ -21,44 +20,78 @@ namespace Movies.Web.Controllers
     {
         private readonly IMovieManager _movieManager;
         private readonly IGenreManager _genreManager;
-        private readonly MoviesManager _moviesManager;
         private readonly IUserManager _userManager;
-        private readonly IMapper _mapper;
+        private readonly IStudioManager _studioManager;
 
-        public MoviesController(IMovieManager movieManager, IGenreManager genreManager, MoviesManager moviesManager, AuthenticationManager authenticationManager, IMapper mapper, IUserManager userManager) : base(authenticationManager)
+        public MoviesController(IMovieManager movieManager, IGenreManager genreManager, IUserManager userManager, IStudioManager studioManager, IAuthenticationManager authenticationManager, IMapper mapper) : base(authenticationManager, mapper)
         {
             _movieManager = movieManager;
             _genreManager = genreManager;
-            _moviesManager = moviesManager;
-            _mapper = mapper;
             _userManager = userManager;
+            _studioManager = studioManager;
         }
 
-        public ActionResult Index(string movieTitle)
+        [HttpGet("movies")]
+        public ActionResult Index()
         {
-            var model = _movieManager.SearchMovies(movieTitle).ToList();
-            var mappedModel = _mapper.Map<List<CreateMovieViewModel>>(model);
-            var userModel = _userManager.GetUserByEmail(User.Email);
-            var mappedUser = _mapper.Map<UserViewModel>(userModel);
-            var result = new Tuple<List<CreateMovieViewModel>, UserViewModel>(mappedModel, mappedUser);
-                       
-            return View(result);
+            var indexMovieViewModel = new IndexMovieViewModel
+            {
+                Movies = _mapper.Map<ICollection<CreateMovieViewModel>>(_movieManager.GetAllMovies()),
+                UserMovies = _mapper.Map<ICollection<CreateMovieViewModel>>(User.Movies),
+                Username = User.Username,
+                IsAdmin = User.IsAdmin
+            };
+
+            return View(indexMovieViewModel);
         }
+
+        [HttpPost]
+        public ActionResult Index(string searchResult)
+        {
+            List<MovieModel> movieModels;
+            if (string.IsNullOrWhiteSpace(searchResult))
+            {
+                movieModels = null;
+            }
+            else
+            {
+                movieModels = _movieManager.SearchMovies(searchResult).ToList();
+            }
+
+            var indexMovieViewModel = new IndexMovieViewModel
+            {
+                IsAdmin = User.IsAdmin,
+                Username = User.Username,
+                UserMovies = _mapper.Map<ICollection<CreateMovieViewModel>>(User.Movies),
+                Movies = _mapper.Map<ICollection<CreateMovieViewModel>>(movieModels),
+                SearchResult = searchResult
+            };
+
+            return View(indexMovieViewModel);
+        }
+
 
         public ActionResult Details(int id)
         {
             var info = _movieManager.GetMovieById(id);
-            var mappedInfo = _moviesManager.GetMovie(info);
+            var movie = _mapper.Map<CreateMovieViewModel>(info);
+            movie.IsAdmin = User.IsAdmin;
+            movie.Username = User.Username;
 
-            return View(mappedInfo);
+            return View(movie);
         }
 
+        [Authorize(Policy = "AdminRole")]
         public ActionResult Create()
         {
             var genres = _genreManager.GetGenres();
+            var studios = _studioManager.GetStudios();
             CreateMovieViewModel model = new CreateMovieViewModel
             {
-                Genres = _mapper.Map<List<GenreModel>>(genres)
+                IsAdmin = User.IsAdmin,
+                Username = User.Username,
+                Genres = _mapper.Map<List<GenreModel>>(genres),
+                Studios = _mapper.Map<List<StudioModel>>(studios)
             };
 
             return View(model);
@@ -69,7 +102,7 @@ namespace Movies.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                var mappedMovie = _moviesManager.GetMovie(createViewModel);
+                var mappedMovie = _mapper.Map<MovieModel>(createViewModel);
                 await _movieManager.SaveMovie(mappedMovie);
                 return RedirectToAction("Index");
             }
@@ -77,12 +110,19 @@ namespace Movies.Web.Controllers
             return View();
         }
 
+        [Authorize(Policy = "AdminRole")]
         public ActionResult Edit(int id)
         {
-            var info = _movieManager.GetAllMovies().FirstOrDefault(x => x.Id == id);
-            var mappedInfo = _moviesManager.GetMovie(info);
+            var info = _movieManager.GetMovieById(id);
+            var genres = _genreManager.GetGenres().ToList();
+            var studios = _studioManager.GetStudios().ToList();
+            var movie = _mapper.Map<CreateMovieViewModel>(info);
+            movie.Genres = genres;
+            movie.Studios = studios;
+            movie.IsAdmin = User.IsAdmin;
+            movie.Username = User.Username;
 
-            return View(mappedInfo);
+            return View(movie); 
         }
 
         [HttpPost]
@@ -92,7 +132,8 @@ namespace Movies.Web.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    var mappedMovie = _moviesManager.GetMovie(id, createMovieViewModel);
+                    var mappedMovie = _mapper.Map<MovieModel>(createMovieViewModel);
+                    mappedMovie.Id = id;
                     _movieManager.UpdateMovie(mappedMovie);
                     return RedirectToAction("Details", createMovieViewModel);
                 }
@@ -104,6 +145,7 @@ namespace Movies.Web.Controllers
             }
         }
 
+        [Authorize(Policy = "AdminRole")]
         public ActionResult Delete(int id)
         {
             try

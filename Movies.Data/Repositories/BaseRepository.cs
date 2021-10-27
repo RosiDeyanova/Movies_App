@@ -4,18 +4,18 @@ using System.Text;
 
 namespace Movies.Data.Repositories
 {
-    public class BaseRepository : IBaseRepository
+    public abstract class BaseRepository
     {
         private readonly MoviesContext _moviesContext;
 
-        public BaseRepository(MoviesContext moviesContext)
+        protected BaseRepository(MoviesContext moviesContext)
         {
             _moviesContext = moviesContext;
         }
 
-        public MoviesContext Db => _moviesContext;
+        protected MoviesContext Db => _moviesContext;
     
-        public void SaveDb()
+        protected void SaveDb()
         {
             _moviesContext.SaveChanges();
         }

@@ -1,8 +1,9 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Movies.BL.Services;
-using Movies.Web.Managers;
+using Movies.BL.IManagers;
 using Movies.Web.ViewModel.Admin;
+using Movies.Web.ViewModel.Movies;
 using Movies.Web.ViewModel.User;
 using System;
 using System.Collections.Generic;
@@ -10,27 +11,31 @@ using System.Threading.Tasks;
 
 namespace Movies.Web.Controllers
 {
-    [Authorize]
+    [Authorize(Policy = "AdminRole")]
     public class AdminController : BaseController
     {
-        private readonly UsersManager _usersManager;
         private readonly IUserManager _userManager;
 
-        public AdminController(UsersManager usersManager, IUserManager userManager, AuthenticationManager authenticationManager) : base (authenticationManager)
+        public AdminController(IUserManager userManager, IAuthenticationManager authenticationManager, IMapper mapper) : base (authenticationManager, mapper)
         {
-            _usersManager = usersManager;
             _userManager = userManager;
         }
 
         [HttpGet("admin")]
-        public IActionResult Index()
+        public ActionResult Index()
         {
             var users = _userManager.GetUsers();
             var adminInfo = new AdminViewModel()
             {
-                Admin = User,
+                Id = User.Id,
+                Email = User.Email,
+                IsAdmin = User.IsAdmin,
+                Movies = _mapper.Map<ICollection<CreateMovieViewModel>>(User.Movies),
+                Password = User.Password,
+                Username = User.Username,
                 AllUsers = users
             };
+
             return View(adminInfo);
         }
 
@@ -38,7 +43,7 @@ namespace Movies.Web.Controllers
         {
             try
             {
-                _usersManager.SetOrRemoveAdminRole(id, false);
+                _userManager.SetOrRemoveAdminRole(id, false);
             }
             catch
             {
@@ -51,7 +56,7 @@ namespace Movies.Web.Controllers
         {
             try
             {
-                _usersManager.SetOrRemoveAdminRole(id, true);
+                _userManager.SetOrRemoveAdminRole(id, true);
             }
             catch
             {

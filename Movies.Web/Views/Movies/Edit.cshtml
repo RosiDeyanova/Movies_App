@@ -57,12 +57,32 @@
                     <!-- WIDGET BOX CONTENT -->
                     <div class="widget-box-content">
                         <!-- FORM -->
-                        <form  method="POST" class="form" asp-action="Edit">
+                        <form method="POST" class="form" asp-action="Create" enctype="multipart/form-data">
                             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                            <div class="grid grid-6 centered" style="margin: 30px;">
+                                <!-- UPLOAD BOX -->
+                                <div class="upload-box">
+                                    <!-- UPLOAD BOX ICON -->
+                                    <svg class="upload-box-icon icon-members">
+                                        <use xlink:href="#svg-members"></use>
+                                    </svg>
+                                    <!-- /UPLOAD BOX ICON -->
+                                    <!-- UPLOAD BOX TITLE -->
+                                    <p class="upload-box-title">Cover photo</p>
+                                    <!-- /UPLOAD BOX TITLE -->
+                                    <input asp-for="ImageFile" type="file" />
+                                    <!-- UPLOAD BOX TEXT -->
+                                    <p class="upload-box-text">110x110px size minimum</p>
+                                    <!-- /UPLOAD BOX TEXT -->
+                                </div>
+                                <!-- /UPLOAD BOX -->
+                            </div>
                             <!-- FORM ROW -->
                             <div class="form-row split">
                                 <!-- FORM ITEM -->
                                 <div class="form-item">
+                                    <input type="hidden" asp-for="@Model.Id" />
+
                                     <!-- FORM INPUT -->
                                     <div class="form-input small active">
                                         <label asp-for="Title">Movie Name</label>
@@ -134,30 +154,24 @@
                             <div class="form-row split">
                                 <!-- FORM ITEM -->
                                 <div class="form-item">
-                                    <!-- FORM INPUT -->
-                                    <div class="form-input small active">
-                                        <label asp-for="Studio.Name">Studio Name</label>
-                                        <input asp-for="Studio.Name" type="text" id="profile-psid">
-                                        <span asp-validation-for="Studio.Name" class="text-danger"></span>
+                                    <!-- FORM SELECT -->
+                                    <div class="form-select">
+                                        <label asp-for="Studio">Studio</label>
+                                        <select asp-items="@Model.StudioOptions" asp-for="Studio.Id"></select>
+                                        <span asp-validation-for="Studio.Id" class="text-danger"></span>
+                                        <!-- FORM SELECT ICON -->
+                                        <svg class="form-select-icon icon-small-arrow">
+                                            <use xlink:href="#svg-small-arrow"></use>
+                                        </svg>
+                                        <!-- /FORM SELECT ICON -->
                                     </div>
-                                    <!-- /FORM INPUT -->
-                                </div>
-                                <!-- /FORM ITEM -->
-                                <!-- FORM ITEM -->
-                                <div class="form-item">
-                                    <!-- FORM INPUT -->
-                                    <div class="form-input small active">
-                                        <label asp-for="Studio.Address">Studio Address</label>
-                                        <input asp-for="Studio.Address" type="text" id="profile-xbid">
-                                        <span asp-validation-for="Studio.Address" class="text-danger"></span>
-                                    </div>
-                                    <!-- /FORM INPUT -->
+                                    <!-- /FORM SELECT -->
                                 </div>
                                 <!-- /FORM ITEM -->
                             </div>
                             <!-- /FORM ROW -->
                             <div class="form-group">
-                                <input type="submit" value="Save" class="btn btn-primary" style="width:350px;margin-top:20px; align-self:center" />
+                                <input type="submit" value="Upload" class="btn btn-primary" style="width:350px;margin-top:20px; align-self:center" />
                             </div>
                         </form>
                         <!-- /FORM -->

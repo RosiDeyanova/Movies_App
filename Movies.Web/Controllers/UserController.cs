@@ -1,36 +1,37 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Movies.BL.Managers;
-using Movies.BL.Services;
-using Movies.Web.Managers;
+using Movies.BL.IManagers;
+using Movies.Web.ViewModel.User;
 
 namespace Movies.Web.Controllers
 {
-    [Authorize]
+    [Authorize(Policy = "UserRole")]
     public class UserController : BaseController
     {
-        private readonly UsersManager _usersManager;
         private readonly IUserManager _userManager;
-        public UserController(UsersManager usersManager,AuthenticationManager authenticationManager, IUserManager userManager) : base (authenticationManager)
+
+        public UserController(IUserManager userManager, IAuthenticationManager authenticationManager, IMapper mapper) : base (authenticationManager, mapper)
         {
-            _usersManager = usersManager;
             _userManager = userManager;
         }
-        public IActionResult Index()
+
+        [HttpGet("user")]
+        public ActionResult Index()
         {
-            var loggedUser = _usersManager.MapUser(User);
+            var loggedUser = _mapper.Map<UserViewModel>(User);
             return View(loggedUser);
         }
-        public ActionResult AddMovie(int id)
+
+        public ActionResult AddMovie(int movieId)
         {
-            var user = _userManager.GetUserByEmail(User.Email);
-            _usersManager.AddMovieToUser(user.Id, id);
+            _userManager.AddMovieToUser(User.Id, movieId);
             return RedirectToAction("Index","Movies");
         }
-        public ActionResult RemoveMovie(int id)
+
+        public ActionResult RemoveMovie(int movieId)
         {
-            var user = _userManager.GetUserByEmail(User.Email);
-            _usersManager.RemoveMovieFromUser(user.Id, id);
+            _userManager.RemoveMovieFromUser(User.Id, movieId);
             return RedirectToAction("Index", "Movies");
         }
     }

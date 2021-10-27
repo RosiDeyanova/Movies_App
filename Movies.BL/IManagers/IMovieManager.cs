@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace Movies.BL.Services
+namespace Movies.BL.IManagers
 {
     public interface IMovieManager
     {

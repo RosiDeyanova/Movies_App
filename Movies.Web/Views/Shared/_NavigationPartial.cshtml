@@ -1,0 +1,29 @@
+﻿@model bool
+<nav class="navigation">
+    <ul class="menu-main">
+        @if (Model == true)
+        {
+            <li class="menu-main-item">
+                <a class="menu-main-item-link" href="/Admin">Home</a>
+            </li>
+            <li class="menu-main-item">
+                <a class="menu-main-item-link" href="/Movies">All Movies</a>
+            </li>
+            <li class="menu-main-item">
+                <a class="menu-main-item-link" href="/Movies/Create">New Movie</a>
+            </li>
+        }
+        else
+        {
+            <li class="menu-main-item">
+                <a class="menu-main-item-link" href="/User">Home</a>
+            </li>
+            <li class="menu-main-item">
+                <a class="menu-main-item-link" href="/Movies">Movies</a>
+            </li>
+        }
+        <li class="menu-main-item">
+            <a class="menu-main-item-link" asp-action="Logout" asp-controller="Home">Log out</a>
+        </li>
+    </ul>
+</nav>

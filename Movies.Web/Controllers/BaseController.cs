@@ -1,16 +1,19 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Mvc;
+using Movies.BL.IManagers;
 using Movies.BL.Models;
-using Movies.Web.Managers;
 
 namespace Movies.Web.Controllers
 {
     public class BaseController : Controller
     {
-        protected UserModel User { get; private set; }
+        protected readonly IMapper _mapper;
+        protected new UserModel User { get; private set; }
 
-        public BaseController(AuthenticationManager authenticationManager)
+        public BaseController(IAuthenticationManager authenticationManager, IMapper mapper)
         {
             User = authenticationManager.GetUserFromCookie();
+            _mapper = mapper;
         }
     }
 }
