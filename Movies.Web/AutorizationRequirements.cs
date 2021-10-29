@@ -31,12 +31,12 @@ namespace Movies.Web
         }
         protected override Task HandleRequirementAsync(AuthorizationHandlerContext context, UserRequirement requirement)
         {
-            if (_authenticationManager.GetUserFromCookie()==null)
+            if (_authenticationManager.GetUserFromContext()==null)
             {
                 return Task.CompletedTask;
             }
 
-            var isAdmin = _authenticationManager.GetUserFromCookie().IsAdmin;
+            var isAdmin = _authenticationManager.GetUserFromContext().IsAdmin;
             if (isAdmin == false)
             {
                 context.Succeed(requirement);
@@ -54,12 +54,12 @@ namespace Movies.Web
         }
         protected override Task HandleRequirementAsync(AuthorizationHandlerContext context, AdminRequirement requirement)
         {
-            if (_authenticationManager.GetUserFromCookie() == null)
+            if (_authenticationManager.GetUserFromContext() == null)
             {
                 return Task.CompletedTask;
             }
 
-            var isAdmin = _authenticationManager.GetUserFromCookie().IsAdmin;
+            var isAdmin = _authenticationManager.GetUserFromContext().IsAdmin;
             if (isAdmin == true)
             {
                 context.Succeed(requirement);
