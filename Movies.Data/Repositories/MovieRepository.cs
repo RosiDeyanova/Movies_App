@@ -31,21 +31,47 @@ namespace Movies.Data.Repositories
 
         public void SaveMovie(Movie movie)
         {
-            Db.Movie.Add(movie);
-            SaveDb();
+            try
+            {
+                Db.Movie.Add(movie);
+                SaveDb();
+            }
+            catch (System.Exception)
+            {
+
+                throw; // will throw some kind of error
+            }
         }
 
         public void UpdateMovie(Movie movie) 
         {
-            Db.Entry(movie).State = EntityState.Modified;
-            SaveDb();
+            try
+            {
+                Db.Entry(movie).State = EntityState.Modified;
+                SaveDb();
+            }
+            catch (System.Exception)
+            {
+
+                throw; // will throw some kind of error
+            }
+
         }
 
         public void DeleteMovie(int id)
         {
-           var movieDeleted = Db.Movie.FirstOrDefault(x => x.Id == id);
-           Db.Movie.Remove(movieDeleted);
-           SaveDb();
+            var movieDeleted = Db.Movie.FirstOrDefault(x => x.Id == id);
+            try
+            {
+                Db.Movie.Remove(movieDeleted);
+                SaveDb();
+            }
+            catch (System.Exception)
+            {
+
+                throw; // will throw some kind of error
+            }
+     
         }
     }
 }

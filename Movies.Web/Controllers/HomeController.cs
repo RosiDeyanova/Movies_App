@@ -32,7 +32,7 @@ namespace Movies.Web.Controllers
             }
             else if (User != null && User.IsAdmin == false)
             {
-                return RedirectToAction("Index", "User");
+                return RedirectToAction("Index", "Movies");
             }
             else
             {

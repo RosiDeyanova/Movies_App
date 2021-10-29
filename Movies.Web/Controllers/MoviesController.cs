@@ -40,7 +40,7 @@ namespace Movies.Web.Controllers
         {
             var indexMovieViewModel = new IndexMovieViewModel
             {
-                Movies = _mapper.Map<ICollection<CreateMovieViewModel>>(_movieManager.GetAllMovies()),
+                Movies = _mapper.Map<ICollection<CreateMovieViewModel>>(_movieManager.GetMovies()),
                 UserMovies = _mapper.Map<ICollection<CreateMovieViewModel>>(User.Movies),
                 Username = User.Username,
                 IsAdmin = User.IsAdmin
