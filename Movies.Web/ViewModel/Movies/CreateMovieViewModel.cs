@@ -17,7 +17,7 @@ namespace Movies.Web.ViewModel.Movies
 
         [Required(ErrorMessage = "Enter a title")]
         [StringLength(40, ErrorMessage = "The title is too long")]
-        [RegularExpression(@"^[A-Za-z0-9,' ]*[A-Za-z0-9'- ][A-Za-z0-9 ']*$", ErrorMessage = "Unallowed character is being used")]
+        [RegularExpression(@"^[A-Za-z0-9,' -]*[A-Za-z0-9,' -][A-Za-z0-9,' -]*$", ErrorMessage = "Unallowed character is being used")]
         public string Title { set; get; }
 
         [Required(ErrorMessage = "Enter a year")]
