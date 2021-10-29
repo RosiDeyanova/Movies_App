@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
@@ -12,7 +13,7 @@ using Movies.BL.IManagers;
 using Movies.BL.Managers;
 using Movies.Data;
 using Movies.Data.Repositories;
-using System.Collections.Generic;
+using Movies.Web.AuthenticationRequirements;
 
 namespace Movies.Web
 {
