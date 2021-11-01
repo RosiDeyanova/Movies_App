@@ -1,15 +1,14 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using Movies.BL.Models;
-using Movies.Web.Attributes;
-using Movies.Web.ViewModel.User;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using Movies.BL.Models;
+using Movies.Web.ViewModel.User;
 
 namespace Movies.Web.ViewModel.Movies
 {
-    public class CreateMovieViewModel : FullLayoutViewModel
+    public class CreateMovieViewModel : LayoutViewModel
     {
         public UserViewModel User { get; set; }
 
