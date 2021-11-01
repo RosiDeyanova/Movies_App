@@ -17,23 +17,27 @@ namespace Movies.BL.Managers
         private readonly IMovieRepository _movieRepository;
         private readonly IGenreManager _genreManager;
         private readonly IStudioManager _studioManager;
-        private readonly IWebHostEnvironment _webHostEnvironment;
         private readonly IMapper _mapper;
-        private const string imageFolder = "UploadedImages";
+        private readonly IWebHostEnvironment _webHostEnvironment;
 
-        public MovieManager(IMovieRepository movieRepository, IStudioManager studioManager, IWebHostEnvironment webHostEnvironment, IMapper mapper, IGenreManager genreManager)
+        private const string imageFolder = "uploadedImages";
+        private const string errorImage = "error.png";
+
+
+        public MovieManager(IMovieRepository movieRepository, IStudioManager studioManager, IMapper mapper, IGenreManager genreManager, IWebHostEnvironment webHostEnvironment)
         {
             _movieRepository = movieRepository;
             _studioManager = studioManager;
             _genreManager = genreManager;
-            _webHostEnvironment = webHostEnvironment;
             _mapper = mapper;
+            _webHostEnvironment = webHostEnvironment;
         }
 
         public IEnumerable<MovieModel> SearchMovies(string movieTitle)
         {
             List<Movie> model = _movieRepository.GetMoviesByTitle(movieTitle).ToList();
             var mappedMovies = _mapper.Map<List<MovieModel>>(model);
+            mappedMovies.ForEach(m => m.ImagePath = GetImageRelativePath(m.Image));
             return mappedMovies;
         }
 
@@ -41,41 +45,24 @@ namespace Movies.BL.Managers
         {
             var movie = _movieRepository.GetMovieById(id);
             var mappedMovie = _mapper.Map<MovieModel>(movie);
+            mappedMovie.ImagePath = GetImageRelativePath(mappedMovie.Image);
             return mappedMovie;
         }
 
         public IEnumerable<MovieModel> GetAllMovies()
         {
             var model = _movieRepository.GetMovies();
-            var mappedMovies = _mapper.Map<IEnumerable<MovieModel>>(model);
+            var mappedMovies = _mapper.Map<List<MovieModel>>(model);
+            mappedMovies.ForEach(m => m.ImagePath = GetImageRelativePath(m.Image));
 
             return mappedMovies;
         }
 
-        public async Task SaveMovie(MovieModel movieModel)
+        public void SaveMovie(MovieModel movieModel)
         {
             var movie = _mapper.Map<Movie>(movieModel);
             movie.Genre = null;
             movie.Studio = null;
-            if (movieModel.ImageFile != null)
-            {
-                string filename = Guid.NewGuid().ToString() + Path.GetExtension(movieModel.ImageFile.FileName);
-                string webRootPath = _webHostEnvironment.WebRootPath;
-                string filePath = Path.Combine(webRootPath, imageFolder, filename);
-                try
-                {
-                    using (var fileStream = new FileStream(filePath, FileMode.Create))
-                    {
-                        await movieModel.ImageFile.CopyToAsync(fileStream);
-                    }
-                    movie.Image = filename;
-                }
-                catch (Exception)
-                {
-                    //empty on purpose
-                }
-            }
-
             _movieRepository.SaveMovie(movie);
         }
 
@@ -91,5 +78,28 @@ namespace Movies.BL.Managers
             _movieRepository.DeleteMovie(id);
         }
 
+        public string GetImageRelativePath(string imageName)
+        {
+            string filePath = imageFolder + "/" + (imageName ?? errorImage);
+
+            return filePath;
+        }
+
+        public string GetImageAbsolutePath(string imageName)
+        {
+            string relativePath = GetImageRelativePath(imageName);
+            string filePath = _webHostEnvironment.WebRootFileProvider.GetFileInfo(relativePath).PhysicalPath;
+
+            return filePath;
+        }
+
+        public void CheckImageFolder() 
+        {
+            string path = _webHostEnvironment.WebRootFileProvider.GetFileInfo(imageFolder).PhysicalPath;
+            if (!Directory.Exists(path))
+            {
+                Directory.CreateDirectory(path);
+            }
+        }
     }
 }

@@ -11,7 +11,8 @@ namespace Movies.BL.Models
         public string Director { get; set; }
 
         public string  Image { get; set; }
-
+        [NotMapped]
+        public string ImagePath { get; set; }
         [NotMapped]
         public IFormFile ImageFile { get; set; }
 

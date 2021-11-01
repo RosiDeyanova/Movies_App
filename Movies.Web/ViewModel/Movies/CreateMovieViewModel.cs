@@ -32,6 +32,8 @@ namespace Movies.Web.ViewModel.Movies
 
         public string Image { get; set; }
 
+        public string ImagePath { get; set; }
+
         [NotMapped]
         public IFormFile ImageFile { get; set; }
 

@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Movies.BL.IManagers;
@@ -22,13 +24,15 @@ namespace Movies.Web.Controllers
         private readonly IGenreManager _genreManager;
         private readonly IUserManager _userManager;
         private readonly IStudioManager _studioManager;
+        private readonly IWebHostEnvironment _webHostEnvironment;
 
-        public MoviesController(IMovieManager movieManager, IGenreManager genreManager, IUserManager userManager, IStudioManager studioManager, IAuthenticationManager authenticationManager, IMapper mapper) : base(authenticationManager, mapper)
+        public MoviesController(IMovieManager movieManager, IGenreManager genreManager, IUserManager userManager, IStudioManager studioManager, IWebHostEnvironment webHostEnvironment, IAuthenticationManager authenticationManager, IMapper mapper) : base(authenticationManager, mapper)
         {
             _movieManager = movieManager;
             _genreManager = genreManager;
             _userManager = userManager;
             _studioManager = studioManager;
+            _webHostEnvironment = webHostEnvironment;
         }
 
         [HttpGet("movies")]
@@ -48,12 +52,8 @@ namespace Movies.Web.Controllers
         [HttpPost]
         public ActionResult Index(string searchResult)
         {
-            List<MovieModel> movieModels;
-            if (string.IsNullOrWhiteSpace(searchResult))
-            {
-                movieModels = null;
-            }
-            else
+            List<MovieModel> movieModels = null;
+            if (!string.IsNullOrWhiteSpace(searchResult))
             {
                 movieModels = _movieManager.SearchMovies(searchResult).ToList();
             }
@@ -103,7 +103,25 @@ namespace Movies.Web.Controllers
             if (ModelState.IsValid)
             {
                 var mappedMovie = _mapper.Map<MovieModel>(createViewModel);
-                await _movieManager.SaveMovie(mappedMovie);
+                if (createViewModel.ImageFile != null)
+                {
+                    string fileName = Guid.NewGuid().ToString() + Path.GetExtension(createViewModel.ImageFile.FileName);
+                    string fileAbsolutePath = _movieManager.GetImageAbsolutePath(fileName);
+                    _movieManager.CheckImageFolder();
+                    try
+                    {
+                        using (var fileStream = new FileStream(fileAbsolutePath, FileMode.Create))
+                        {
+                            await createViewModel.ImageFile.CopyToAsync(fileStream);
+                        }
+                        mappedMovie.Image = fileName;
+                    }
+                    catch (Exception)
+                    {
+                        //empty on purpose
+                    }
+                }
+                _movieManager.SaveMovie(mappedMovie);
                 return RedirectToAction("Index");
             }
 

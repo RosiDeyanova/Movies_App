@@ -149,9 +149,9 @@
                     {
                         <div class="product-preview">
                             <!-- PRODUCT PREVIEW IMAGE -->
-                            <a href="marketplace-product.html">
+                            <a asp-controller="Movies" asp-action="Details" asp-route-id="@item.Id">
                                 <figure class="product-preview-image liquid">
-                                    <img src="img/marketplace/items/01.jpg" alt="item-01">
+                                    <img src="@item.ImagePath" alt="@item.Image">
                                 </figure>
                             </a>
                             <!-- /PRODUCT PREVIEW IMAGE -->
