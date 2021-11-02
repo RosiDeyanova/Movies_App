@@ -3,10 +3,6 @@ using Movies.BL.Models;
 using Movies.Web.ViewModel.Movies;
 using Movies.Web.ViewModel.User;
 
-
-
-
-
 namespace Movies.Web
 {
     public class ProfilesWeb : Profile

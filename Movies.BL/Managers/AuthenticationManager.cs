@@ -22,15 +22,15 @@ namespace Movies.BL.Managers
             _userManager = userManager;
         }
 
-        public UserModel GetUserFromCookie()
+        public UserModel GetUserFromContext()
         {
-            var email = GetMailFromCookie();
+            var email = GetMailFromContext();
             var user = _userManager.GetUserByEmail(email);
 
             return user;
         }
 
-        private string GetMailFromCookie()
+        private string GetMailFromContext()
         {
             var httpContextUser = _httpContextAccessor.HttpContext.User;
             var email = httpContextUser.FindFirstValue(ClaimTypes.Email);

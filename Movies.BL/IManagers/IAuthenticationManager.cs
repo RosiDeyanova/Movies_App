@@ -4,6 +4,6 @@ namespace Movies.BL.IManagers
 {
     public interface IAuthenticationManager
     {
-        public UserModel GetUserFromCookie();
+        public UserModel GetUserFromContext();
     }
 }

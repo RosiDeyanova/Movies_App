@@ -1,15 +1,14 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using Movies.BL.Models;
-using Movies.Web.Attributes;
-using Movies.Web.ViewModel.User;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using Movies.BL.Models;
+using Movies.Web.ViewModel.User;
 
 namespace Movies.Web.ViewModel.Movies
 {
-    public class CreateMovieViewModel : FullLayoutViewModel
+    public class CreateMovieViewModel : LayoutViewModel
     {
         public UserViewModel User { get; set; }
 
@@ -17,7 +16,7 @@ namespace Movies.Web.ViewModel.Movies
 
         [Required(ErrorMessage = "Enter a title")]
         [StringLength(40, ErrorMessage = "The title is too long")]
-        [RegularExpression(@"^[A-Za-z0-9 _]*[A-Za-z0-9][A-Za-z0-9 _]*$", ErrorMessage = "The movie title can only contain letters, numbers and spaces")]
+        [RegularExpression(@"^[A-Za-z0-9,' -]*[A-Za-z0-9,' -][A-Za-z0-9,' -]*$", ErrorMessage = "Unallowed character is being used")]
         public string Title { set; get; }
 
         [Required(ErrorMessage = "Enter a year")]
@@ -27,7 +26,7 @@ namespace Movies.Web.ViewModel.Movies
 
         [Required(ErrorMessage = "Enter a director name")]
         [StringLength(30, ErrorMessage = "The name is too long")]
-        [RegularExpression(@"^[A-Z]+[a-zA-Z'\s]*$", ErrorMessage = "The director name can only contain letters and spaces")]
+        [RegularExpression(@"^[A-Za-z ]*[A-Za-z ][A-Za-z]*$", ErrorMessage = "The director name can only contain letters and spaces")]
         public string Director { set; get; }
 
         public string Image { get; set; }

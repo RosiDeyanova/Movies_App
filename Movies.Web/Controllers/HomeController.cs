@@ -32,7 +32,7 @@ namespace Movies.Web.Controllers
             }
             else if (User != null && User.IsAdmin == false)
             {
-                return RedirectToAction("Index", "User");
+                return RedirectToAction("Index", "Movies");
             }
             else
             {
@@ -43,6 +43,11 @@ namespace Movies.Web.Controllers
         [HttpPost]
         public async Task<ActionResult> Login(UserViewModel userViewModel, string returnUrl)
         {
+            if (!ModelState.IsValid)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
             var user = _userManager.GetRegisteredUser(userViewModel.Email, userViewModel.Password);
             if (user != null)
             {
@@ -76,8 +81,14 @@ namespace Movies.Web.Controllers
             return RedirectToAction("Index", "Home");
         }
 
+        [HttpPost]
         public ActionResult Register(UserViewModel userViewModel)
         {
+            if (!ModelState.IsValid)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
             if (userViewModel.Password == userViewModel.RepeatedPassword && _userManager.GetRegisteredUser(userViewModel.Email, userViewModel.Password) == null)
             {
                 var userModel = _mapper.Map<UserModel>(userViewModel);

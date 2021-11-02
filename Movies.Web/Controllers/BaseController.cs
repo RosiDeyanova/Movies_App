@@ -12,7 +12,7 @@ namespace Movies.Web.Controllers
 
         public BaseController(IAuthenticationManager authenticationManager, IMapper mapper)
         {
-            User = authenticationManager.GetUserFromCookie();
+            User = authenticationManager.GetUserFromContext();
             _mapper = mapper;
         }
     }
