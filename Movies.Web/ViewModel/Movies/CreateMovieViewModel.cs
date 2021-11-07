@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Movies.BL.Models;
+using Movies.Web.Attributes;
 using Movies.Web.ViewModel.User;
 
 namespace Movies.Web.ViewModel.Movies
@@ -20,8 +21,7 @@ namespace Movies.Web.ViewModel.Movies
         public string Title { set; get; }
 
         [Required(ErrorMessage = "Enter a year")]
-        [Range(1900,2022,ErrorMessage = "The year must be between 1900 and the current year")]
-        //[YearValidator(ErrorMessage = "The year must be between 1900 and the current year")]
+        [YearRange(1900, ErrorMessage = "The year must be between 1900 and the current year")]
         public int Year { set; get; }
 
         [Required(ErrorMessage = "Enter a director name")]
@@ -34,6 +34,8 @@ namespace Movies.Web.ViewModel.Movies
         public string ImagePath { get; set; }
 
         [NotMapped]
+        [FileSize(maxSize: 3 * 1024 * 1024, ErrorMessage = "Maximum allowed file size is {0} bytes.")]
+        [FileExtensionsCustom(new string[] { ".jpg", ".png" }, ErrorMessage = "The only allowed types are .png and .jpg")]
         public IFormFile ImageFile { get; set; }
 
         public StudioViewModel Studio { get; set; }

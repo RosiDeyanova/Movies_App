@@ -1,6 +1,7 @@
 ﻿@model Movies.Web.ViewModel.Admin.AdminViewModel
-
+@{int num = 2; }
 <div class="content-grid">
+    <h2>Users Details</h2>
     <table class="table">
         <thead>
             <tr>
@@ -11,26 +12,129 @@
             </tr>
         </thead>
         <tbody>
-            @foreach (var item in Model.AllUsers)
+            @for (int i = 0; i < Model.AllUsers.Count; i++)
             {
                 <tr>
-                    <th scope="row">@item.Id</th>
-                    <td>@item.Username</td>
-                    <td>@item.Email</td>
+                    <th scope="row">@Model.AllUsers[i].Id</th>
+                    <td>@Model.AllUsers[i].Username</td>
+                    <td>@Model.AllUsers[i].Email</td>
                     <td>
-                        @if (item.IsAdmin == true && item.Id != 1)
+                        @if (Model.AllUsers[i].IsAdmin == true && Model.AllUsers[i].Id != 1)
                         {
-                            <a asp-controller="Admin" asp-action="RemoveAdminRole" asp-route-id="@item.Id">Remove Admin Role</a>
+                            <a asp-controller="Admin" asp-action="RemoveAdminRole" asp-route-id="@Model.AllUsers[i].Id">Remove Admin Role</a>
                         }
-                        else if (item.IsAdmin == false && item.Id != 1)
+                        else if (Model.AllUsers[i].IsAdmin == false && Model.AllUsers[i].Id != 1)
                         {
-                            <a asp-controller="Admin" asp-action="SetAdminRole" asp-route-id="@item.Id">Set Admin Role</a>
+                            <a asp-controller="Admin" asp-action="SetAdminRole" asp-route-id="@Model.AllUsers[i].Id">Set Admin Role</a>
                         }
-
                     </td>
                 </tr>
+                if (i == num)
+                {
+                    break;
+                }
             }
         </tbody>
     </table>
+    <button type="button" onclick="location.href='@Url.Action("UserDetails", "Admin")'">More</button>
+    <br /><hr /><br />
+    <h2 style="margin-top:10px;">Movies Details</h2>
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">id</th>
+                <th scope="col">Title</th>
+                <th scope="col">Year</th>
+                <th scope="col">Director</th>
+                <th scope="col">Image</th>
+                <th scope="col">Studio Id</th>
+                <th scope="col">Genre Id</th>
+                <th scope="col"></th>
+            </tr>
+        </thead>
+        <tbody>
+            @for (int i = 0; i < Model.AllMovies.Count; i++)
+            {
+                <tr>
+                    <th scope="row">@Model.AllMovies[i].Id</th>
+                    <td>@Model.AllMovies[i].Title</td>
+                    <td>@Model.AllMovies[i].Year</td>
+                    <td>@Model.AllMovies[i].Director</td>
+                    <td>@Model.AllMovies[i].Image</td>
+                    <td>@Model.AllMovies[i].Studio.Id</td>
+                    <td>@Model.AllMovies[i].Genre.Id</td>
+                    <td>
+                        <a asp-action="Details" asp-controller="Movies" asp-route-id="@Model.AllMovies[i].Id">Details</a> |
+                        <a asp-action="Edit" asp-controller="Movies" asp-route-id="@Model.AllMovies[i].Id">Edit</a> |
+                        <a asp-action="Delete" asp-controller="Movies" asp-route-id="@Model.AllMovies[i].Id">Delete</a>
+                    </td>
+                </tr>
+                if (i == num)
+                {
+                    break;
+                }
+            }
+        </tbody>
+    </table>
+    <button type="button" onclick="location.href='@Url.Action("MovieDetails", "Admin")'">More</button>
+    <br /><hr /><br />
+    <h2>Studios Details</h2>
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">id</th>
+                <th scope="col">Name</th>
+                <th scope="col">Address</th>
+                <th scope="col"></th>
+            </tr>
+        </thead>
+        <tbody>
+            @for (int i = 0; i < Model.AllStudios.Count; i++)
+            {
+                <tr>
+                    <th scope="row">@Model.AllStudios[i].Id</th>
+                    <td>@Model.AllStudios[i].Name</td>
+                    <td>@Model.AllStudios[i].Address</td>
+                    <td>
+                        <a asp-action="Edit" asp-controller="Studio" asp-route-id="@Model.AllStudios[i].Id">Edit</a> |
+                        <a asp-action="Delete" asp-controller="Studio" asp-route-id="@Model.AllStudios[i].Id">Delete</a>
+                    </td>
+                </tr>
+                if (i == num)
+                {
+                    break;
+                }
+            }
+        </tbody>
+    </table>
+    <button type="button" onclick="location.href='@Url.Action("StudioDetails", "Admin")'">More</button>
+    <br /><hr /><br />
+    <h2>Genres Details</h2>
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">id</th>
+                <th scope="col">Name</th>
+                <th scope="col"></th>
+            </tr>
+        </thead>
+        <tbody>
+            @for (int i = 0; i < Model.AllGenres.Count; i++)
+            {
+                <tr>
+                    <th scope="row">@Model.AllGenres[i].Id</th>
+                    <td>@Model.AllGenres[i].Name</td>
+                    <td>
+                        <a asp-action="Edit" asp-controller="Genre" asp-route-id="@Model.AllGenres[i].Id">Edit</a> |
+                        <a asp-action="Delete" asp-controller="Genre" asp-route-id="@Model.AllGenres[i].Id">Delete</a>
+                    </td>
+                </tr>
+                if (i == num)
+                {
+                    break;
+                }
+            }
+        </tbody>
+    </table>
+    <button type="button" onclick="location.href='@Url.Action("GenreDetails", "Admin")'">More</button>
 </div>
-

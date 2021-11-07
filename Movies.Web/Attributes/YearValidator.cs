@@ -3,20 +3,24 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Movies.Web.Attributes
 {
-    public class YearValidator : ValidationAttribute
+    public class YearRangeAttribute : RangeAttribute
     {
-        public override bool IsValid(object value)
+        public YearRangeAttribute(int year) : base(year, DateTime.Now.Year) 
         {
-            int year = (int)value;
 
-            if (year <= DateTime.Now.Year && year >= 1900)
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
         }
+        //public override bool IsValid(object value)
+        //{
+        //    int year = (int)value;
+
+        //    if (year <= DateTime.Now.Year && year >= 1900)
+        //    {
+        //        return true;
+        //    }
+        //    else
+        //    {
+        //        return false;
+        //    }
+        //}
     }
 }
