@@ -149,9 +149,10 @@ namespace Movies.Web.Controllers
             try
             {
                 if (ModelState.IsValid)
-                {
+                {                    
                     var mappedMovie = _mapper.Map<MovieModel>(createMovieViewModel);
                     mappedMovie.Id = id;
+                    mappedMovie.Image = _movieManager.GetMovieImageName(id);
                     _movieManager.UpdateMovie(mappedMovie);
                     return RedirectToAction("Details", createMovieViewModel);
                 }

@@ -7,6 +7,7 @@ using Movies.Web.ViewModel.Movies;
 using Movies.Web.ViewModel.User;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace Movies.Web.Controllers
@@ -15,28 +16,81 @@ namespace Movies.Web.Controllers
     public class AdminController : BaseController
     {
         private readonly IUserManager _userManager;
+        private readonly IMovieManager _movieManager;
+        private readonly IStudioManager _studioManager;
+        private readonly IGenreManager _genreManager;
 
-        public AdminController(IUserManager userManager, IAuthenticationManager authenticationManager, IMapper mapper) : base (authenticationManager, mapper)
+
+        public AdminController(IUserManager userManager, IMovieManager movieManager, IStudioManager studioManager, IGenreManager genreManager, IAuthenticationManager authenticationManager, IMapper mapper) : base (authenticationManager, mapper)
         {
             _userManager = userManager;
+            _genreManager = genreManager;
+            _movieManager = movieManager;
+            _studioManager = studioManager;
         }
 
         [HttpGet("admin")]
         public ActionResult Index()
         {
-            var users = _userManager.GetUsers();
-            var adminInfo = new AdminViewModel()
+            var adminViewModel = new AdminViewModel()
             {
-                Id = User.Id,
-                Email = User.Email,
                 IsAdmin = User.IsAdmin,
-                Movies = _mapper.Map<ICollection<CreateMovieViewModel>>(User.Movies),
-                Password = User.Password,
                 Username = User.Username,
-                AllUsers = users
+                AllUsers = _userManager.GetUsers(),
+                AllGenres = _genreManager.GetGenres().ToList(),
+                AllMovies = _movieManager.GetMovies().ToList(),
+                AllStudios = _studioManager.GetStudios().ToList()
             };
 
-            return View(adminInfo);
+            return View(adminViewModel);
+        }
+
+        public ActionResult UserDetails()
+        {
+            var adminViewModel = new AdminViewModel()
+            {
+                IsAdmin = User.IsAdmin,
+                Username = User.Username,
+                AllUsers = _userManager.GetUsers()
+            };
+
+            return View(adminViewModel);
+        }
+
+        public ActionResult MovieDetails()
+        {
+            var adminViewModel = new AdminViewModel()
+            {
+                IsAdmin = User.IsAdmin,
+                Username = User.Username,
+                AllMovies = _movieManager.GetMovies().ToList()
+            };
+
+            return View(adminViewModel);
+        }
+
+        public ActionResult StudioDetails()
+        {
+            var adminViewModel = new AdminViewModel()
+            {
+                IsAdmin = User.IsAdmin,
+                Username = User.Username,
+                AllStudios = _studioManager.GetStudios().ToList()
+            };
+
+            return View(adminViewModel);
+        }
+
+        public ActionResult GenreDetails()
+        {
+            var adminViewModel = new AdminViewModel()
+            {
+                IsAdmin = User.IsAdmin,
+                Username = User.Username,
+                AllGenres = _genreManager.GetGenres().ToList()
+            };
+
+            return View(adminViewModel);
         }
 
         public ActionResult RemoveAdminRole(int id)

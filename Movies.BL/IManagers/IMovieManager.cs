@@ -14,5 +14,6 @@ namespace Movies.BL.IManagers
         public string GetImageRelativePath(string imageName);
         public string GetImageAbsolutePath(string imageName);
         public void CheckImageFolder();
+        public string GetMovieImageName(int id);
     }
 }

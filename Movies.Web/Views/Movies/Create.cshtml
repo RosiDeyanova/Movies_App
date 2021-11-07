@@ -53,8 +53,9 @@
                                     <p class="upload-box-title">Cover photo</p>
                                     <!-- /UPLOAD BOX TITLE -->
                                     <input asp-for="ImageFile" type="file" />
+                                    <span asp-validation-for="ImageFile" class="text-danger"></span>
                                     <!-- UPLOAD BOX TEXT -->
-                                    <p class="upload-box-text">110x110px size minimum</p>
+                                    @*<p class="upload-box-text">110x110px size minimum</p>*@
                                     <!-- /UPLOAD BOX TEXT -->
                                 </div>
                                 <!-- /UPLOAD BOX -->
@@ -173,3 +174,4 @@
 <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.11.3.min.js"></script>
 <script src="https://ajax.aspnetcdn.com/ajax/jquery.validate/1.14.0/jquery.validate.min.js"></script>
 <script src="https://ajax.aspnetcdn.com/ajax/jquery.validation.unobtrusive/3.2.6/jquery.validate.unobtrusive.min.js"></script>
+<script src="~/js/custom/clientSideValidation.js"></script>

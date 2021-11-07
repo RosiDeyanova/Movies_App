@@ -101,5 +101,10 @@ namespace Movies.BL.Managers
                 Directory.CreateDirectory(path);
             }
         }
+
+        public string GetMovieImageName(int id) 
+        {
+            return _movieRepository.GetMovieById(id).Image;
+        }
     }
 }
