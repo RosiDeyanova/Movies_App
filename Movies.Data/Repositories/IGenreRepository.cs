@@ -9,5 +9,7 @@ namespace Movies.Data.Repositories
         public IQueryable<Genre> GetGenres();
         public Genre GetGenreById(int id);
         public Genre GetGenreByName(string name);
+        public void UploadGenre(Genre genre);
+        public void UpdateGenre(int id, string name);
     }
 }

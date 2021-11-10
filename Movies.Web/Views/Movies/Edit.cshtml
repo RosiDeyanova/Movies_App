@@ -1,172 +1,87 @@
 @model Movies.Web.ViewModel.Movies.CreateMovieViewModel
 
 <div class="content-grid" style="transform: translate(0px, 0px); transition: transform 0.4s ease-in-out 0s;">
-    <!-- SECTION BANNER -->
     <div class="section-banner">
-
-        <!-- SECTION BANNER TITLE -->
         <p class="section-banner-title">Edit a movie</p>
-        <!-- /SECTION BANNER TITLE -->
-        <!-- SECTION BANNER TEXT -->
         <p class="section-banner-text">Contribute to our movie library</p>
-        <!-- /SECTION BANNER TEXT -->
     </div>
-    <!-- /SECTION BANNER -->
-    <!-- GRID -->
     <div class="grid grid-7-9 medium-space">
-        <!-- GRID COLUMN -->
         <div class="account-hub-content">
-            <!-- SECTION HEADER -->
             <div class="section-header">
-                <!-- SECTION HEADER INFO -->
                 <div class="section-header-info">
-                    <!-- SECTION TITLE -->
                     <h2 class="section-title">Movie Info</h2>
-                    <!-- /SECTION TITLE -->
                 </div>
-                <!-- /SECTION HEADER INFO -->
             </div>
-            <!-- /SECTION HEADER -->
-            <!-- GRID COLUMN -->
             <div class="grid-column">
-                <!-- WIDGET BOX -->
                 <div class="widget-box">
-                    <!-- WIDGET BOX TITLE -->
                     <p class="widget-box-title">Details</p>
-                    <!-- /WIDGET BOX TITLE -->
-                    <!-- WIDGET BOX CONTENT -->
                     <div class="widget-box-content">
-                        <!-- FORM -->
-                        <form method="POST" class="form" asp-action="Edit" enctype="multipart/form-data">
+                        <form method="POST" class="form" asp-action="Edit" asp-controller="Movies" enctype="multipart/form-data">
                             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                            <!--<div class="grid grid-6 centered" style="margin: 30px;">-->
-                                <!-- UPLOAD BOX -->
-                                <!--<div class="upload-box">-->
-                                    <!-- UPLOAD BOX ICON -->
-                                    <!--<svg class="upload-box-icon icon-members">
-                                        <use xlink:href="#svg-members"></use>
-                                    </svg>-->
-                                    <!-- /UPLOAD BOX ICON -->
-                                    <!-- UPLOAD BOX TITLE -->
-                                    <!--<p class="upload-box-title">Cover photo</p>-->
-                                    <!-- /UPLOAD BOX TITLE -->
-                                    <!--<input asp-for="ImageFile" type="file" />-->
-                                    <!-- UPLOAD BOX TEXT -->
-                                    <!--<p class="upload-box-text">110x110px size minimum</p>-->
-                                    <!-- /UPLOAD BOX TEXT -->
-                                <!--</div>-->
-                                <!-- /UPLOAD BOX -->
-                            <!--</div>-->
-                            <!-- FORM ROW -->
                             <div class="form-row split">
-                                <!-- FORM ITEM -->
                                 <div class="form-item">
                                     <input type="hidden" asp-for="@Model.Id" />
-
-                                    <!-- FORM INPUT -->
                                     <div class="form-input small active">
                                         <label asp-for="Title">Movie Name</label>
                                         <input asp-for="Title" type="text" id="profile-name">
                                         <span asp-validation-for="Title" class="text-danger"></span>
                                     </div>
-                                    <!-- /FORM INPUT -->
                                 </div>
-                                <!-- /FORM ITEM -->
-                                <!-- FORM ITEM -->
                                 <div class="form-item">
-                                    <!-- FORM INPUT -->
                                     <div class="form-input small active">
                                         <label asp-for="Year">Year</label>
                                         <input asp-for="Year" type="text" id="profile-tagline">
                                         <span asp-validation-for="Year" class="text-danger"></span>
                                     </div>
-                                    <!-- /FORM INPUT -->
                                 </div>
-                                <!-- /FORM ITEM -->
                             </div>
-                            <!-- /FORM ROW -->
-                            <!-- FORM ROW -->
                             <div class="form-row split">
-                                <!-- FORM ITEM -->
                                 <div class="form-item">
-                                    <!-- FORM INPUT -->
                                     <div class="form-input small full">
-                                        <textarea id="profile-description" name="profile_description" placeholder="Summary"></textarea>
+                                        <textarea asp-for="Summary" type="text" id="profile-description" placeholder="Summary"></textarea>
                                     </div>
-                                    <!-- /FORM INPUT -->
                                 </div>
-                                <!-- /FORM INPUT -->
-                                <!-- /FORM ITEM -->
                             </div>
-                            <!-- /FORM ROW -->
-                            <!-- FORM ROW -->
                             <div class="form-row split">
-                                <!-- FORM ITEM -->
                                 <div class="form-item">
-                                    <!-- FORM SELECT -->
                                     <div class="form-select">
                                         <label asp-for="Genre">Genre</label>
                                         <select asp-items="@Model.GenreOptions" asp-for="Genre.Id"></select>
                                         <span asp-validation-for="Genre.Id" class="text-danger"></span>
-                                        <!-- FORM SELECT ICON -->
                                         <svg class="form-select-icon icon-small-arrow">
                                             <use xlink:href="#svg-small-arrow"></use>
                                         </svg>
-                                        <!-- /FORM SELECT ICON -->
                                     </div>
-                                    <!-- /FORM SELECT -->
                                 </div>
-                                <!-- /FORM ITEM -->
-                                <!-- FORM ITEM -->
                                 <div class="form-item">
-                                    <!-- FORM INPUT -->
                                     <div class="form-input small active">
                                         <label asp-for="Director">Director</label>
                                         <input asp-for="Director" type="text" id="profile-birthplace">
                                         <span asp-validation-for="Director" class="text-danger"></span>
                                     </div>
-                                    <!-- /FORM INPUT -->
                                 </div>
-                                <!-- /FORM ITEM -->
                             </div>
-                            <!-- /FORM ROW -->
-                            <!-- FORM ROW -->
                             <div class="form-row split">
-                                <!-- FORM ITEM -->
                                 <div class="form-item">
-                                    <!-- FORM SELECT -->
                                     <div class="form-select">
                                         <label asp-for="Studio">Studio</label>
                                         <select asp-items="@Model.StudioOptions" asp-for="Studio.Id"></select>
                                         <span asp-validation-for="Studio.Id" class="text-danger"></span>
-                                        <!-- FORM SELECT ICON -->
                                         <svg class="form-select-icon icon-small-arrow">
                                             <use xlink:href="#svg-small-arrow"></use>
                                         </svg>
-                                        <!-- /FORM SELECT ICON -->
                                     </div>
-                                    <!-- /FORM SELECT -->
                                 </div>
-                                <!-- /FORM ITEM -->
                             </div>
-                            <!-- /FORM ROW -->
                             <div class="form-group">
-                                <input type="submit" value="Upload" class="btn btn-primary" style="width:350px;margin-top:20px; align-self:center" />
+                                <input type="submit" value="Edit" class="btn btn-primary" style="width:350px;margin-top:20px; align-self:center" />
                             </div>
                         </form>
-                        <!-- /FORM -->
                     </div>
-                    <!-- WIDGET BOX CONTENT -->
                 </div>
-                <!-- /WIDGET BOX -->
-                <!-- /WIDGET BOX -->
             </div>
-            <!-- /GRID COLUMN -->
         </div>
-        <!-- /GRID COLUMN -->
     </div>
-
-    <!-- /GRID -->
 </div>
 
 <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.11.3.min.js"></script>

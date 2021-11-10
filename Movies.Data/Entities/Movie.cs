@@ -9,27 +9,31 @@ namespace Movies.Data.Entities
     public class Movie
     {
         [Key]
-        public int Id { set; get; }
+        public int Id { get; set; }
 
-        public string Title { set; get; }
+        public string Title { get; set; }
         
-        public int Year { set; get; }
+        public int Year { get; set; }
 
         public string Image { get; set; }
 
-        public string Director { set; get; }
+        public string Director { get; set; }
 
-        public int StudioId { set; get; }
+        public string Summary { get; set; }
 
-        public int GenreId { set; get; }
+        public bool IsDeleted { get; set; } = false;
 
-        public virtual List<UserMovie> UserMovies { set; get; }
+        public int StudioId { get; set; }
+
+        public int GenreId { get; set; }
+
+        public virtual List<UserMovie> UserMovies { get; set; }
 
         [ForeignKey("StudioId")]
-        public virtual Studio Studio { set; get; }
+        public virtual Studio Studio { get; set; }
 
         [ForeignKey("GenreId")]
-        public virtual Genre Genre { set; get; }
+        public virtual Genre Genre { get; set; }
         [NotMapped]
         public List<User> Users => UserMovies.Select(um => um.User).ToList();
 

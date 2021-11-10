@@ -26,21 +26,15 @@ namespace Movies.BL.Managers
             return studioModels;
         }
 
-        public int SaveStudio(Studio studio) //for future development
+        public void UploadStudio(StudioModel studioModel)
         {
-            int id;
-            Studio existingStudio = _studioRepository.GetStudioByName(studio.Name);
+            Studio existingStudio = _studioRepository.GetStudioByName(studioModel.Name);
 
             if (existingStudio == null)
             {
-                id = _studioRepository.SaveStudio(studio);
+                var studio = _mapper.Map<Studio>(studioModel);
+                _studioRepository.UploadStudio(studio);
             }
-            else
-            {
-                id = existingStudio.Id;
-            }
-
-            return id;
         }
 
         public int GetStudioIdByName(string name)
@@ -49,5 +43,16 @@ namespace Movies.BL.Managers
             return studio.Id;
         }
 
+        public StudioModel GetStudioById(int id) 
+        {
+            var studio = _studioRepository.GetStudioById(id);
+            var studioModel = _mapper.Map<StudioModel>(studio);
+            return studioModel;
+        }
+
+        public void UpdateStudio(int id, string name, string address)
+        {
+            _studioRepository.UpdateStudio(id, name, address);
+        }
     }
 }

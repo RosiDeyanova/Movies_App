@@ -6,6 +6,8 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Movies.BL.Models;
 using Movies.Web.Attributes;
 using Movies.Web.ViewModel.User;
+using Movies.Web.ViewModel.Genres;
+using Movies.Web.ViewModel.Studios;
 
 namespace Movies.Web.ViewModel.Movies
 {
@@ -29,6 +31,8 @@ namespace Movies.Web.ViewModel.Movies
         [RegularExpression(@"^[A-Za-z ]*[A-Za-z ][A-Za-z]*$", ErrorMessage = "The director name can only contain letters and spaces")]
         public string Director { set; get; }
 
+        public string Summary { get; set; }
+
         public string Image { get; set; }
 
         public string ImagePath { get; set; }
@@ -37,6 +41,8 @@ namespace Movies.Web.ViewModel.Movies
         [FileSize(maxSize: 3 * 1024 * 1024, ErrorMessage = "Maximum allowed file size is {0} bytes.")]
         [FileExtensionsCustom(new string[] { ".jpg", ".png" }, ErrorMessage = "The only allowed types are .png and .jpg")]
         public IFormFile ImageFile { get; set; }
+
+        public bool IsDeleted { set; get; } = false;
 
         public StudioViewModel Studio { get; set; }
 

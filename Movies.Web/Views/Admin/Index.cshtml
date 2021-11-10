@@ -19,11 +19,11 @@
                     <td>@Model.AllUsers[i].Username</td>
                     <td>@Model.AllUsers[i].Email</td>
                     <td>
-                        @if (Model.AllUsers[i].IsAdmin == true && Model.AllUsers[i].Id != 1)
+                        @if (Model.AllUsers[i].IsAdmin == true && Model.AllUsers[i].Username != Model.Username)
                         {
                             <a asp-controller="Admin" asp-action="RemoveAdminRole" asp-route-id="@Model.AllUsers[i].Id">Remove Admin Role</a>
                         }
-                        else if (Model.AllUsers[i].IsAdmin == false && Model.AllUsers[i].Id != 1)
+                        else if (Model.AllUsers[i].IsAdmin == false && Model.AllUsers[i].Username != Model.Username)
                         {
                             <a asp-controller="Admin" asp-action="SetAdminRole" asp-route-id="@Model.AllUsers[i].Id">Set Admin Role</a>
                         }
@@ -66,7 +66,14 @@
                     <td>
                         <a asp-action="Details" asp-controller="Movies" asp-route-id="@Model.AllMovies[i].Id">Details</a> |
                         <a asp-action="Edit" asp-controller="Movies" asp-route-id="@Model.AllMovies[i].Id">Edit</a> |
-                        <a asp-action="Delete" asp-controller="Movies" asp-route-id="@Model.AllMovies[i].Id">Delete</a>
+                        @if (Model.AllMovies[i].IsDeleted == false)
+                        {
+                            <a asp-action="Delete" asp-controller="Movies" asp-route-id="@Model.AllMovies[i].Id" onclick="return confirm('Are you sure you want to delete the movie?')">Delete</a>
+                        }
+                        else
+                        {
+                            <a asp-action="Restore" asp-controller="Movies" asp-route-id="@Model.AllMovies[i].Id" onclick="return confirm('Are you sure you want to restore the movie?')">Restore</a>
+                        }
                     </td>
                 </tr>
                 if (i == num)
@@ -96,8 +103,7 @@
                     <td>@Model.AllStudios[i].Name</td>
                     <td>@Model.AllStudios[i].Address</td>
                     <td>
-                        <a asp-action="Edit" asp-controller="Studio" asp-route-id="@Model.AllStudios[i].Id">Edit</a> |
-                        <a asp-action="Delete" asp-controller="Studio" asp-route-id="@Model.AllStudios[i].Id">Delete</a>
+                        <a asp-action="Edit" asp-controller="Studios" asp-route-id="@Model.AllStudios[i].Id">Edit</a>
                     </td>
                 </tr>
                 if (i == num)
@@ -125,8 +131,7 @@
                     <th scope="row">@Model.AllGenres[i].Id</th>
                     <td>@Model.AllGenres[i].Name</td>
                     <td>
-                        <a asp-action="Edit" asp-controller="Genre" asp-route-id="@Model.AllGenres[i].Id">Edit</a> |
-                        <a asp-action="Delete" asp-controller="Genre" asp-route-id="@Model.AllGenres[i].Id">Delete</a>
+                        <a asp-action="Edit" asp-controller="Genres" asp-route-id="@Model.AllGenres[i].Id">Edit</a>
                     </td>
                 </tr>
                 if (i == num)

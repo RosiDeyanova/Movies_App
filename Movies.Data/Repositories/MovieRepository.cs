@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using Movies.Data.Entities;
 
@@ -13,13 +14,19 @@ namespace Movies.Data.Repositories
 
         public IQueryable<Movie> GetMovies()
         {
+            var movies = Db.Movie.Include(m => m.UserMovies).Include(m => m.Genre).Include(m => m.Studio).Where(m=>m.IsDeleted == false);
+            return movies;
+        }
+
+        public IQueryable<Movie> GetAllMovies()
+        {
             var movies = Db.Movie.Include(m => m.UserMovies).Include(m => m.Genre).Include(m => m.Studio);
             return movies;
         }
 
         public IQueryable<Movie> GetMoviesByTitle(string title) 
         {
-            var movies = Db.Movie.Include(m => m.UserMovies).Include(m => m.Genre).Include(m => m.Studio).Where(m => m.Title.ToLower().Contains(title.ToLower()));
+            var movies = Db.Movie.Include(m => m.UserMovies).Include(m => m.Genre).Include(m => m.Studio).Where(m => (m.Title.ToLower().Contains(title.ToLower())) && m.IsDeleted == false);
             return movies;
         }
 
@@ -36,9 +43,8 @@ namespace Movies.Data.Repositories
                 Db.Movie.Add(movie);
                 SaveDb();
             }
-            catch (System.Exception)
+            catch (Exception)
             {
-
                 throw; // will throw some kind of error
             }
         }
@@ -47,31 +53,48 @@ namespace Movies.Data.Repositories
         {
             try
             {
-                Db.Entry(movie).State = EntityState.Modified;
+                var dbMovie = GetMovieById(movie.Id);
+                dbMovie.Title = movie.Title;
+                dbMovie.Year = movie.Year;
+                dbMovie.StudioId = movie.StudioId;
+                dbMovie.GenreId = movie.GenreId;
+                dbMovie.Director = movie.Director;
+                dbMovie.Summary = movie.Summary;
+
                 SaveDb();
             }
-            catch (System.Exception)
+            catch (Exception)
             {
-
                 throw; // will throw some kind of error
             }
-
         }
 
         public void DeleteMovie(int id)
         {
-            var movieDeleted = Db.Movie.FirstOrDefault(x => x.Id == id);
+            var movieToDelete = GetMovieById(id);
             try
             {
-                Db.Movie.Remove(movieDeleted);
+                movieToDelete.IsDeleted = true;
                 SaveDb();
             }
-            catch (System.Exception)
+            catch (Exception)
             {
-
                 throw; // will throw some kind of error
             }
-     
+        }
+
+        public void RestoreMovie(int id)
+        {
+            var movieDeleted = GetMovieById(id);
+            try
+            {
+                movieDeleted.IsDeleted = false;
+                SaveDb();
+            }
+            catch (Exception)
+            {
+                throw; // will throw some kind of error
+            }
         }
     }
 }

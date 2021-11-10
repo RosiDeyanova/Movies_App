@@ -1,723 +1,96 @@
 @model Movies.Web.ViewModel.Movies.CreateMovieViewModel
 
-<!-- CONTENT GRID -->
 <div class="content-grid">
-    <!-- SECTION BANNER -->
     <div class="section-banner">
-        <!-- SECTION BANNER TITLE -->
-        <p class="section-banner-title">@Model.Title</p>
-        <!-- /SECTION BANNER TITLE -->
-        <!-- SECTION BANNER TEXT -->
-        <p class="section-banner-text">нз нещо там</p>
-        <!-- /SECTION BANNER TEXT -->
+        <h1 class="section-banner-title" style="font-size: 3rem;">@Model.Title</h1>
     </div>
-    <!-- /SECTION BANNER -->
-    <!-- GRID -->
     <div class="container-fluid p-4" style="width: 100%; height: 100%; object-fit: cover; overflow: hidden">
-        <img src="~/uploadedImages/@Model.Image" alt="item-16" style="resize:inherit; align-self:center">
+        @{ if (Model.Image != null)
+            {
+                <img src="~/uploadedImages/@Model.Image" alt="image" style="resize:inherit; align-self:center">
+            }
+            else
+            {
+                <img src="~/uploadedImages/error.png" alt="image" style="resize:inherit; align-self:center">
+            }
+        }
     </div>
     <div class="container">
         <div class="col-md-3 info-movies">
             <div class="stats-decoration secondary">
-                <!-- STATS DECORATION ICON WRAP -->
                 <div class="stats-decoration-icon-wrap">
-                    <!-- STATS DECORATION ICON -->
                     <svg class="stats-decoration-icon icon-thumbs-up">
                         <use xlink:href="#svg-thumbs-up"></use>
                     </svg>
-                    <!-- /STATS DECORATION ICON -->
                 </div>
-                <!-- /STATS DECORATION ICON WRAP -->
-                <!-- STATS DECORATION TITLE -->
                 <p class="stats-decoration-title">@Model.Genre.Name</p>
-                <!-- /STATS DECORATION TITLE -->
-                <!-- STATS DECORATION TEXT -->
                 <p class="stats-decoration-text">Genre</p>
-                <!-- /STATS DECORATION TEXT -->
             </div>
         </div>
         <div class="col-md-3 info-movies">
             <div class="stats-decoration secondary">
-                <!-- STATS DECORATION ICON WRAP -->
                 <div class="stats-decoration-icon-wrap">
-                    <!-- STATS DECORATION ICON -->
                     <svg class="stats-decoration-icon icon-thumbs-up">
                         <use xlink:href="#svg-thumbs-up"></use>
                     </svg>
-                    <!-- /STATS DECORATION ICON -->
                 </div>
-                <!-- /STATS DECORATION ICON WRAP -->
-                <!-- STATS DECORATION TITLE -->
                 <p class="stats-decoration-title">@Model.Studio.Name</p>
-                <!-- /STATS DECORATION TITLE -->
-                <!-- STATS DECORATION TEXT -->
                 <p class="stats-decoration-text">Studio</p>
-                <!-- /STATS DECORATION TEXT -->
+            </div>
+        </div>
+        <div class="col-md-3 info-movies" style="margin:-10px;">
+            <div class="stats-decoration secondary">
+                <div class="stats-decoration-icon-wrap">
+                    <svg class="stats-decoration-icon icon-thumbs-up">
+                        <use xlink:href="#svg-thumbs-up"></use>
+                    </svg>
+                </div>
+                <p class="stats-decoration-title">@Model.Director</p>
+                <p class="stats-decoration-text">Director</p>
             </div>
         </div>
         <div class="col-md-3 info-movies">
             <div class="stats-decoration secondary">
-                <!-- STATS DECORATION ICON WRAP -->
                 <div class="stats-decoration-icon-wrap">
-                    <!-- STATS DECORATION ICON -->
                     <svg class="stats-decoration-icon icon-thumbs-up">
                         <use xlink:href="#svg-thumbs-up"></use>
                     </svg>
-                    <!-- /STATS DECORATION ICON -->
                 </div>
-                <!-- /STATS DECORATION ICON WRAP -->
-                <!-- STATS DECORATION TITLE -->
-                <p class="stats-decoration-title">@Model.Director</p>
-                <!-- /STATS DECORATION TITLE -->
-                <!-- STATS DECORATION TEXT -->
-                <p class="stats-decoration-text">Director</p>
-                <!-- /STATS DECORATION TEXT -->
+                <p class="stats-decoration-title">@Model.Year</p>
+                <p class="stats-decoration-text">Year</p>
             </div>
         </div>
-
+    </div>
+    <div class="grid grid-9-6">
+        <div class="marketplace-content grid-column">
+            <div class="tab-box">
+                <div class="tab-box-options">
+                    <div class="tab-box-option">
+                        <p class="tab-box-option-title">Description</p>
+                    </div>
+                </div>
+                <div class="tab-box-items">
+                    <div class="tab-box-item">
+                        <div class="tab-box-item-content">
+                            <p class="tab-box-item-title">@Model.Title</p>
+                            <p class="tab-box-item-paragraph">@Model.Summary</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
         @if (Model.IsAdmin == true)
-            {
+        {
             <table>
                 <tr>
                     <td>
-                        <a asp-controller="Movies" asp-action="Edit" asp-route-id="@Model.Id">Edit</a>
-                        <a asp-controller="Movies" asp-action="Delete" asp-route-id="@Model.Id">Delete</a>
+                        <button type="button" onclick="location.href='@Url.Action("Edit", "Movies", new {id = Model.Id})'">Edit</button>
+                    </td>
+                    <td>
+                        <button type="button" onclick="location.href='@Url.Action("Delete", "Movies", new {id = Model.Id})'">Delete</button>
                     </td>
                 </tr>
             </table>
-            }
+        }
     </div>
-    <div class="grid grid-9-6">
-
-        <!-- MARKETPLACE CONTENT -->
-        <div class="marketplace-content grid-column">
-
-
-            <!-- TAB BOX -->
-            <div class="tab-box">
-
-                <!-- TAB BOX OPTIONS -->
-                <div class="tab-box-options">
-                    <!-- TAB BOX OPTION -->
-                    <div class="tab-box-option">
-                        <!-- TAB BOX OPTION TITLE -->
-                        <p class="tab-box-option-title">Description</p>
-                        <!-- /TAB BOX OPTION TITLE -->
-                    </div>
-                    <!-- /TAB BOX OPTION -->
-                    <!-- TAB BOX OPTION -->
-                    <div class="tab-box-option">
-                        <!-- TAB BOX OPTION TITLE -->
-                        <p class="tab-box-option-title">Friends <span class="highlighted">4</span></p>
-                        <!-- /TAB BOX OPTION TITLE -->
-                    </div>
-                    <!-- /TAB BOX OPTION -->
-                    <!-- TAB BOX OPTION -->
-                    <div class="tab-box-option">
-                        <!-- TAB BOX OPTION TITLE -->
-                        <p class="tab-box-option-title">Reviews <span class="highlighted">3</span></p>
-                        <!-- /TAB BOX OPTION TITLE -->
-                    </div>
-                    <!-- /TAB BOX OPTION -->
-                </div>
-                <!-- /TAB BOX OPTIONS -->
-                <!-- TAB BOX ITEMS -->
-                <div class="tab-box-items">
-                    <!-- TAB BOX ITEM -->
-                    <div class="tab-box-item">
-                        <!-- TAB BOX ITEM CONTENT -->
-                        <div class="tab-box-item-content">
-                            <!-- TAB BOX ITEM TITLE -->
-                            <p class="tab-box-item-title">@Model.Title</p>
-                            <!-- /TAB BOX ITEM TITLE -->
-                            <!-- TAB BOX ITEM PARAGRAPH -->
-                            <p class="tab-box-item-paragraph">Описание</p>
-                            <!-- /TAB BOX ITEM PARAGRAPH -->
-                            <!-- TAB BOX ITEM TITLE
-                            <p class="tab-box-item-title">Главни актьори:</p>
-                            <!-- /TAB BOX ITEM TITLE -->
-                            <!-- BULLET ITEM LIST -->
-                            <ul class="bullet-item-list">
-                                <!-- BULLET ITEM -->
-                                <li class="bullet-item">
-                                    <!-- BULLET ITEM ICON -->
-                                    <svg class="bullet-item-icon icon-check">
-                                        <use xlink:href="#svg-check"></use>
-                                    </svg>
-                                    <!-- /BULLET ITEM ICON -->
-                                    <!-- BULLET ITEM TEXT -->
-                                    <p class="bullet-item-text">Гошо</p>
-                                    <!-- /BULLET ITEM TEXT -->
-                                </li>
-                                <!-- /BULLET ITEM -->
-                            </ul>
-                            <!-- /BULLET ITEM LIST -->
-                        </div>
-                        <!-- /TAB BOX ITEM CONTENT -->
-                    </div>
-                    <!-- /TAB BOX ITEM -->
-                    <!-- TAB BOX ITEM -->
-                    <div class="tab-box-item">
-                        <!-- POST COMMENT LIST -->
-                        <div class="post-comment-list no-border-top">
-                            <!-- POST COMMENT -->
-                            <div class="widget-box">
-                                <!-- WIDGET BOX TITLE -->
-                                <p class="widget-box-title">Friends <span class="highlighted">82</span></p>
-                                <!-- /WIDGET BOX TITLE -->
-                                <!-- WIDGET BOX CONTENT -->
-                                <div class="widget-box-content">
-                                    <!-- USER STATUS LIST -->
-                                    <div class="user-status-list">
-                                        <!-- USER STATUS -->
-                                        <div class="user-status request-small">
-                                            <!-- USER STATUS AVATAR -->
-                                            <a class="user-status-avatar" href="profile-timeline.html">
-                                                <!-- USER AVATAR -->
-                                                <div class="user-avatar small no-outline">
-                                                    <!-- USER AVATAR CONTENT -->
-                                                    <div class="user-avatar-content">
-                                                        <!-- HEXAGON -->
-                                                        <div class="hexagon-image-30-32" data-src="img/avatar/07.jpg" style="width: 30px; height: 32px; position: relative;"><canvas width="30" height="32" style="position: absolute; top: 0px; left: 0px;"></canvas></div>
-                                                        <!-- /HEXAGON -->
-                                                    </div>
-                                                    <!-- /USER AVATAR CONTENT -->
-                                                    <!-- USER AVATAR PROGRESS -->
-                                                    <div class="user-avatar-progress">
-                                                        <!-- HEXAGON -->
-                                                        <div class="hexagon-progress-40-44" style="width: 40px; height: 44px; position: relative;"><canvas width="40" height="44" style="position: absolute; top: 0px; left: 0px;"></canvas></div>
-                                                        <!-- /HEXAGON -->
-                                                    </div>
-                                                    <!-- /USER AVATAR PROGRESS -->
-                                                    <!-- USER AVATAR PROGRESS BORDER -->
-                                                    <div class="user-avatar-progress-border">
-                                                        <!-- HEXAGON -->
-                                                        <div class="hexagon-border-40-44" style="width: 40px; height: 44px; position: relative;"><canvas width="40" height="44" style="position: absolute; top: 0px; left: 0px;"></canvas></div>
-                                                        <!-- /HEXAGON -->
-                                                    </div>
-                                                    <!-- /USER AVATAR PROGRESS BORDER -->
-                                                    <!-- USER AVATAR BADGE -->
-                                                    <div class="user-avatar-badge">
-                                                        <!-- USER AVATAR BADGE BORDER -->
-                                                        <div class="user-avatar-badge-border">
-                                                            <!-- HEXAGON -->
-                                                            <div class="hexagon-22-24" style="width: 22px; height: 24px; position: relative;"></div>
-                                                            <!-- /HEXAGON -->
-                                                        </div>
-                                                        <!-- /USER AVATAR BADGE BORDER -->
-                                                        <!-- USER AVATAR BADGE CONTENT -->
-                                                        <div class="user-avatar-badge-content">
-                                                            <!-- HEXAGON -->
-                                                            <div class="hexagon-dark-16-18" style="width: 16px; height: 18px; position: relative;"></div>
-                                                            <!-- /HEXAGON -->
-                                                        </div>
-                                                        <!-- /USER AVATAR BADGE CONTENT -->
-
-
-                                                    </div>
-                                                    <!-- /USER AVATAR BADGE -->
-                                                </div>
-                                                <!-- /USER AVATAR -->
-                                            </a>
-                                            <!-- /USER STATUS AVATAR -->
-                                            <!-- USER STATUS TITLE -->
-                                            <p class="user-status-title"><a class="bold" href="profile-timeline.html">Sarah Diamond</a></p>
-                                            <!-- /USER STATUS TITLE -->
-                                            <!-- USER STATUS TEXT -->
-                                            <p class="user-status-text small">2 friends in common</p>
-                                            <!-- /USER STATUS TEXT -->
-                                            <!-- ACTION REQUEST LIST -->
-                                            <div class="action-request-list">
-                                                <!-- ACTION REQUEST -->
-                                                <div class="action-request accept">
-                                                    <!-- ACTION REQUEST ICON -->
-                                                    <svg class="action-request-icon icon-add-friend">
-                                                        <use xlink:href="#svg-add-friend"></use>
-                                                    </svg>
-                                                    <!-- /ACTION REQUEST ICON -->
-                                                </div>
-                                                <!-- /ACTION REQUEST -->
-                                            </div>
-                                            <!-- ACTION REQUEST LIST -->
-                                        </div>
-
-                                    </div>
-                                    <!-- /USER STATUS LIST -->
-                                </div>
-                                <!-- WIDGET BOX CONTENT -->
-                                <!-- WIDGET BOX BUTTON -->
-                                <a class="widget-box-button button small secondary" href="profile-friends.html">See all Friends</a>
-                                <!-- /WIDGET BOX BUTTON -->
-                            </div>
-
-                        </div>
-                        <!-- /POST COMMENT LIST -->
-                    </div>
-                    <!-- /TAB BOX ITEM -->
-                    <!-- TAB BOX ITEM -->
-                    <div class="tab-box-item">
-                        <!-- POST COMMENT LIST -->
-                        <div class="post-comment-list no-border-top">
-                            <!-- POST COMMENT -->
-                            <div class="post-comment">
-                                <!-- USER AVATAR -->
-                                <a class="user-avatar small no-outline" href="profile-timeline.html">
-                                    <!-- USER AVATAR CONTENT -->
-                                    <div class="user-avatar-content">
-                                        <!-- HEXAGON -->
-                                        <div class="hexagon-image-30-32" data-src="img/avatar/03.jpg"></div>
-                                        <!-- /HEXAGON -->
-                                    </div>
-                                    <!-- /USER AVATAR CONTENT -->
-                                    <!-- USER AVATAR PROGRESS -->
-                                    <div class="user-avatar-progress">
-                                        <!-- HEXAGON -->
-                                        <div class="hexagon-progress-40-44"></div>
-                                        <!-- /HEXAGON -->
-                                    </div>
-                                    <!-- /USER AVATAR PROGRESS -->
-                                    <!-- USER AVATAR PROGRESS BORDER -->
-                                    <div class="user-avatar-progress-border">
-                                        <!-- HEXAGON -->
-                                        <div class="hexagon-border-40-44"></div>
-                                        <!-- /HEXAGON -->
-                                    </div>
-                                    <!-- /USER AVATAR PROGRESS BORDER -->
-
-                                </a>
-                                <!-- /USER AVATAR -->
-                                <!-- POST COMMENT TEXT WRAP -->
-                                <div class="post-comment-text-wrap">
-                                    <!-- RATING LIST -->
-                                    <div class="rating-list medium">
-                                        <!-- RATING -->
-                                        <div class="rating medium filled">
-                                            <!-- RATING ICON -->
-                                            <svg class="rating-icon medium icon-star">
-                                                <use xlink:href="#svg-star"></use>
-                                            </svg>
-                                            <!-- /RATING ICON -->
-                                        </div>
-                                        <!-- /RATING -->
-                                        <!-- RATING -->
-                                        <div class="rating medium filled">
-                                            <!-- RATING ICON -->
-                                            <svg class="rating-icon medium icon-star">
-                                                <use xlink:href="#svg-star"></use>
-                                            </svg>
-                                            <!-- /RATING ICON -->
-                                        </div>
-                                        <!-- /RATING -->
-                                        <!-- RATING -->
-                                        <div class="rating medium filled">
-                                            <!-- RATING ICON -->
-                                            <svg class="rating-icon medium icon-star">
-                                                <use xlink:href="#svg-star"></use>
-                                            </svg>
-                                            <!-- /RATING ICON -->
-                                        </div>
-                                        <!-- /RATING -->
-                                        <!-- RATING -->
-                                        <div class="rating medium filled">
-                                            <!-- RATING ICON -->
-                                            <svg class="rating-icon medium icon-star">
-                                                <use xlink:href="#svg-star"></use>
-                                            </svg>
-                                            <!-- /RATING ICON -->
-                                        </div>
-                                        <!-- /RATING -->
-                                        <!-- RATING -->
-                                        <div class="rating medium">
-                                            <!-- RATING ICON -->
-                                            <svg class="rating-icon medium icon-star">
-                                                <use xlink:href="#svg-star"></use>
-                                            </svg>
-                                            <!-- /RATING ICON -->
-                                        </div>
-                                        <!-- /RATING -->
-                                    </div>
-                                    <!-- /RATING LIST -->
-                                    <!-- POST COMMENT TEXT -->
-                                    <p class="post-comment-text"><span class="bold">Reason:</span> <span class="highlighted">Item Quality</span></p>
-                                    <!-- /POST COMMENT TEXT -->
-                                </div>
-                                <!-- /POST COMMENT TEXT WRAP -->
-                                <!-- POST COMMENT TEXT -->
-                                <p class="post-comment-text">Main reason would pretty much be all, nice clean code, easy to customise and work with. Commenting on each section is great, could not really ask for anything better. Top work!</p>
-                                <!-- /POST COMMENT TEXT -->
-                                <!-- CONTENT ACTIONS -->
-                                <div class="content-actions">
-                                    <!-- CONTENT ACTION -->
-                                    <div class="content-action">
-                                        <!-- META LINE -->
-                                        <div class="meta-line">
-                                            <!-- META LINE TEXT -->
-                                            <p class="meta-line-text"><a href="profile-timeline.html">Nick Grissom</a></p>
-                                            <!-- /META LINE TEXT -->
-                                        </div>
-                                        <!-- /META LINE -->
-                                        <!-- META LINE -->
-                                        <div class="meta-line">
-                                            <!-- META LINE TIMESTAMP -->
-                                            <p class="meta-line-timestamp">15 minutes ago</p>
-                                            <!-- /META LINE TIMESTAMP -->
-                                        </div>
-                                        <!-- /META LINE -->
-                                        <!-- META LINE -->
-                                        <div class="meta-line settings">
-                                            <!-- POST SETTINGS WRAP -->
-                                            <div class="post-settings-wrap">
-                                                <!-- POST SETTINGS -->
-                                                <div class="post-settings post-settings-dropdown-trigger">
-                                                    <!-- POST SETTINGS ICON -->
-                                                    <svg class="post-settings-icon icon-more-dots">
-                                                        <use xlink:href="#svg-more-dots"></use>
-                                                    </svg>
-                                                    <!-- /POST SETTINGS ICON -->
-                                                </div>
-                                                <!-- /POST SETTINGS -->
-                                                <!-- SIMPLE DROPDOWN -->
-                                                <div class="simple-dropdown post-settings-dropdown">
-                                                    <!-- SIMPLE DROPDOWN LINK -->
-                                                    <p class="simple-dropdown-link">Report Review</p>
-                                                    <!-- /SIMPLE DROPDOWN LINK -->
-                                                </div>
-                                                <!-- /SIMPLE DROPDOWN -->
-                                            </div>
-                                            <!-- /POST SETTINGS WRAP -->
-                                        </div>
-                                        <!-- /META LINE -->
-                                    </div>
-                                    <!-- /CONTENT ACTION -->
-                                </div>
-                                <!-- /CONTENT ACTIONS -->
-                            </div>
-                            <!-- /POST COMMENT -->
-                            <!-- POST COMMENT -->
-                            <div class="post-comment">
-                                <!-- USER AVATAR -->
-                                <a class="user-avatar small no-outline" href="profile-timeline.html">
-                                    <!-- USER AVATAR CONTENT -->
-                                    <div class="user-avatar-content">
-                                        <!-- HEXAGON -->
-                                        <div class="hexagon-image-30-32" data-src="img/avatar/04.jpg"></div>
-                                        <!-- /HEXAGON -->
-                                    </div>
-                                    <!-- /USER AVATAR CONTENT -->
-                                    <!-- USER AVATAR PROGRESS -->
-                                    <div class="user-avatar-progress">
-                                        <!-- HEXAGON -->
-                                        <div class="hexagon-progress-40-44"></div>
-                                        <!-- /HEXAGON -->
-                                    </div>
-                                    <!-- /USER AVATAR PROGRESS -->
-                                    <!-- USER AVATAR PROGRESS BORDER -->
-                                    <div class="user-avatar-progress-border">
-                                        <!-- HEXAGON -->
-                                        <div class="hexagon-border-40-44"></div>
-                                        <!-- /HEXAGON -->
-                                    </div>
-                                    <!-- /USER AVATAR PROGRESS BORDER -->
-                                    <!-- USER AVATAR BADGE -->
-                                    <div class="user-avatar-badge">
-                                        <!-- USER AVATAR BADGE BORDER -->
-                                        <div class="user-avatar-badge-border">
-                                            <!-- HEXAGON -->
-                                            <div class="hexagon-22-24"></div>
-                                            <!-- /HEXAGON -->
-                                        </div>
-                                        <!-- /USER AVATAR BADGE BORDER -->
-                                        <!-- USER AVATAR BADGE CONTENT -->
-                                        <div class="user-avatar-badge-content">
-                                            <!-- HEXAGON -->
-                                            <div class="hexagon-dark-16-18"></div>
-                                            <!-- /HEXAGON -->
-                                        </div>
-                                        <!-- /USER AVATAR BADGE CONTENT -->
-                                        <!-- USER AVATAR BADGE TEXT -->
-                                        <p class="user-avatar-badge-text">6</p>
-                                        <!-- /USER AVATAR BADGE TEXT -->
-                                    </div>
-                                    <!-- /USER AVATAR BADGE -->
-                                </a>
-                                <!-- /USER AVATAR -->
-                                <!-- POST COMMENT TEXT WRAP -->
-                                <div class="post-comment-text-wrap">
-                                    <!-- RATING LIST -->
-                                    <div class="rating-list medium">
-                                        <!-- RATING -->
-                                        <div class="rating medium filled">
-                                            <!-- RATING ICON -->
-                                            <svg class="rating-icon medium icon-star">
-                                                <use xlink:href="#svg-star"></use>
-                                            </svg>
-                                            <!-- /RATING ICON -->
-                                        </div>
-                                        <!-- /RATING -->
-                                        <!-- RATING -->
-                                        <div class="rating medium filled">
-                                            <!-- RATING ICON -->
-                                            <svg class="rating-icon medium icon-star">
-                                                <use xlink:href="#svg-star"></use>
-                                            </svg>
-                                            <!-- /RATING ICON -->
-                                        </div>
-                                        <!-- /RATING -->
-                                        <!-- RATING -->
-                                        <div class="rating medium filled">
-                                            <!-- RATING ICON -->
-                                            <svg class="rating-icon medium icon-star">
-                                                <use xlink:href="#svg-star"></use>
-                                            </svg>
-                                            <!-- /RATING ICON -->
-                                        </div>
-                                        <!-- /RATING -->
-                                        <!-- RATING -->
-                                        <div class="rating medium filled">
-                                            <!-- RATING ICON -->
-                                            <svg class="rating-icon medium icon-star">
-                                                <use xlink:href="#svg-star"></use>
-                                            </svg>
-                                            <!-- /RATING ICON -->
-                                        </div>
-                                        <!-- /RATING -->
-                                        <!-- RATING -->
-                                        <div class="rating medium">
-                                            <!-- RATING ICON -->
-                                            <svg class="rating-icon medium icon-star">
-                                                <use xlink:href="#svg-star"></use>
-                                            </svg>
-                                            <!-- /RATING ICON -->
-                                        </div>
-                                        <!-- /RATING -->
-                                    </div>
-                                    <!-- /RATING LIST -->
-                                    <!-- POST COMMENT TEXT -->
-                                    <p class="post-comment-text"><span class="bold">Reason:</span> <span class="highlighted">Documentation</span></p>
-                                    <!-- /POST COMMENT TEXT -->
-                                </div>
-                                <!-- /POST COMMENT TEXT WRAP -->
-                                <!-- POST COMMENT TEXT -->
-                                <p class="post-comment-text">Best template I have ever had. Good documentation and code practices.</p>
-                                <!-- /POST COMMENT TEXT -->
-                                <!-- CONTENT ACTIONS -->
-                                <div class="content-actions">
-                                    <!-- CONTENT ACTION -->
-                                    <div class="content-action">
-                                        <!-- META LINE -->
-                                        <div class="meta-line">
-                                            <!-- META LINE TEXT -->
-                                            <p class="meta-line-text"><a href="profile-timeline.html">Bearded Wonder</a></p>
-                                            <!-- /META LINE TEXT -->
-                                        </div>
-                                        <!-- /META LINE -->
-                                        <!-- META LINE -->
-                                        <div class="meta-line">
-                                            <!-- META LINE TIMESTAMP -->
-                                            <p class="meta-line-timestamp">2 days ago</p>
-                                            <!-- /META LINE TIMESTAMP -->
-                                        </div>
-                                        <!-- /META LINE -->
-                                        <!-- META LINE -->
-                                        <div class="meta-line settings">
-                                            <!-- POST SETTINGS WRAP -->
-                                            <div class="post-settings-wrap">
-                                                <!-- POST SETTINGS -->
-                                                <div class="post-settings post-settings-dropdown-trigger">
-                                                    <!-- POST SETTINGS ICON -->
-                                                    <svg class="post-settings-icon icon-more-dots">
-                                                        <use xlink:href="#svg-more-dots"></use>
-                                                    </svg>
-                                                    <!-- /POST SETTINGS ICON -->
-                                                </div>
-                                                <!-- /POST SETTINGS -->
-                                                <!-- SIMPLE DROPDOWN -->
-                                                <div class="simple-dropdown post-settings-dropdown">
-                                                    <!-- SIMPLE DROPDOWN LINK -->
-                                                    <p class="simple-dropdown-link">Report Review</p>
-                                                    <!-- /SIMPLE DROPDOWN LINK -->
-                                                </div>
-                                                <!-- /SIMPLE DROPDOWN -->
-                                            </div>
-                                            <!-- /POST SETTINGS WRAP -->
-                                        </div>
-                                        <!-- /META LINE -->
-                                    </div>
-                                    <!-- /CONTENT ACTION -->
-                                </div>
-                                <!-- /CONTENT ACTIONS -->
-                            </div>
-                            <!-- /POST COMMENT -->
-                            <!-- POST COMMENT -->
-                            <div class="post-comment">
-                                <!-- USER AVATAR -->
-                                <a class="user-avatar small no-outline" href="profile-timeline.html">
-                                    <!-- USER AVATAR CONTENT -->
-                                    <div class="user-avatar-content">
-                                        <!-- HEXAGON -->
-                                        <div class="hexagon-image-30-32" data-src="img/avatar/07.jpg"></div>
-                                        <!-- /HEXAGON -->
-                                    </div>
-                                    <!-- /USER AVATAR CONTENT -->
-                                    <!-- USER AVATAR PROGRESS -->
-                                    <div class="user-avatar-progress">
-                                        <!-- HEXAGON -->
-                                        <div class="hexagon-progress-40-44"></div>
-                                        <!-- /HEXAGON -->
-                                    </div>
-                                    <!-- /USER AVATAR PROGRESS -->
-                                    <!-- USER AVATAR PROGRESS BORDER -->
-                                    <div class="user-avatar-progress-border">
-                                        <!-- HEXAGON -->
-                                        <div class="hexagon-border-40-44"></div>
-                                        <!-- /HEXAGON -->
-                                    </div>
-                                    <!-- /USER AVATAR PROGRESS BORDER -->
-                                    <!-- USER AVATAR BADGE -->
-                                    <div class="user-avatar-badge">
-                                        <!-- USER AVATAR BADGE BORDER -->
-                                        <div class="user-avatar-badge-border">
-                                            <!-- HEXAGON -->
-                                            <div class="hexagon-22-24"></div>
-                                            <!-- /HEXAGON -->
-                                        </div>
-                                        <!-- /USER AVATAR BADGE BORDER -->
-                                        <!-- USER AVATAR BADGE CONTENT -->
-                                        <div class="user-avatar-badge-content">
-                                            <!-- HEXAGON -->
-                                            <div class="hexagon-dark-16-18"></div>
-                                            <!-- /HEXAGON -->
-                                        </div>
-                                        <!-- /USER AVATAR BADGE CONTENT -->
-                                        <!-- USER AVATAR BADGE TEXT -->
-                                        <p class="user-avatar-badge-text">26</p>
-                                        <!-- /USER AVATAR BADGE TEXT -->
-                                    </div>
-                                    <!-- /USER AVATAR BADGE -->
-                                </a>
-                                <!-- /USER AVATAR -->
-                                <!-- POST COMMENT TEXT WRAP -->
-                                <div class="post-comment-text-wrap">
-                                    <!-- RATING LIST -->
-                                    <div class="rating-list medium">
-                                        <!-- RATING -->
-                                        <div class="rating medium filled">
-                                            <!-- RATING ICON -->
-                                            <svg class="rating-icon medium icon-star">
-                                                <use xlink:href="#svg-star"></use>
-                                            </svg>
-                                            <!-- /RATING ICON -->
-                                        </div>
-                                        <!-- /RATING -->
-                                        <!-- RATING -->
-                                        <div class="rating medium filled">
-                                            <!-- RATING ICON -->
-                                            <svg class="rating-icon medium icon-star">
-                                                <use xlink:href="#svg-star"></use>
-                                            </svg>
-                                            <!-- /RATING ICON -->
-                                        </div>
-                                        <!-- /RATING -->
-                                        <!-- RATING -->
-                                        <div class="rating medium filled">
-                                            <!-- RATING ICON -->
-                                            <svg class="rating-icon medium icon-star">
-                                                <use xlink:href="#svg-star"></use>
-                                            </svg>
-                                            <!-- /RATING ICON -->
-                                        </div>
-                                        <!-- /RATING -->
-                                        <!-- RATING -->
-                                        <div class="rating medium filled">
-                                            <!-- RATING ICON -->
-                                            <svg class="rating-icon medium icon-star">
-                                                <use xlink:href="#svg-star"></use>
-                                            </svg>
-                                            <!-- /RATING ICON -->
-                                        </div>
-                                        <!-- /RATING -->
-                                        <!-- RATING -->
-                                        <div class="rating medium filled">
-                                            <!-- RATING ICON -->
-                                            <svg class="rating-icon medium icon-star">
-                                                <use xlink:href="#svg-star"></use>
-                                            </svg>
-                                            <!-- /RATING ICON -->
-                                        </div>
-                                        <!-- /RATING -->
-                                    </div>
-                                    <!-- /RATING LIST -->
-                                    <!-- POST COMMENT TEXT -->
-                                    <p class="post-comment-text"><span class="bold">Reason:</span> <span class="highlighted">Item Quality</span></p>
-                                    <!-- /POST COMMENT TEXT -->
-                                </div>
-                                <!-- /POST COMMENT TEXT WRAP -->
-                                <!-- POST COMMENT TEXT -->
-                                <p class="post-comment-text">5 stars for exceptional Customer Support (quick, precise, detailed responses to questions), but 5 stars also for Design Quality and Customization. It is a beautiful clean design that can easily be customized to your needs. I had really specific questions and I received detailed solutions very promptly. Thank you!</p>
-                                <!-- /POST COMMENT TEXT -->
-                                <!-- CONTENT ACTIONS -->
-                                <div class="content-actions">
-                                    <!-- CONTENT ACTION -->
-                                    <div class="content-action">
-                                        <!-- META LINE -->
-                                        <div class="meta-line">
-                                            <!-- META LINE TEXT -->
-                                            <p class="meta-line-text"><a href="profile-timeline.html">Sarah Diamond</a></p>
-                                            <!-- /META LINE TEXT -->
-                                        </div>
-                                        <!-- /META LINE -->
-                                        <!-- META LINE -->
-                                        <div class="meta-line">
-                                            <!-- META LINE TIMESTAMP -->
-                                            <p class="meta-line-timestamp">4 weeks ago</p>
-                                            <!-- /META LINE TIMESTAMP -->
-                                        </div>
-                                        <!-- /META LINE -->
-                                        <!-- META LINE -->
-                                        <div class="meta-line settings">
-                                            <!-- POST SETTINGS WRAP -->
-                                            <div class="post-settings-wrap">
-                                                <!-- POST SETTINGS -->
-                                                <div class="post-settings post-settings-dropdown-trigger">
-                                                    <!-- POST SETTINGS ICON -->
-                                                    <svg class="post-settings-icon icon-more-dots">
-                                                        <use xlink:href="#svg-more-dots"></use>
-                                                    </svg>
-                                                    <!-- /POST SETTINGS ICON -->
-                                                </div>
-                                                <!-- /POST SETTINGS -->
-                                                <!-- SIMPLE DROPDOWN -->
-                                                <div class="simple-dropdown post-settings-dropdown">
-                                                    <!-- SIMPLE DROPDOWN LINK -->
-                                                    <p class="simple-dropdown-link">Report Review</p>
-                                                    <!-- /SIMPLE DROPDOWN LINK -->
-                                                </div>
-                                                <!-- /SIMPLE DROPDOWN -->
-                                            </div>
-                                            <!-- /POST SETTINGS WRAP -->
-                                        </div>
-                                        <!-- /META LINE -->
-                                    </div>
-                                    <!-- /CONTENT ACTION -->
-                                </div>
-                                <!-- /CONTENT ACTIONS -->
-                            </div>
-                            <!-- /POST COMMENT -->
-                        </div>
-                        <!-- /POST COMMENT LIST -->
-                    </div>
-                    <!-- /TAB BOX ITEM -->
-                </div>
-                <!-- /TAB BOX ITEMS -->
-            </div>
-            <!-- /TAB BOX -->
-        </div>
-        <!-- /MARKETPLACE CONTENT -->
-        <!-- MARKETPLACE SIDEBAR -->
-        <div class="marketplace-sidebar">
-
-        </div>
-        <!-- /MARKETPLACE SIDEBAR -->
-    </div>
-    <!-- /GRID -->
 </div>

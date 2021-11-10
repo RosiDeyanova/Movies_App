@@ -38,7 +38,7 @@ namespace Movies.Web.Controllers
                 Username = User.Username,
                 AllUsers = _userManager.GetUsers(),
                 AllGenres = _genreManager.GetGenres().ToList(),
-                AllMovies = _movieManager.GetMovies().ToList(),
+                AllMovies = _movieManager.GetAllMovies().ToList(),
                 AllStudios = _studioManager.GetStudios().ToList()
             };
 
@@ -63,7 +63,7 @@ namespace Movies.Web.Controllers
             {
                 IsAdmin = User.IsAdmin,
                 Username = User.Username,
-                AllMovies = _movieManager.GetMovies().ToList()
+                AllMovies = _movieManager.GetAllMovies().ToList()
             };
 
             return View(adminViewModel);

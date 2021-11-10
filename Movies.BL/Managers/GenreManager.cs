@@ -4,6 +4,7 @@ using Movies.BL.IManagers;
 using Movies.Data.Repositories;
 using System.Collections.Generic;
 using System.Linq;
+using Movies.Data.Entities;
 
 namespace Movies.BL.Managers
 {
@@ -26,5 +27,25 @@ namespace Movies.BL.Managers
             return mappedModel;
         }
 
+        public void UploadGenre(GenreModel genreModel) 
+        {
+            if (_genreRepository.GetGenreByName(genreModel.Name)==null)
+            {
+                Genre genre = _mapper.Map<Genre>(genreModel);
+                _genreRepository.UploadGenre(genre);
+            }
+        }
+
+        public GenreModel GetGenreById(int id)
+        { 
+            var genre = _genreRepository.GetGenreById(id);
+            var genreModel = _mapper.Map<GenreModel>(genre);
+            return genreModel;
+        }
+
+        public void UpdateGenre(int id, string name) 
+        {
+            _genreRepository.UpdateGenre(id, name);
+        }
     }
 }

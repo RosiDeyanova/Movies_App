@@ -58,6 +58,15 @@ namespace Movies.BL.Managers
             return mappedMovies;
         }
 
+        public IEnumerable<MovieModel> GetAllMovies()
+        {
+            var model = _movieRepository.GetAllMovies();
+            var mappedMovies = _mapper.Map<List<MovieModel>>(model);
+            mappedMovies.ForEach(m => m.ImagePath = GetImageRelativePath(m.Image));
+
+            return mappedMovies;
+        }
+
         public void SaveMovie(MovieModel movieModel)
         {
             var movie = _mapper.Map<Movie>(movieModel);
@@ -76,6 +85,11 @@ namespace Movies.BL.Managers
         public void DeleteMovie(int id)
         {
             _movieRepository.DeleteMovie(id);
+        }
+
+        public void RestoreMovie(int id)
+        {
+            _movieRepository.RestoreMovie(id);
         }
 
         public string GetImageRelativePath(string imageName)

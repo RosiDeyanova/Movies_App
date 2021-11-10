@@ -22,9 +22,9 @@ namespace Movies.Web.Attributes
         protected override ValidationResult IsValid(object value, ValidationContext validationContext)
         {
             var file = value as IFormFile;
-            var extension = Path.GetExtension(file.FileName);
+            var extension = Path.GetExtension(file?.FileName);
 
-            if (_extensions.Any(e => e == extension))
+            if (extension == null || _extensions.Any(e => e == extension))
             {
                 return ValidationResult.Success;
             }

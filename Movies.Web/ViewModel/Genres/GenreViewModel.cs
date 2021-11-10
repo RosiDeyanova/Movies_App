@@ -1,4 +1,6 @@
-﻿namespace Movies.Web.ViewModel.Movies
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace Movies.Web.ViewModel.Genres
 {
     public class GenreViewModel : LayoutViewModel
     {

@@ -10,6 +10,7 @@ namespace Movies.BL
         {
             CreateMap<MovieModel, Movie>().ReverseMap();
             CreateMap<StudioModel, Studio>().ReverseMap();
+            CreateMap<GenreModel, Genre>().ReverseMap();
             CreateMap<UserModel, User>().ReverseMap();
             CreateMap<GenreModel, Genre>().ReverseMap();
         }

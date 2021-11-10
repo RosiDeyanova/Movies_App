@@ -10,11 +10,10 @@ namespace Movies.Data.Repositories
         {
         }
 
-        public int SaveStudio(Studio studio)
+        public void UploadStudio(Studio studio)
         {
             Db.Studio.Add(studio);
             SaveDb();
-            return studio.Id;
         }
 
         public IQueryable<Studio> GetStudios()
@@ -33,6 +32,24 @@ namespace Movies.Data.Repositories
         {
             var studio = Db.Studio.Where(s => s.Name == name).FirstOrDefault();
             return studio;
+        }
+
+        public void UpdateStudio(int id, string name, string address)
+        {
+            try
+            {
+                if (id > 0 && !string.IsNullOrEmpty(name))
+                {
+                    var studio = GetStudioById(id);
+                    studio.Name = name;
+                    studio.Address = address;
+                    SaveDb();
+                }
+            }
+            catch (System.Exception)
+            {
+                throw; // will throw some kind of error
+            }
         }
     }
 }

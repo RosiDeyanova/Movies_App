@@ -1,6 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
-
-namespace Movies.Web.ViewModel.Movies
+﻿namespace Movies.Web.ViewModel.Studios
 {
     public class StudioViewModel : LayoutViewModel
     {

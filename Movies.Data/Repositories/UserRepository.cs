@@ -50,7 +50,7 @@ namespace Movies.Data.Repositories
                 .Include(u => u.UserMovies).ThenInclude(um => um.Movie).ThenInclude(m => m.Genre)
                 .FirstOrDefault(u => u.Email == email);
 
-                if (encoder.Compare(password, user.Password))
+                if (user!= null && encoder.Compare(password, user.Password))
                 {
                     return user;
                 }

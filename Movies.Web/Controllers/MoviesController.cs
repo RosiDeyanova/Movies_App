@@ -52,6 +52,8 @@ namespace Movies.Web.Controllers
         [HttpPost]
         public ActionResult Index(string searchResult)
         {
+            ViewBag.Search = searchResult;
+
             List<MovieModel> movieModels = null;
             if (!string.IsNullOrWhiteSpace(searchResult))
             {
@@ -122,7 +124,7 @@ namespace Movies.Web.Controllers
                     }
                 }
                 _movieManager.SaveMovie(mappedMovie);
-                return RedirectToAction("Index");
+                return RedirectToAction("MovieDetails", "Admin");
             }
 
             return View();
@@ -146,22 +148,23 @@ namespace Movies.Web.Controllers
         [HttpPost]
         public ActionResult Edit(int id, CreateMovieViewModel createMovieViewModel)
         {
-            try
+            if (ModelState.IsValid)
             {
-                if (ModelState.IsValid)
-                {                    
+                try
+                {
                     var mappedMovie = _mapper.Map<MovieModel>(createMovieViewModel);
                     mappedMovie.Id = id;
                     mappedMovie.Image = _movieManager.GetMovieImageName(id);
                     _movieManager.UpdateMovie(mappedMovie);
                     return RedirectToAction("Details", createMovieViewModel);
                 }
-                return View(createMovieViewModel);
+                catch
+                {
+                    return View(id);
+                }
             }
-            catch
-            {
-                return View();
-            }
+
+            return View(id);
         }
 
         [Authorize(Policy = "AdminRole")]
@@ -170,7 +173,21 @@ namespace Movies.Web.Controllers
             try
             {
                 _movieManager.DeleteMovie(id);
-                return RedirectToAction("Index");
+                return RedirectToAction("MovieDetails", "Admin");
+            }
+            catch
+            {
+                return RedirectToAction("Error", "Home");
+            }
+        }
+
+        [Authorize(Policy = "AdminRole")]
+        public ActionResult Restore(int id)
+        {
+            try
+            {
+                _movieManager.RestoreMovie(id);
+                return RedirectToAction("MovieDetails", "Admin");
             }
             catch
             {

@@ -1,4 +1,5 @@
-﻿using Movies.Data.Entities;
+﻿using Microsoft.EntityFrameworkCore;
+using Movies.Data.Entities;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -27,6 +28,29 @@ namespace Movies.Data.Repositories
         {
             var genre = Db.Genre.FirstOrDefault(g => g.Name == name);
             return genre;
+        }
+
+        public void UploadGenre(Genre genre) 
+        {
+            Db.Genre.Add(genre);
+            SaveDb();
+        }
+
+        public void UpdateGenre(int id, string name)
+        {
+            try
+            {
+                if (id > 0 && !string.IsNullOrEmpty(name))
+                {
+                    var genre = GetGenreById(id);
+                    genre.Name = name;
+                    SaveDb();
+                }
+            }
+            catch (System.Exception)
+            {
+                throw; // will throw some kind of error
+            }
         }
     }
 }
