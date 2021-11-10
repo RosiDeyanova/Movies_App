@@ -61,6 +61,13 @@
                 <div class="grid grid-6 centered">
                     <h6>There are no movies with such title, make sure the search is not empty</h6>
                     <button type="button" onclick="location.href='@Url.Action("Index", "Movies")'" style="width:100px; height:50px;">See all </button>
+
+                </div>
+            }
+            @if (!string.IsNullOrWhiteSpace(Model.SearchResult))
+            {
+                <div class="grid grid-6 centered">
+                    <button type="button" onclick="location.href='@Url.Action("Index", "Movies")'" style="width:100px; height:50px;">See all </button>
                 </div>
             }
         }
