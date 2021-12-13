@@ -1,5 +1,5 @@
-﻿using Movies.Data.Entities;
-using System.Linq;
+﻿using System.Linq;
+using Movies.Data.Entities;
 
 namespace Movies.Data.Repositories
 {

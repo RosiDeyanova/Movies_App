@@ -5,9 +5,9 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Movies.BL.Models;
 using Movies.Web.Attributes;
-using Movies.Web.ViewModel.User;
 using Movies.Web.ViewModel.Genres;
 using Movies.Web.ViewModel.Studios;
+using Movies.Web.ViewModel.User;
 
 namespace Movies.Web.ViewModel.Movies
 {

@@ -1,10 +1,10 @@
-﻿using AutoMapper;
+﻿using System.Collections.Generic;
+using System.Linq;
+using AutoMapper;
 using Movies.BL.IManagers;
 using Movies.BL.Models;
 using Movies.Data.Entities;
 using Movies.Data.Repositories;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace Movies.BL.Managers
 {
@@ -23,6 +23,7 @@ namespace Movies.BL.Managers
         {
             var studios = _studioRepository.GetStudios();
             var studioModels = _mapper.Map<IEnumerable<StudioModel>>(studios);
+
             return studioModels;
         }
 
@@ -40,6 +41,7 @@ namespace Movies.BL.Managers
         public int GetStudioIdByName(string name)
         {
             var studio = _studioRepository.GetStudios().Where(x => x.Name == name).FirstOrDefault();
+
             return studio.Id;
         }
 
@@ -47,6 +49,7 @@ namespace Movies.BL.Managers
         {
             var studio = _studioRepository.GetStudioById(id);
             var studioModel = _mapper.Map<StudioModel>(studio);
+
             return studioModel;
         }
 

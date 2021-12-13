@@ -12,6 +12,7 @@ namespace Movies.Web.AuthenticationRequirements
         {
             _authenticationManager = authenticationManager;
         }
+
         protected override Task HandleRequirementAsync(AuthorizationHandlerContext context, UserRequirement requirement)
         {
             if (_authenticationManager.GetUserFromContext() == null)
@@ -24,6 +25,7 @@ namespace Movies.Web.AuthenticationRequirements
             {
                 context.Succeed(requirement);
             }
+
             return Task.CompletedTask;
         }
     }

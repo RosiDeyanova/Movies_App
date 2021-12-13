@@ -31,13 +31,4 @@
     <ProjectReference Include="..\Movies.BL\Movies.BL.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <EmbeddedResource Update="Resources\Views\Home\Index.bg.resx">
-      <Generator>PublicResXFileCodeGenerator</Generator>
-    </EmbeddedResource>
-    <EmbeddedResource Update="Resources\Views\Home\Index.en.resx">
-      <Generator>PublicResXFileCodeGenerator</Generator>
-    </EmbeddedResource>
-  </ItemGroup>
-
 </Project>

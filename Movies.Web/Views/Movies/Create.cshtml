@@ -1,5 +1,12 @@
 @model Movies.Web.ViewModel.Movies.CreateMovieViewModel
 
+<style>
+    img {
+        height: 200px;
+        width: 200px;
+    }
+</style>
+
 <div class="content-grid" style="transform: translate(0px, 0px); transition: transform 0.4s ease-in-out 0s;">
     <div class="section-banner">
         <p class="section-banner-title">Add new movie</p>
@@ -24,7 +31,8 @@
                                         <use xlink:href="#svg-members"></use>
                                     </svg>
                                     <p class="upload-box-title">Cover photo</p>
-                                    <input asp-for="ImageFile" type="file" />
+                                    <input asp-for="ImageFile" type="file" id="inputFile" />
+                                    <img id="image_upload_preview" />
                                     <span asp-validation-for="ImageFile" class="text-danger"></span>
                                 </div>
                             </div>

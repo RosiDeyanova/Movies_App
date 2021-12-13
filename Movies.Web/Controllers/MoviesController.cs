@@ -13,7 +13,6 @@ using Movies.BL.IManagers;
 using Movies.BL.Models;
 using Movies.Web.Models;
 using Movies.Web.ViewModel.Movies;
-using Movies.Web.ViewModel.User;
 
 namespace Movies.Web.Controllers
 {

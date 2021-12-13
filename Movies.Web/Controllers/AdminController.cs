@@ -1,14 +1,9 @@
-﻿using AutoMapper;
+﻿using System.Linq;
+using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Movies.BL.IManagers;
 using Movies.Web.ViewModel.Admin;
-using Movies.Web.ViewModel.Movies;
-using Movies.Web.ViewModel.User;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace Movies.Web.Controllers
 {

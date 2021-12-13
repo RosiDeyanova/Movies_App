@@ -3,7 +3,6 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Movies.BL.IManagers;
 using Movies.BL.Models;
-using Movies.Web.ViewModel.Genres;
 using Movies.Web.ViewModel.Studios;
 
 namespace Movies.Web.Controllers

@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using AutoMapper;
+﻿using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Movies.BL.IManagers;
@@ -23,7 +19,7 @@ namespace Movies.Web.Controllers
 
         public IActionResult Create()
         {
-            CreateGenreViewModel genreModel = new CreateGenreViewModel
+            CreateGenreViewModel genreModel = new()
             {
                 IsAdmin = User.IsAdmin,
                 Username = User.Username

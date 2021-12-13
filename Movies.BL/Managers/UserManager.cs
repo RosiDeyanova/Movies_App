@@ -1,11 +1,11 @@
-﻿using AutoMapper;
+﻿using System.Collections.Generic;
+using System.Linq;
+using AutoMapper;
 using Movies.BL.IManagers;
 using Movies.BL.Models;
 using Movies.Data.Entities;
 using Movies.Data.Repositories;
 using Scrypt;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace Movies.BL.Managers
 {
@@ -24,6 +24,7 @@ namespace Movies.BL.Managers
         {
             var users = _userRepository.GetUsers().ToList();
             var userModels =_mapper.Map<List<UserModel>>(users);
+
             return userModels;
         }
 
@@ -39,8 +40,10 @@ namespace Movies.BL.Managers
         {
             var user = _userRepository.GetRegisteredUser(email, password);
             var userModel = _mapper.Map<UserModel>(user);
+
             return userModel;
         }
+
         public void SetOrRemoveAdminRole(int id, bool isAdmin)
         {
             _userRepository.SetOrRemoveAdminRole(id, isAdmin);
@@ -48,7 +51,7 @@ namespace Movies.BL.Managers
 
         public void AddUser(UserModel userModel)
         {
-            ScryptEncoder encoder = new ScryptEncoder();
+            ScryptEncoder encoder = new();
             var user = new User {
                Username = userModel.Username,
                Password = encoder.Encode(userModel.Password),
@@ -63,6 +66,7 @@ namespace Movies.BL.Managers
         {
             _userRepository.AddMovieToUser(userId, movieId);
         }
+
         public void RemoveMovieFromUser(int userId, int movieId)
         {
             _userRepository.RemoveMovieFromUser(userId, movieId);

@@ -11,7 +11,6 @@ namespace Movies.Web.ViewModel.User
         [Required(ErrorMessage = "The password is required")]
         public string Password { get; set; }
 
-        //[Required(ErrorMessage = "The repeated password is required")]
         public string RepeatedPassword { get; set; }
 
         [Required(ErrorMessage = "The email address is required")]

@@ -1,13 +1,7 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using Movies.BL.Managers;
-using Movies.BL.Models;
+﻿using System.Security.Claims;
+using Microsoft.AspNetCore.Http;
 using Movies.BL.IManagers;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security.Claims;
-using System.Threading.Tasks;
+using Movies.BL.Models;
 
 namespace Movies.BL.Managers
 {

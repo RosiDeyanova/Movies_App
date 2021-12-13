@@ -1,8 +1,8 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using System.Collections.Generic;
+using System.Linq;
+using Microsoft.EntityFrameworkCore;
 using Movies.Data.Entities;
 using Scrypt;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace Movies.Data.Repositories
 {

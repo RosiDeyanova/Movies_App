@@ -1,17 +1,15 @@
-﻿using AutoMapper;
+﻿using System.Diagnostics;
+using System.Security.Claims;
+using System.Threading.Tasks;
+using AutoMapper;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc;
 using Movies.BL.IManagers;
 using Movies.BL.Models;
 using Movies.Web.Models;
 using Movies.Web.ViewModel.User;
-using System;
-using System.Diagnostics;
-using System.Security.Claims;
-using System.Threading.Tasks;
 
 namespace Movies.Web.Controllers
 {
@@ -53,9 +51,8 @@ namespace Movies.Web.Controllers
             {
                 var claimsIdentity = new ClaimsIdentity(new[]
                    {
-                            new Claim(ClaimTypes.Email, user.Email)
-                            //...
-                        }, CookieAuthenticationDefaults.AuthenticationScheme);
+                      new Claim(ClaimTypes.Email, user.Email)
+                   }, CookieAuthenticationDefaults.AuthenticationScheme);
                 var claimsPrincipal = new ClaimsPrincipal(claimsIdentity);
                 await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, claimsPrincipal);
 
@@ -93,11 +90,9 @@ namespace Movies.Web.Controllers
             {
                 var userModel = _mapper.Map<UserModel>(userViewModel);
                 _userManager.AddUser(userModel);
-                var userModelFromDB = _userManager.GetUserByEmail(userModel.Email);
-                var userViewModelFromDB = _mapper.Map<UserViewModel>(userModelFromDB);
-                return RedirectToAction("Index", "User"); //how to pass the vm to this view without it goint to the url!?
-
+                return RedirectToAction("Index", "User");
             }
+
             return RedirectToAction("Index", "Home");
         }
 
@@ -106,16 +101,5 @@ namespace Movies.Web.Controllers
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
 
-        [HttpPost]
-        public IActionResult SetLanguage(string culture, string returnUrl)
-        {
-            Response.Cookies.Append(
-                CookieRequestCultureProvider.DefaultCookieName,
-                CookieRequestCultureProvider.MakeCookieValue(new RequestCulture(culture)),
-                new CookieOptions { Expires = DateTimeOffset.UtcNow.AddYears(1) }
-            );
-
-            return LocalRedirect(returnUrl);
-        }
     }
 }

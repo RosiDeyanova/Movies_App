@@ -1,6 +1,5 @@
-﻿using Movies.Data.Entities;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
+using Movies.Data.Entities;
 
 namespace Movies.Data.Repositories
 {
@@ -19,18 +18,21 @@ namespace Movies.Data.Repositories
         public IQueryable<Studio> GetStudios()
         {
             var studios = Db.Studio;
+
             return studios;
         }
 
         public Studio GetStudioById(int id) 
         {
             var studio = Db.Studio.Where(s => s.Id == id).FirstOrDefault();
+
             return studio;
         }
 
         public Studio GetStudioByName(string name) 
         {
             var studio = Db.Studio.Where(s => s.Name == name).FirstOrDefault();
+
             return studio;
         }
 

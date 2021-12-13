@@ -1,7 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using System.Linq;
 using Movies.Data.Entities;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace Movies.Data.Repositories
 {
@@ -21,12 +19,14 @@ namespace Movies.Data.Repositories
         public Genre GetGenreById(int id) 
         {
             var genre = Db.Genre.FirstOrDefault(g => g.Id == id);
+
             return genre;
         }
 
         public Genre GetGenreByName(string name) 
         {
             var genre = Db.Genre.FirstOrDefault(g => g.Name == name);
+
             return genre;
         }
 

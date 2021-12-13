@@ -1,10 +1,9 @@
-﻿using AutoMapper;
-using Movies.BL.Models;
+﻿using System.Collections.Generic;
+using AutoMapper;
 using Movies.BL.IManagers;
-using Movies.Data.Repositories;
-using System.Collections.Generic;
-using System.Linq;
+using Movies.BL.Models;
 using Movies.Data.Entities;
+using Movies.Data.Repositories;
 
 namespace Movies.BL.Managers
 {

@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Movies.Data.Repositories
+﻿namespace Movies.Data.Repositories
 {
     public abstract class BaseRepository
     {

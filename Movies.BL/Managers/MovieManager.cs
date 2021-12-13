@@ -1,34 +1,28 @@
-﻿using AutoMapper;
-using Microsoft.AspNetCore.Hosting;
-using Movies.BL.Models;
-using Movies.BL.IManagers;
-using Movies.Data.Entities;
-using Movies.Data.Repositories;
-using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Threading.Tasks;
+using AutoMapper;
+using Microsoft.AspNetCore.Hosting;
+using Movies.BL.IManagers;
+using Movies.BL.Models;
+using Movies.Data.Entities;
+using Movies.Data.Repositories;
 
 namespace Movies.BL.Managers
 {
     public class MovieManager : IMovieManager
     {
         private readonly IMovieRepository _movieRepository;
-        private readonly IGenreManager _genreManager;
-        private readonly IStudioManager _studioManager;
         private readonly IMapper _mapper;
         private readonly IWebHostEnvironment _webHostEnvironment;
 
-        private const string imageFolder = "uploadedImages";
-        private const string errorImage = "error.png";
+        private const string _imageFolder = "uploadedImages";
+        private const string _errorImage = "error.png";
 
 
-        public MovieManager(IMovieRepository movieRepository, IStudioManager studioManager, IMapper mapper, IGenreManager genreManager, IWebHostEnvironment webHostEnvironment)
+        public MovieManager(IMovieRepository movieRepository, IMapper mapper, IWebHostEnvironment webHostEnvironment)
         {
             _movieRepository = movieRepository;
-            _studioManager = studioManager;
-            _genreManager = genreManager;
             _mapper = mapper;
             _webHostEnvironment = webHostEnvironment;
         }
@@ -94,7 +88,7 @@ namespace Movies.BL.Managers
 
         public string GetImageRelativePath(string imageName)
         {
-            string filePath = imageFolder + "/" + (imageName ?? errorImage);
+            string filePath = _imageFolder + "/" + (imageName ?? _errorImage);
 
             return filePath;
         }
@@ -109,7 +103,7 @@ namespace Movies.BL.Managers
 
         public void CheckImageFolder() 
         {
-            string path = _webHostEnvironment.WebRootFileProvider.GetFileInfo(imageFolder).PhysicalPath;
+            string path = _webHostEnvironment.WebRootFileProvider.GetFileInfo(_imageFolder).PhysicalPath;
             if (!Directory.Exists(path))
             {
                 Directory.CreateDirectory(path);
